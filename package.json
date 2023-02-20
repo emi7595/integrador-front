@@ -1,0 +1,19 @@
+{
+  "name": "integrador-front",
+  "version": "1.0.0",
+  "description": "UDEM teachers QR assistance front end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emi7595/integrador-front.git"
+  },
+  "author": "Emiliano Aguilar, Karen Garza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emi7595/integrador-front/issues"
+  },
+  "homepage": "https://github.com/emi7595/integrador-front#readme"
+}
