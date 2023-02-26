@@ -17,6 +17,7 @@ function APIPrueba() {
             <>
                 <div>{ data.nomina }</div>
                 <div>{ data.nombre }</div>
+                <div>{ data.rol }</div>
                 <hr />
             </>
         ))
