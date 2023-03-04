@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function APIPrueba() {
+function Profesor() {
   const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ function APIPrueba() {
   );
 }
 
-export default APIPrueba;
+export default Profesor;
