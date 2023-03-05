@@ -243,5 +243,6 @@ a:hover {
   }
 }
 
-
-
+.anchor {
+  color: #FFFFFF !important;
+}

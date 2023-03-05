@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/emi7595/integrador-front/issues"
   },
-  "homepage": "https://github.com/emi7595/integrador-front#readme"
+  "homepage": "https://github.com/emi7595/integrador-front#readme",
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "popper.js": "^1.16.1"
+  }
 }

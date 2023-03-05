@@ -1,18 +1,24 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Profesor from './components/profesor/Profesor';
-import LoginFormBorrar from './views/Login/LoginFormBORRAR';
-import ScanQRCode from './components/qr/ScanQRCode';
+import LoginForm from './components/login/LoginForm';
+import ScanQRCode from './components/profesor/ScanQRCode';
 import APIPrueba from './components/api-prueba/APIPrueba';
+import Administrador from './components/administrador/Administrador';
+import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
+import Vicerrector from './components/vicerrector/Vicerrector';
+import Rector from './components/rector/Rector';
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LoginFormBorrar />} />
-        <Route path="/qr" element={<ScanQRCode />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/profesor/qr" element={<ScanQRCode />} />
+        <Route path="/administrador" element={<Administrador />} />
+        <Route path="/director-departamento" element={<DirectorDepartamento />} />
+        <Route path="/vicerrector" element={<Vicerrector />} />
+        <Route path="/rector" element={<Rector />} />
         <Route path="/api" element={<APIPrueba />} />
-        <Route path="/empleado" element={<Profesor />} />
       </Routes>
     </>
   );
