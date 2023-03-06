@@ -20,7 +20,7 @@ const LoginForm = () => {
         "pin": password
       }
 
-      const response = await fetch('http://localhost:5096/Login', {
+      const response = await fetch('http://192.168.3.6:5096/Login', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -64,8 +64,6 @@ const LoginForm = () => {
       document.getElementById("login-error-content").innerHTML = error.message;
     }
   };
-
-
 
   // Component (HTML)
   return (

@@ -7,6 +7,7 @@ import Administrador from './components/administrador/Administrador';
 import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
 import Vicerrector from './components/vicerrector/Vicerrector';
 import Rector from './components/rector/Rector';
+import ConfirmQR from './components/profesor/ConfirmQR';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/profesor/qr" element={<ScanQRCode />} />
+        <Route path="/profesor/qr/:nomina" element={<ConfirmQR />} />
         <Route path="/administrador" element={<Administrador />} />
         <Route path="/director-departamento" element={<DirectorDepartamento />} />
         <Route path="/vicerrector" element={<Vicerrector />} />

@@ -4,7 +4,7 @@ function APIPrueba() {
   const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5096/Empleado")
+    fetch("http://192.168.3.6:5096/Empleado")
       .then(response => response.json())
       .then(data => {setApiData(data); console.log(data)});
   }, []);

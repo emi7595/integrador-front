@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const ScanQRCode = () => {
   const session = JSON.parse(window.sessionStorage.getItem('session'));
   const user = session.nombre;
+  const nomina = session.nomina;
   const navigate = useNavigate();
 
   // Component (HTML)
@@ -26,7 +27,7 @@ const ScanQRCode = () => {
         <div className="row m-0 justify-content-center mt-5">
             <div className="col-12 text-center">
                 <h2 className="mb-4">Escanee el código QR desde su celular para registrar su asistencia.</h2>
-                <QRCodeSVG value="https://www.google.com.mx/" size="250" />
+                <QRCodeSVG value={"http://192.168.3.6:3000/profesor/qr/" + nomina} size="250" />
             </div>
         </div>
       </div>
