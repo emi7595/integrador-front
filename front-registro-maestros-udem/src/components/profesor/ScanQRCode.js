@@ -11,6 +11,19 @@ const ScanQRCode = () => {
   const nomina = session.nomina;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetch("http://172.32.185.24:5096/QR/GetCourseData/" + nomina)
+    .then(response => response.json())
+    .then(data => {
+      if (data !== -1) {
+        document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
+      }
+      else {
+        document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
+      }
+    });
+  }, []);
+
   // Component (HTML)
   return (
     <>
@@ -20,16 +33,27 @@ const ScanQRCode = () => {
                 <img src="/imgs/udem-logo.png" height="60" />
             </div>
             <div className="col-auto px-0">
-                { user }&nbsp;&nbsp;<a href="#" onClick={ () => {window.sessionStorage.clear(); navigate("/")} } className="anchor"><FontAwesomeIcon icon={faArrowRightFromBracket} /></a>&nbsp;&nbsp;
+                { user }&nbsp;&nbsp;<a href="" onClick={ () => {window.sessionStorage.clear(); navigate("/")} } className="anchor"><FontAwesomeIcon icon={faArrowRightFromBracket} /></a>&nbsp;&nbsp;
             </div>
         </div>
       </div>
       <div className="container px-0">
         <div className="row m-0 justify-content-center mt-5">
             <div className="col-12 text-center">
-                <h2 className="mb-4">Escanee el código QR desde su celular para registrar su asistencia.</h2>
-                <button onClick={() => getQRCode(nomina, 1)}>Registrar Entrada</button>
-                <button onClick={() => getQRCode(nomina, 2)}>Registrar Salida</button>
+                <h1 className="mb-3" id="currentClass"></h1>
+                <h3 className="mb-3">Escanee el código QR desde su celular para registrar su asistencia.</h3>
+                <div className="row justify-content-center my-3 px-3">
+                  <div className="col-12 col-md-6">
+                    <div className="row justify-content-center mb-3">
+                      <div className="col-6">
+                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 1)}>Registar Entrada</button>
+                      </div>
+                      <div className="col-6">
+                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 2)}>Registar Salida</button>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
                 <div id="qrCode"></div>
             </div>
         </div>
@@ -52,11 +76,13 @@ const getQRCode = function(nomina, type) {
 
         // Render the QR code component to a string
         const qrCodeString = ReactDOMServer.renderToString(<QRCode nomina={nomina} />);
-
+        
+        document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
         document.getElementById("qrCode").innerHTML = qrCodeString;
       }
       else {
-        document.getElementById("qrCode").innerHTML = "No hay clases en este momento";
+        document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
+        document.getElementById("qrCode").innerHTML = "No se puede generar un código QR porque no hay clases.";
       }
     });
 }
