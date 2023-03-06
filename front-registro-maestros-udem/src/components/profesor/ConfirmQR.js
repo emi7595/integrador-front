@@ -5,7 +5,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 
 const ConfirmQR = () => {
-    let { nomina } = useParams();
+    let { nomina, type } = useParams();
 
     const registerAttendance = async () => {
 
@@ -14,7 +14,9 @@ const ConfirmQR = () => {
           "nomina": nomina
         }
 
-        const response = await fetch('http://192.168.3.6:5096/QR', {
+        let typeStr = type == 1 ? "RegisterEntrance" : "RegisterDeparture";
+
+        const response = await fetch('http://172.32.185.24:5096/QR/' + typeStr, {
           method: 'POST',
           mode: 'cors',
           headers: { 'Content-Type': 'application/json' },
@@ -28,8 +30,8 @@ const ConfirmQR = () => {
         // Login information was correct
         else {
           const data = await response.json();
-          data.code == -1 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
-          document.getElementById("title").innerHTML = (data.code == -1 ? "Asistencia no registrada" : "Asistencia Registrada");
+          data.code == -1 || data.code == -2 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
+          document.getElementById("title").innerHTML = (data.code == -1 ? "Asistencia ya registrada" : data.code == -2 ? "Asistencia no registrada" : "Asistencia Registrada");
           document.getElementById("content").innerHTML = "Estado: " + (data.message);
         }
       } catch (error) {

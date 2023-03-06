@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/profesor/qr" element={<ScanQRCode />} />
-        <Route path="/profesor/qr/:nomina" element={<ConfirmQR />} />
+        <Route path="/profesor/qr/:nomina/:type" element={<ConfirmQR />} />
         <Route path="/administrador" element={<Administrador />} />
         <Route path="/director-departamento" element={<DirectorDepartamento />} />
         <Route path="/vicerrector" element={<Vicerrector />} />
