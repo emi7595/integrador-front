@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
-
+import { AES, enc } from 'crypto-js';
+ 
 const ScanQRCode = () => {
   const session = JSON.parse(window.sessionStorage.getItem('session'));
   const user = session.nombre;
@@ -12,7 +13,7 @@ const ScanQRCode = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://172.32.185.24:5096/QR/GetCourseData/" + nomina)
+    fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
     .then(response => response.json())
     .then(data => {
       if (data !== -1) {
@@ -46,10 +47,10 @@ const ScanQRCode = () => {
                   <div className="col-12 col-md-6">
                     <div className="row justify-content-center mb-3">
                       <div className="col-6">
-                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 1)}>Registar Entrada</button>
+                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 1)}>Registrar Entrada</button>
                       </div>
                       <div className="col-6">
-                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 2)}>Registar Salida</button>
+                        <button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 2)}>Registrar Salida</button>
                       </div>
                     </div> 
                   </div>
@@ -65,13 +66,16 @@ const ScanQRCode = () => {
 export default ScanQRCode;
 
 const getQRCode = function(nomina, type) {
-  fetch("http://172.32.185.24:5096/QR/GetCourseData/" + nomina)
+  fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
     .then(response => response.json())
     .then(data => {
       if (data !== -1) {
+        // Generate token for unique QR Code
+        var encrypted = AES.encrypt(new Date().toString(), "secret_key").toString().replaceAll("/", "slash");
+
         // Define the QR code component
         const QRCode = ({ nomina }) => (
-          <QRCodeSVG value={`http://172.32.185.24:3000/profesor/qr/${nomina}/` + (type == 1 ? `1` : `2`)} size={250} />
+          <QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type == 1 ? `1` : `2`) + `/` + encrypted} size={250} />
         );
 
         // Render the QR code component to a string

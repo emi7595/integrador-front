@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
+import { AES, enc } from 'crypto-js';
 
 const ConfirmQR = () => {
-    let { nomina, type } = useParams();
+    let { nomina, type, token } = useParams();
 
     const registerAttendance = async () => {
 
@@ -16,7 +17,7 @@ const ConfirmQR = () => {
 
         let typeStr = type == 1 ? "RegisterEntrance" : "RegisterDeparture";
 
-        const response = await fetch('http://172.32.185.24:5096/QR/' + typeStr, {
+        const response = await fetch('http://192.168.3.6:5096/QR/' + typeStr, {
           method: 'POST',
           mode: 'cors',
           headers: { 'Content-Type': 'application/json' },
@@ -40,7 +41,17 @@ const ConfirmQR = () => {
     };
 
     useEffect(() => {
-      registerAttendance();
+      let decrypted = new Date(AES.decrypt(token.replaceAll('slash','/'), "secret_key").toString(enc.Utf8));
+      let today = new Date();
+      if (today.getFullYear() === decrypted.getFullYear() && today.getMonth() === decrypted.getMonth() && today.getDate() === decrypted.getDate()) {
+        registerAttendance(); 
+      }
+      else {
+        document.getElementById("icon-ok").style.display = "none";
+        document.getElementById("title").innerHTML = "Código no válido";
+        document.getElementById("content").innerHTML = "Por favor, genere nuevamente el código QR";
+      }
+
     }, []);
 
     // Component (HTML)
