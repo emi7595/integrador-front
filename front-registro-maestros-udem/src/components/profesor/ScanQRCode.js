@@ -56,6 +56,7 @@ const ScanQRCode = () => {
                   </div>
                 </div>
                 <div id="qrCode"></div>
+                <div id="qrLink" className="mt-2"></div>
             </div>
         </div>
       </div>
@@ -83,6 +84,7 @@ const getQRCode = function(nomina, type) {
         
         document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
         document.getElementById("qrCode").innerHTML = qrCodeString;
+        document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina +"/" + (type == 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
       }
       else {
         document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
