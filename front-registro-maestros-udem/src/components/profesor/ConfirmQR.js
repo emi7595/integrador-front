@@ -31,8 +31,8 @@ const ConfirmQR = () => {
         // Login information was correct
         else {
           const data = await response.json();
-          data.code == -1 || data.code == -2 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
-          document.getElementById("title").innerHTML = (data.code == -1 ? "Asistencia ya registrada" : data.code == -2 ? "Asistencia no registrada" : "Asistencia Registrada");
+          data.code == -1 || data.code == -2 || data.code == -3 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
+          document.getElementById("title").innerHTML = (data.code == -1 ? "Asistencia ya registrada" : data.code == -2 || data.code == -3 ? "Asistencia no registrada" : "Asistencia Registrada");
           document.getElementById("content").innerHTML = "Estado: " + (data.message);
         }
       } catch (error) {
