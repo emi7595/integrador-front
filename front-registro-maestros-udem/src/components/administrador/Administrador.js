@@ -20,6 +20,7 @@ const Administrador = () => {
 					navigate("/vicerrector"); break;
 				case 5:
 					navigate("/rector"); break;
+				default: break;
 			}
 		}
 		// If user is not logged in, redirect to login

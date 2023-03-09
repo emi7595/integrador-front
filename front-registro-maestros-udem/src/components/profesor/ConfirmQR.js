@@ -18,7 +18,7 @@ const ConfirmQR = () => {
 			}
 
 			// Type of attendance (entrance / departure)
-			let typeStr = type == 1 ? "RegisterEntrance" : "RegisterDeparture";
+			let typeStr = type === 1 ? "RegisterEntrance" : "RegisterDeparture";
 
 			// Post request to database
 			const response = await fetch('http://192.168.3.6:5096/QR/' + typeStr, {
@@ -36,9 +36,9 @@ const ConfirmQR = () => {
 			else {
 				const data = await response.json();
 				// If codes are -1, -2 or -3, the attendance was not registered. Else, the attendance was registered
-				data.code == -1 || data.code == -2 || data.code == -3 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
+				data.code === -1 || data.code === -2 || data.code === -3 ? document.getElementById("icon-ok").style.display = "none" : document.getElementById("icon-no").style.display = "none";
 				// Display corresponding message of attendance
-				document.getElementById("title").innerHTML = (data.code == -1 ? "Asistencia ya registrada" : data.code == -2 || data.code == -3 ? "Asistencia no registrada" : "Asistencia Registrada");
+				document.getElementById("title").innerHTML = (data.code === -1 ? "Asistencia ya registrada" : data.code === -2 || data.code === -3 ? "Asistencia no registrada" : "Asistencia Registrada");
 				document.getElementById("content").innerHTML = "Estado: " + (data.message);
 			}
 		} catch (error) {

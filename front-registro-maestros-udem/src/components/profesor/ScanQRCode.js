@@ -30,6 +30,7 @@ const ScanQRCode = () => {
 					navigate("/vicerrector"); break;
 				case 5:
 					navigate("/rector"); break;
+				default: break;
 			}
 			// Get current class that the professor is on
 			fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
@@ -61,7 +62,7 @@ const ScanQRCode = () => {
 	
 					// Define the QR code component
 					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type == 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+						<QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
 					);
 	
 					// Render the QR code component to a string
@@ -70,7 +71,7 @@ const ScanQRCode = () => {
 					// Render QR code and link to HTML component
 					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type == 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
 				// There are currently no classes; QR code can't be generated
 				else {
@@ -87,10 +88,10 @@ const ScanQRCode = () => {
 			<div className="container-fluid px-0 header">
 				<div className="row m-0 justify-content-between align-items-center">
 					<div className="col-auto px-0">
-						<img src="/imgs/udem-logo.png" height="60" />
+						<img src="/imgs/udem-logo.png" height="60" alt="Universidad de Monterrey" />
 					</div>
 					<div className="col-auto px-0">
-						{user}&nbsp;&nbsp;<a href="" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
+						{user}&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
 							<FontAwesomeIcon icon={faArrowRightFromBracket} />
 						</a>&nbsp;&nbsp;
 					</div>

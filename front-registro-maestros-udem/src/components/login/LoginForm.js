@@ -56,6 +56,7 @@ const LoginForm = () => {
 						navigate("/vicerrector"); break;
 					case 5:
 						navigate("/rector"); break;
+					default: break;
 				}
 			}
 		} catch (error) {
@@ -77,7 +78,7 @@ const LoginForm = () => {
 							<div className="row justify-content-center my-auto">
 								<form onSubmit={handleLogin} className="col-md-8 col-10 my-5">
 									<div className="row justify-content-center px-3 mb-3">
-										<img id="logo" src={udemLogo} />
+										<img id="logo" src={udemLogo} alt="Universidad de Monterrey" />
 									</div>
 									<h3 className="mb-5 text-center heading">Registro de asistencia de profesores</h3>
 
