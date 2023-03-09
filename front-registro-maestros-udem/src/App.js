@@ -10,20 +10,33 @@ import Rector from './components/rector/Rector';
 import ConfirmQR from './components/profesor/ConfirmQR';
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/profesor/qr" element={<ScanQRCode />} />
-        <Route path="/profesor/qr/:nomina/:type/:token" element={<ConfirmQR />} />
-        <Route path="/administrador" element={<Administrador />} />
-        <Route path="/director-departamento" element={<DirectorDepartamento />} />
-        <Route path="/vicerrector" element={<Vicerrector />} />
-        <Route path="/rector" element={<Rector />} />
-        <Route path="/api" element={<APIPrueba />} />
-      </Routes>
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				{ /* LOGIN */}
+				<Route path="/" element={<LoginForm />} />
+
+				{ /* PROFESSOR ROUTES */}
+				<Route path="/profesor/qr" element={<ScanQRCode />} />
+				<Route path="/profesor/qr/:nomina/:type/:token" element={<ConfirmQR />} />
+
+				{ /* ADMIN ROUTES */}
+				<Route path="/administrador" element={<Administrador />} />
+
+				{ /* DEPARTMENT DIRECTOR ROUTES */}
+				<Route path="/director-departamento" element={<DirectorDepartamento />} />
+
+				{ /* VICE-RECTOR ROUTES */}
+				<Route path="/vicerrector" element={<Vicerrector />} />
+
+				{ /* RECTOR ROUTES */ }
+				<Route path="/rector" element={<Rector />} />
+				
+				{ /* ROUTES FOR TESTING PURPOSES */ }
+				<Route path="/api" element={<APIPrueba />} />
+			</Routes>
+		</>
+	);
 }
 
 export default App;
