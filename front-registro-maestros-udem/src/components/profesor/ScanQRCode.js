@@ -8,40 +8,44 @@ import { AES, enc } from 'crypto-js';
  
 const ScanQRCode = () => {
   const navigate = useNavigate();
-
-  //console.log(window.sessionStorage.getItem("rol"))
+  let user, nomina;
   
-  //if (window.sessionStorage.getItem("session"))
   const session = JSON.parse(window.sessionStorage.getItem('session'));
-  const user = session.nombre;
-  const nomina = session.nomina;
-  
+  if (session) {
+    user = session.nombre;
+    nomina = session.nomina;
+  }
 
   useEffect(() => {
-    switch (session.idRol) {
-      case 2:
-        navigate("/administrador");
-        break;
-      case 3:
-        navigate("/director-departamento");
-        break;
-      case 4:
-        navigate("/vicerrector");
-        break;
-      case 5:
-        navigate("/rector");
-        break;
+    if (session) {
+      switch (session.idRol) {
+        case 2:
+          navigate("/administrador");
+          break;
+        case 3:
+          navigate("/director-departamento");
+          break;
+        case 4:
+          navigate("/vicerrector");
+          break;
+        case 5:
+          navigate("/rector");
+          break;
+      }
+      fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
+      .then(response => response.json())
+      .then(data => {
+        if (data !== -1) {
+          document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
+        }
+        else {
+          document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
+        }
+      });
     }
-    fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
-    .then(response => response.json())
-    .then(data => {
-      if (data !== -1) {
-        document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
-      }
-      else {
-        document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
-      }
-    });
+    else {
+      navigate("/");
+    }
   }, []);
 
   // Component (HTML)
@@ -86,7 +90,7 @@ const ScanQRCode = () => {
 export default ScanQRCode;
 
 const getQRCode = function(nomina, type) {
-  fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+  fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
     .then(response => response.json())
     .then(data => {
       if (data !== -1) {
@@ -95,7 +99,7 @@ const getQRCode = function(nomina, type) {
 
         // Define the QR code component
         const QRCode = ({ nomina }) => (
-          <QRCodeSVG value={`http://192.168.29.1:3000/profesor/qr/${nomina}/` + (type == 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+          <QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type == 1 ? `1` : `2`) + `/` + encrypted} size={250} />
         );
 
         // Render the QR code component to a string
@@ -103,7 +107,7 @@ const getQRCode = function(nomina, type) {
         
         document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
         document.getElementById("qrCode").innerHTML = qrCodeString;
-        document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.29.1:3000/profesor/qr/" + nomina +"/" + (type == 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+        document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina +"/" + (type == 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
       }
       else {
         document.getElementById("currentClass").innerHTML = "No hay clases en este momento";

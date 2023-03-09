@@ -20,7 +20,7 @@ const LoginForm = () => {
         "pin": password
       }
 
-      const response = await fetch('http://192.168.29.1:5096/Login', {
+      const response = await fetch('http://192.168.3.6:5096/Login', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -38,8 +38,6 @@ const LoginForm = () => {
         window.sessionStorage.setItem('session', JSON.stringify(data));
 
         const session = JSON.parse(window.sessionStorage.getItem('session'));
-
-        console.log(session);
 
         switch (session.idRol) {
           case 1:
