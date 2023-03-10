@@ -1,6 +1,6 @@
 .header {
-	background-color: #403B33;
-	color: #FFFFFF;
+	background-color: #EDEEF3;
+	color: #000000;
 }
 
 .lista p {
@@ -11,13 +11,13 @@ body {
 	color: #000;
 	overflow-x: hidden;
 	height: 100%;
-	background-color: #f0ecec;
+	background-color: #EDEEF3;
 }
 
 input,
 textarea {
 	background-color: #F3E5F5;
-	border-radius: 50px !important;
+	border-radius: 15px !important;
 	padding: 12px 15px 12px 15px !important;
 	width: 100%;
 	box-sizing: border-box;
@@ -100,9 +100,9 @@ button:focus {
 }
 
 .btn-color {
-	border-radius: 50px;
+	border-radius: 15px;
 	color: #fff;
-	background: #333333;
+	background: #000000;
 	padding: 15px;
 	cursor: pointer;
 	border: none !important;
@@ -110,7 +110,7 @@ button:focus {
 }
 
 .btn-white {
-	border-radius: 50px;
+	border-radius: 15px;
 	color: #D500F9;
 	background-color: #fff;
 	padding: 8px 40px;
@@ -167,7 +167,54 @@ a:hover {
 }
 
 .anchor {
-	color: #FFFFFF !important;
+	color: #000000 !important;
+}
+
+
+
+.p-salir {
+	padding-right: 10px;
+	font-size: 16px !important;
+}
+
+.p-nombre{
+	font-size: 26px !important;
+}
+.icono-usuario {
+	font-size: 3.5rem;
+	margin-right: 1rem;
+}
+
+
+.icono-salir {
+	height: 1.5rem;
+}
+
+.icono-sidebar {
+	font-size: 1.5rem;
+	margin-right: 1rem;
+}
+
+#currentClass {
+	font-size: 35px;
+}
+
+.p-escanear {
+	font-size: 20px;
+}
+
+.boton-qr {
+	padding: 10px;
+	margin-top: .5em;
+}
+
+.sidebar {
+	border-bottom-right-radius: 25px;
+	border-top-right-radius: 25px;
+}
+
+.nav-link{
+	color: black
 }
 
 /* RESPONSIVE STYLES */
