@@ -5,6 +5,13 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import { AES } from 'crypto-js';
+import { SideBar } from './sidebar/SideBar';
+import { BiUserCircle } from "react-icons/bi";
+import { BsCheck2Square } from "react-icons/bs";
+import { TbDoorExit } from "react-icons/tb";
+import { BsQrCode } from "react-icons/bs";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { GoReport, GoGraph } from "react-icons/go";
 
 const ScanQRCode = () => {
 	const navigate = useNavigate();
@@ -33,7 +40,7 @@ const ScanQRCode = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+			fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
 				.then(response => response.json())
 				.then(data => {
 					// The professor is currently on class
@@ -52,7 +59,7 @@ const ScanQRCode = () => {
 
 	// --- FUNCTION THAT GENERATES A QR CODE FOR THE CURRENT CLASS ---
 	const getQRCode = function (nomina, type) {
-		fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+		fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
 			.then(response => response.json())
 			.then(data => {
 				// The professor is currently on class
@@ -62,7 +69,7 @@ const ScanQRCode = () => {
 	
 					// Define the QR code component
 					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://192.168.29.1:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+						<QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
 					);
 	
 					// Render the QR code component to a string
@@ -71,7 +78,7 @@ const ScanQRCode = () => {
 					// Render QR code and link to HTML component
 					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.29.1:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
 				// There are currently no classes; QR code can't be generated
 				else {
@@ -84,43 +91,80 @@ const ScanQRCode = () => {
 
 	// --- COMPONENT (HTML) ---
 	return (
-		<>
-			<div className="container-fluid px-0 header">
-				<div className="row m-0 justify-content-between align-items-center">
-					<div className="col-auto px-0">
-						<img src="/imgs/udem-logo.png" height="60" alt="Universidad de Monterrey" />
+		<div>
+			{/* <SideBar usuario = {user}></SideBar> */}
+			<div class="container-fluid">
+    			<div class="row flex-nowrap">
+        			<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
+					<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+						<a href="#" class="d-flex align-items-center pb-5 mb-md-0 me-md-auto text-black text-decoration-none pt-4">
+							<BiUserCircle className="icono-usuario"></BiUserCircle>
+							<span class="p-nombre d-none d-sm-inline">{user}</span>
+						</a>
+						<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+							<li class="nav-item">
+								<a href="#" class="nav-link align-middle px-0 pb-4 fs-5">
+									<i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link align-middle px-0 pb-4 fs-5">
+									<i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"><FaChalkboardTeacher className="icono-sidebar"></FaChalkboardTeacher> Ver mis clases</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link align-middle px-0 pb-4 fs-5">
+									<i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link align-middle px-0 fs-5">
+									<i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"><GoReport className="icono-sidebar"></GoReport> Reportar faltas justificadas</span>
+								</a>
+							</li>
+						</ul>
+						<hr/>
 					</div>
-					<div className="col-auto px-0">
-						{user}&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
-							<FontAwesomeIcon icon={faArrowRightFromBracket} />
-						</a>&nbsp;&nbsp;
+        </div>
+        <div className='col-10'>
+				<div className="container-fluid px-0 header mt-2 pt-4">
+					<div className="row m-0 justify-content-end align-items-center">
+						<div className="col-auto px-0 m-3 d-flex flex-row justify-content-center align-items-center">
+							<p className="d-flex justify-content-center align-items-center m-0 pr-2 p-salir">Salir</p>
+							&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
+								<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir"/>
+							</a>&nbsp;&nbsp;
+						</div>
 					</div>
 				</div>
-			</div>
-			<div className="container px-0">
-				<div className="row m-0 justify-content-center mt-5">
-					<div className="col-12 text-center">
-						<h1 className="mb-3" id="currentClass"></h1>
-						<h3 className="mb-3">Escanee el código QR desde su celular para registrar su asistencia.</h3>
-						<div className="row justify-content-center my-3 px-3">
-							<div className="col-12 col-md-6">
-								<div className="row justify-content-center mb-3">
-									<div className="col-6">
-										<button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 1)}>Registrar Entrada</button>
-									</div>
-									<div className="col-6">
-										<button className="btn-block btn-color w-100" onClick={() => getQRCode(nomina, 2)}>Registrar Salida</button>
+				<div className="container px-0 pt-5">
+					<div className="row m-0 justify-content-center mt-5">
+						<div className="col-12 text-center">
+							<h1 className="mb-5 " id="currentClass"></h1>
+							<h3 className="mb-0 p-escanear">Escanee el código QR desde su celular para registrar su asistencia.</h3>
+							<div className="row justify-content-center my-3 px-3 pb-4">
+								<div className="col-12 col-md-6">
+									<div className="row justify-content-center mb-3">
+										<div className="col-6">
+											<button className="btn-block btn-color boton-qr w-100" onClick={() => getQRCode(nomina, 1)}><BsCheck2Square></BsCheck2Square>  Registrar Entrada</button>
+										</div>
+										<div className="col-6">
+											<button className="btn-block btn-color boton-qr w-100" onClick={() => getQRCode(nomina, 2)}><TbDoorExit></TbDoorExit>  Registrar Salida</button>
+										</div>
 									</div>
 								</div>
 							</div>
+							{ /* CONTAINERS FOR QR CODE */ }
+							<div id="qrCode"></div>
+							<div id="qrLink" className="mt-2"></div>
 						</div>
-						{ /* CONTAINERS FOR QR CODE */ }
-						<div id="qrCode"></div>
-						<div id="qrLink" className="mt-2"></div>
 					</div>
 				</div>
 			</div>
-		</>
+    </div>
+</div>
+			
+		</div>
 	);
 };
 
