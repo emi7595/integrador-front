@@ -21,7 +21,7 @@ const ConfirmQR = () => {
 			let typeStr = type === "1" ? "RegisterEntrance" : "RegisterDeparture";
 
 			// Post request to database
-			const response = await fetch('http://172.32.149.244:5096/QR/' + typeStr, {
+			const response = await fetch('http://192.168.29.1:5096/QR/' + typeStr, {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
