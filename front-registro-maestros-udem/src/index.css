@@ -193,9 +193,13 @@ a:hover {
 .icono-sidebar {
 	font-size: 1.5rem;
 	margin-right: 1rem;
+	cursor: pointer;
 }
 
 #currentClass {
+	font-size: 35px;
+}
+.currentClass {
 	font-size: 35px;
 }
 
@@ -214,9 +218,73 @@ a:hover {
 }
 
 .nav-link{
-	color: black
+	color: black;
+	cursor: pointer;
 }
 
+.grafica{
+	height: 300px;
+	width: 100%;
+}
+
+.leyenda{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.leyenda div{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.asistencia {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #FF0000;
+	margin-right: 10px;
+}
+.retraso {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #FF00E5;
+	margin-right: 10px;
+}
+.salida {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #0CFFF0;
+	margin-right: 10px;
+}
+.retraso-salida {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #6891FA;
+	margin-right: 10px;
+}
+.falta {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #DBFF00;
+	margin-right: 10px;
+}
+  
+.leyenda {
+	display: flex;
+	flex-direction: row;
+}
+
+.icono-detalle{
+	font-size: 23px;
+	cursor: pointer;
+}
 /* RESPONSIVE STYLES */
 
 @media screen and (max-width: 992px) {

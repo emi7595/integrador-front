@@ -8,6 +8,8 @@ import DirectorDepartamento from './components/director-departamento/DirectorDep
 import Vicerrector from './components/vicerrector/Vicerrector';
 import Rector from './components/rector/Rector';
 import ConfirmQR from './components/profesor/ConfirmQR';
+import ReporteProfesor from './components/profesor/reportes/ReporteProfesor';
+import ReporteClases from './components/profesor/reportes/ReporteClases';
 
 function App() {
 	return (
@@ -18,6 +20,8 @@ function App() {
 
 				{ /* PROFESSOR ROUTES */}
 				<Route path="/profesor/qr" element={<ScanQRCode />} />
+				<Route path="/profesor/reporte" element={<ReporteProfesor />} />
+				<Route path="/profesor/reporte/clase" element={<ReporteClases />} />
 				<Route path="/profesor/qr/:nomina/:type/:token" element={<ConfirmQR />} />
 
 				{ /* ADMIN ROUTES */}

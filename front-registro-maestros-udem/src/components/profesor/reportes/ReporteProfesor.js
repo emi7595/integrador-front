@@ -1,19 +1,25 @@
 import React, { useEffect } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import ReactDOMServer from 'react-dom/server';
-import { AES } from 'crypto-js';
-import { SideBar } from './sidebar/SideBar';
 import { BiUserCircle } from "react-icons/bi";
-import { BsCheck2Square } from "react-icons/bs";
-import { TbDoorExit } from "react-icons/tb";
-import { BsQrCode } from "react-icons/bs";
+import { BsQrCode} from "react-icons/bs";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
+import GraficaClases from '../../Graficas/GraficaClases';
+import TablaProfesor from '../../tablas/TablaProfesor';
 
-const ScanQRCode = () => {
+
+const ReporteProfesor = () => {
+	const [data, setData] = React.useState(null);
+	const [total, setTotal] = React.useState(null);
+	const [asistencia, setAsistencia] = React.useState(null);
+	const [retraso, setRetraso] = React.useState(null);
+	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
+	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
+	const [falta, setFalta] = React.useState(null);
+
+
 	const navigate = useNavigate();
 	let user, nomina;
 
@@ -40,53 +46,42 @@ const ScanQRCode = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/2047")
 				.then(response => response.json())
-				.then(data => {
-					// The professor is currently on class
-					if (data !== -1)
-						document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
-					// The professor isn't currently on class
-					else
-						document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
-				});
+				.then(json => {
+					let totalCodes = 0;
+					for (let i = 0; i < 5; i++) {
+						let sum = 0;
+						for (let j = 0; j < json.length; j++) {
+							sum += json[j].codes[i];
+							totalCodes += json[j].codes[i];
+						}
+						if (i === 0) {
+							setAsistencia(sum)
+						}
+						else if (i === 1) {
+							setRetraso(sum)
+						}
+						else if (i === 2) {
+							setSalidaPrevia(sum)
+						}
+						else if (i === 3) {
+							setRetrasoSalida(sum)
+						}
+						else if (i === 4) {
+							setFalta(sum)
+						}
+					}
+					setData(json)
+					setTotal(totalCodes)
+				})
+                .catch(error => console.error(error));
 		}
 		// If user is not logged in, redirect to login
 		else {
 			navigate("/");
 		}
 	}, []);
-
-	// --- FUNCTION THAT GENERATES A QR CODE FOR THE CURRENT CLASS ---
-	const getQRCode = function (nomina, type) {
-		fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
-			.then(response => response.json())
-			.then(data => {
-				// The professor is currently on class
-				if (data !== -1) {
-					// Generate token for unique QR Code (based on current date)
-					var encrypted = AES.encrypt(new Date().toString(), "secret_key").toString().replaceAll("/", "slash");
-	
-					// Define the QR code component
-					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://192.168.29.1:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
-					);
-	
-					// Render the QR code component to a string
-					const qrCodeString = ReactDOMServer.renderToString(<QRCode nomina={nomina} />);
-	
-					// Render QR code and link to HTML component
-					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
-					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.29.1:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
-				}
-				// There are currently no classes; QR code can't be generated
-				else {
-					document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
-					document.getElementById("qrCode").innerHTML = "No se puede generar un código QR porque no hay clases.";
-				}
-			});
-	}
 
 
 	// --- COMPONENT (HTML) ---
@@ -141,23 +136,21 @@ const ScanQRCode = () => {
 						<div className="container px-0 pt-5">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
-									<h1 className="mb-5 " id="currentClass"></h1>
-									<h3 className="mb-0 p-escanear">Escanee el código QR desde su celular para registrar su asistencia.</h3>
-									<div className="row justify-content-center my-3 px-3 pb-4">
-										<div className="col-12 col-md-6">
-											<div className="row justify-content-center mb-3">
-												<div className="col-6">
-													<button className="btn-block btn-color boton-qr w-100" onClick={() => getQRCode(nomina, 1)}><BsCheck2Square></BsCheck2Square>  Registrar Entrada</button>
-												</div>
-												<div className="col-6">
-													<button className="btn-block btn-color boton-qr w-100" onClick={() => getQRCode(nomina, 2)}><TbDoorExit></TbDoorExit>  Registrar Salida</button>
-												</div>
+                                    <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
+									<div className="row grafica">
+										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
+										<div className='col-md-6 leyenda'>
+											<div>
+												<p className="leyenda"><span className="asistencia"></span> Asistencia: {asistencia}/{total}</p>
+												<p className="leyenda"><span className="retraso"></span> Retraso Inicial: {retraso}/{total}</p>
+												<p className="leyenda"><span className="salida"></span> Salida Previa: {salidaPrevia}/{total}</p>
+												<p className="leyenda"><span className="retraso-salida"></span> Retraso y Salida: {retrasoSalida}/{total}</p>
+												<p className="leyenda"><span className="falta"></span> Falta: {falta}/{total}</p>
 											</div>
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
-									<div id="qrCode"></div>
-									<div id="qrLink" className="mt-2"></div>
+									<TablaProfesor data={data}></TablaProfesor>
 								</div>
 							</div>
 						</div>
@@ -169,4 +162,4 @@ const ScanQRCode = () => {
 	);
 };
 
-export default ScanQRCode;
+export default ReporteProfesor;
