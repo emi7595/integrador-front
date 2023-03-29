@@ -5,11 +5,12 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
+import { CSVLink } from 'react-csv';
 
 const ReporteClases = () => {
     const location = useLocation();
@@ -98,6 +99,22 @@ const ReporteClases = () => {
 		}
 	}, []);
 
+	function handleDatos() {
+		let datos = [];
+		infoClase?.map((clase) => (
+			datos.push({clase: location.state.subjectName, crn: location.state.CRN, fecha: clase.date, registro: clase.codeDescription})
+        ))
+
+		return datos
+	}
+
+	  const headers = [
+		{ label: 'Clase', key: 'clase' },
+		{ label: 'CRN', key: 'crn' },
+		{ label: 'Fecha', key: 'fecha' },
+		{ label: 'Registro', key: 'registro' },
+	  ];
+
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -165,6 +182,9 @@ const ReporteClases = () => {
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename="reporteClase">
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
 									<TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>
 								</div>
 							</div>

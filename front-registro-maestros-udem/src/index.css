@@ -200,6 +200,10 @@ a:hover {
 	cursor: pointer;
 }
 
+.icono-descargar{
+	font-size: 28px;
+}
+
 #currentClass {
 	font-size: 35px;
 }

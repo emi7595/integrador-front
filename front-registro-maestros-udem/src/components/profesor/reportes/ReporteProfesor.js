@@ -5,11 +5,12 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { BsQrCode} from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaProfesor from '../../tablas/TablaProfesor';
-
+import { CSVLink } from "react-csv";
+import { Button } from '@mui/material';
 
 const ReporteProfesor = () => {
 	const [data, setData] = React.useState(null);
@@ -85,6 +86,20 @@ const ReporteProfesor = () => {
 	}, []);
 
 
+	function handleDatos() {
+		let datos = [];
+		data?.map((clase) => (
+			datos.push({clase: clase.subjectName, crn: clase.CRN, promedioAsistencia: clase.average})
+        ))
+
+		return datos
+	}
+
+	  const headers = [
+		{ label: 'Clase', key: 'clase' },
+		{ label: 'CRN', key: 'crn' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+	  ];
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
@@ -151,6 +166,9 @@ const ReporteProfesor = () => {
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename="reporteProfesor">
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
 									<TablaProfesor data={data}></TablaProfesor>
 								</div>
 							</div>

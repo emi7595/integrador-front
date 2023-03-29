@@ -11,7 +11,6 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 
-
 const TablaProfesor = (props)  =>{
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
