@@ -1,12 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
+import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';

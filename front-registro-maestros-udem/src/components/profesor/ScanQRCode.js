@@ -1,3 +1,7 @@
+/* eslint-disable no-useless-concat */
+/* eslint-disable jsx-a11y/heading-has-content */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,7 +9,6 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import { AES } from 'crypto-js';
-import { SideBar } from './sidebar/SideBar';
 import { BiUserCircle } from "react-icons/bi";
 import { BsCheck2Square } from "react-icons/bs";
 import { TbDoorExit } from "react-icons/tb";

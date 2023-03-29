@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -115,7 +116,7 @@ const ReporteClases = () => {
 		{ label: 'Registro', key: 'registro' },
 	  ];
 
-
+	  let nombreReporte = `Reporte ${user} - ${location.state.subjectName}`
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
@@ -182,7 +183,7 @@ const ReporteClases = () => {
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
-									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename="reporteClase">
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
 										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 									</CSVLink>
 									<TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>

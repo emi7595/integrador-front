@@ -10,7 +10,6 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
-import TablaVicerrectorDepartamento from './TablaVicerrectorDepartamento';
 
 
 const TablaVicerrectorDepartamentoProfesor = (props)  =>{

@@ -1,12 +1,12 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode} from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
+import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaVicerrectorDepartamento from '../../tablas/TablaVicerrectorDepartamento';
 // import GraficaClases from '../../Graficas/GraficaClases';
@@ -24,14 +24,12 @@ const VicerrectorReporteDepartamento = () => {
 	const navigate = useNavigate();
 
 	// Get session storage information
-	let user, nomina, idDepartamento;
+	let user;
 
 	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		nomina = session.nomina;
-		idDepartamento = session.idDepartamento;
 	}
 
 	useEffect(() => {

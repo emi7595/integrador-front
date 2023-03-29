@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GoReport, GoGraph } from "react-icons/go";
-import TablaVicerrector from '../tablas/TablaVicerrector';
+import { GoGraph } from "react-icons/go";
 import GraficaClases from '../Graficas/GraficaClases';
 import TablaRector from '../tablas/TablaRector';
 
@@ -19,13 +20,12 @@ const Rector = () => {
 	const navigate = useNavigate();
 
 	// Get session storage information
-	let user, idEscuela;
+	let user;
 
 	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		idEscuela = session.idEscuela;
 	}
 
 	useEffect(() => {

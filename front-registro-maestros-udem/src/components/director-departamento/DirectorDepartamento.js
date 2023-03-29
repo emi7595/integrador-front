@@ -1,16 +1,16 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode} from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
+import { FaFileDownload } from "react-icons/fa";
+import { GoGraph } from "react-icons/go";
 import GraficaClases from '../Graficas/GraficaClases';
 import TablaDepartamentoProfesores from '../tablas/TablaDepartamentoProfesores';
-// import GraficaClases from '../../Graficas/GraficaClases';
-// import TablaProfesor from '../../tablas/TablaProfesor';
+import { CSVLink } from 'react-csv';
 
 const DirectorDepartamento = () => {
 	const [data, setData] = React.useState(null);
@@ -20,16 +20,16 @@ const DirectorDepartamento = () => {
 	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
+	const [nombreReporte, setNombreReporte] = React.useState(null);
 	const navigate = useNavigate();
 
 	// Get session storage information
-	let user, nomina, idDepartamento;
+	let user, idDepartamento;
 
 	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		nomina = session.nomina;
 		idDepartamento = session.idDepartamento;
 	}
 
@@ -73,6 +73,8 @@ const DirectorDepartamento = () => {
 							setFalta(sum)
 						}
 					}
+					console.log(json)
+					setNombreReporte(`Reporte ${json[0].departmentName}`)
 					setData(json)
 					setTotal(totalCodes)
 				})
@@ -84,7 +86,29 @@ const DirectorDepartamento = () => {
 		}
 	}, []);
 
+	function handleDatos() {
+		let datos = [];
+		data?.map((profesor) => (
+			datos.push({profesor: profesor.employeeName, nomina: profesor.nomina, promedioAsistencia: `${profesor.average}%`
+			, asistencia: profesor.codes[0], retraso: profesor.codes[1], salida: profesor.codes[2], retrasoSalida: profesor.codes[3], falta: profesor.codes[4]
+			})
+        ))
 
+		return datos
+	}
+
+	const headers = [
+		{ label: 'Profesor', key: 'profesor' },
+		{ label: 'Nómina', key: 'nomina' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+		{ label: 'Asistencia', key: 'asistencia' },
+		{ label: 'Retraso Inicial', key: 'retraso' },
+		{ label: 'Salida Previa', key: 'salida' },
+		{ label: 'Retraso y Salida', key: 'retrasoSalida' },
+		{ label: 'Falta', key: 'falta' },
+	];
+
+	
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
@@ -135,7 +159,9 @@ const DirectorDepartamento = () => {
 											</div>
 										</div>
 									</div>
-									
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
 									<TablaDepartamentoProfesores data={data}></TablaDepartamentoProfesores>
 								</div>
 							</div>

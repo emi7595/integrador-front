@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
@@ -5,12 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode} from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
+import { FaFileDownload } from "react-icons/fa";
+import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
-import TablaProfesor from '../../tablas/TablaProfesor';
 import TablaDepartamentoProfesorClase from '../../tablas/TablaDepartamentoProfesorClase';
+import { CSVLink } from 'react-csv';
 
 
 const DirectorDepartamentoReporteProfesor = () => {
@@ -84,7 +84,28 @@ const DirectorDepartamentoReporteProfesor = () => {
 			navigate("/");
 		}
 	}, []);
+	function handleDatos() {
+		let datos = [];
+		data?.map((clase) => (
+			datos.push({clase: clase.subjectName, crn: clase.CRN, promedioAsistencia: `${clase.average}%`,
+				asistencia: clase.codes[0], retraso: clase.codes[1], salida: clase.codes[2], retrasoSalida: clase.codes[3], falta: clase.codes[4]})
+        ))
 
+		return datos
+	}
+
+	  const headers = [
+		{ label: 'Clase', key: 'clase' },
+		{ label: 'CRN', key: 'crn' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+		{ label: 'Asistencia', key: 'asistencia' },
+		{ label: 'Retraso Inicial', key: 'retraso' },
+		{ label: 'Salida Previa', key: 'salida' },
+		{ label: 'Retraso y Salida', key: 'retrasoSalida' },
+		{ label: 'Falta', key: 'falta' },
+	  ];
+
+	let nombreReporte = `Reporte ${location.state.employeeName}`
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -136,7 +157,9 @@ const DirectorDepartamentoReporteProfesor = () => {
 											</div>
 										</div>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */ }
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
 									<TablaDepartamentoProfesorClase data={data}></TablaDepartamentoProfesorClase>
 								</div>
 							</div>
