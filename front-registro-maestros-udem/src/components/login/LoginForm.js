@@ -8,6 +8,18 @@ const LoginForm = () => {
 	// Username and password fields of login form
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [attemptCount, setAttemptCount] = useState(
+		parseInt(localStorage.getItem("attemptCount")) || 0
+	);
+	const maxAttempts = 3;
+
+
+	const [isBlocked, setIsBlocked] = useState(
+		localStorage.getItem("isBlocked") === "true"
+	);
+	  const [blockedUntil, setBlockedUntil] = useState(
+		localStorage.getItem("blockedUntil")
+	);
 
 	// Variable for image src
 	var udemLogo = "/imgs/udem-logo.png";
@@ -17,6 +29,17 @@ const LoginForm = () => {
 		event.preventDefault();
 
 		try {
+			if (isBlocked) {
+				const now = new Date().getTime();
+				if (blockedUntil && now < blockedUntil) {
+				  const remainingTime = Math.round((blockedUntil - now) / 1000 / 60); // Tiempo restante en minutos8
+				  throw new Error(`Tu cuenta está bloqueada. Vuelve a intentarlo en ${remainingTime} minutos.`)
+				}
+				setIsBlocked(false);
+				localStorage.removeItem("isBlocked");
+				setBlockedUntil(null);
+				localStorage.removeItem("blockedUntil");
+			}
 			// Form data
 			var jsonData = {
 				"user": username,
@@ -33,6 +56,7 @@ const LoginForm = () => {
 
 			// Login information was incorrect
 			if (!response.ok) {
+				incrementAttemptCount(attemptCount);
 				throw new Error('Usuario o contraseña inválidos.');
 			}
 			// Login information was correct
@@ -41,7 +65,8 @@ const LoginForm = () => {
 				// Store login information in session storage
 				window.sessionStorage.setItem('rol', JSON.stringify(data.idRol));
 				window.sessionStorage.setItem('session', JSON.stringify(data));
-
+				localStorage.setItem("attemptCount", 0);
+				setAttemptCount(0);
 				const session = JSON.parse(window.sessionStorage.getItem('session'));
 
 				// Redirect to proper rol
@@ -66,6 +91,19 @@ const LoginForm = () => {
 			document.getElementById("login-error-content").innerHTML = error.message;
 		}
 	};
+
+	const incrementAttemptCount = (currentCount) => {
+		const newCount = currentCount + 1;
+		if (newCount >= maxAttempts) {
+		  const blockedUntilTimestamp = new Date().getTime() + 1 * 60 * 1000; // Tiempo actual + 15 minutos en milisegundos
+		  localStorage.setItem("blockedUntil", blockedUntilTimestamp);
+		  setBlockedUntil(blockedUntilTimestamp);
+		  localStorage.setItem("isBlocked", true);
+		  setIsBlocked(true);
+		  } else {
+		  setAttemptCount(newCount);
+		}
+	  };
 
 
 	// --- COMPONENT (HTML) ---

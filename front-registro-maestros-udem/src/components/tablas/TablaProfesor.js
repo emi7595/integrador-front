@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -33,13 +34,6 @@ const TablaProfesor = (props)  =>{
         },
       }));
 
-    let user, nomina;
-    const session = JSON.parse(window.sessionStorage.getItem('session'));
-	if (session) {
-		user = session.nombre;
-		nomina = session.nomina;
-	}
-
     return (
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
@@ -53,7 +47,7 @@ const TablaProfesor = (props)  =>{
             </TableHead>
             <TableBody>
             {props.data?.map((clase) => (
-            <StyledTableRow key={clase.idHorario}>
+            <StyledTableRow key={clase.CRN}>
               <StyledTableCell component="th" scope="row">
                 {clase.subjectName}
               </StyledTableCell>

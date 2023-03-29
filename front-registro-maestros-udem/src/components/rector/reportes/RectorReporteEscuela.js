@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoReport, GoGraph } from "react-icons/go";
-import TablaVicerrector from '../tablas/TablaVicerrector';
-import GraficaClases from '../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaClases';
+import TablaRectorEscuela from '../../tablas/TablaRectorEscuela';
 
-const Vicerrector = () => {
+const RectorReporteEscuela = () => {
+    const location = useLocation();
 	const [data, setData] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -39,11 +40,11 @@ const Vicerrector = () => {
 					navigate("/administrador"); break;
 				case 3:
 					navigate("/director-departamento"); break;
-				case 5:
-					navigate("/rector"); break;
+				case 4:
+					navigate("/vicerrector"); break;
 				default: break;
 			}
-			fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetSchoolAverage/" + idEscuela)
+			fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetSchoolAverage/" + location.state.schoolId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -95,7 +96,7 @@ const Vicerrector = () => {
 							</a>
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/vicerrector") }}>
+									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/rector") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
@@ -132,7 +133,7 @@ const Vicerrector = () => {
 										</div>
 									</div>
 									
-									<TablaVicerrector data={data}></TablaVicerrector>
+									<TablaRectorEscuela data={data}></TablaRectorEscuela>
 								</div>
 							</div>
 						</div>
@@ -144,4 +145,4 @@ const Vicerrector = () => {
 	);
 };
 
-export default Vicerrector;
+export default RectorReporteEscuela;

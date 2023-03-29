@@ -1,14 +1,20 @@
+/* eslint-disable default-case */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BiUserCircle } from "react-icons/bi";
+import { BsQrCode} from "react-icons/bs";
+import { FaChalkboardTeacher } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
-import TablaVicerrector from '../tablas/TablaVicerrector';
-import GraficaClases from '../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaClases';
+import TablaProfesor from '../../tablas/TablaProfesor';
+import TablaDepartamentoProfesorClase from '../../tablas/TablaDepartamentoProfesorClase';
 
-const Vicerrector = () => {
+
+const DirectorDepartamentoReporteProfesor = () => {
+    const location = useLocation();
 	const [data, setData] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -16,16 +22,15 @@ const Vicerrector = () => {
 	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
-	const navigate = useNavigate();
 
-	// Get session storage information
-	let user, idEscuela;
+
+	const navigate = useNavigate();
+	let user;
 
 	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		idEscuela = session.idEscuela;
 	}
 
 	useEffect(() => {
@@ -37,13 +42,13 @@ const Vicerrector = () => {
 					navigate("/profesor/qr"); break;
 				case 2:
 					navigate("/administrador"); break;
-				case 3:
-					navigate("/director-departamento"); break;
+				case 4:
+					navigate("/vicerrector"); break;
 				case 5:
 					navigate("/rector"); break;
-				default: break;
 			}
-			fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetSchoolAverage/" + idEscuela)
+			// Get current class that the professor is on
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -87,7 +92,7 @@ const Vicerrector = () => {
 			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
     			<div className="row flex-nowrap">
-        			<div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
+                    <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
 						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
 								<BiUserCircle className="icono-usuario"></BiUserCircle>
@@ -95,7 +100,7 @@ const Vicerrector = () => {
 							</a>
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/vicerrector") }}>
+									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/director-departamento") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
@@ -131,8 +136,8 @@ const Vicerrector = () => {
 											</div>
 										</div>
 									</div>
-									
-									<TablaVicerrector data={data}></TablaVicerrector>
+									{ /* CONTAINERS FOR QR CODE */ }
+									<TablaDepartamentoProfesorClase data={data}></TablaDepartamentoProfesorClase>
 								</div>
 							</div>
 						</div>
@@ -144,4 +149,4 @@ const Vicerrector = () => {
 	);
 };
 
-export default Vicerrector;
+export default DirectorDepartamentoReporteProfesor;

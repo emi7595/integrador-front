@@ -1,14 +1,19 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable default-case */
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { BiUserCircle } from "react-icons/bi";
+import { BsQrCode} from "react-icons/bs";
+import { FaChalkboardTeacher } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
-import TablaVicerrector from '../tablas/TablaVicerrector';
-import GraficaClases from '../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaClases';
+import TablaVicerrectorDepartamento from '../../tablas/TablaVicerrectorDepartamento';
+// import GraficaClases from '../../Graficas/GraficaClases';
+// import TablaProfesor from '../../tablas/TablaProfesor';
 
-const Vicerrector = () => {
+const VicerrectorReporteDepartamento = () => {
+    const location = useLocation();
 	const [data, setData] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -19,13 +24,14 @@ const Vicerrector = () => {
 	const navigate = useNavigate();
 
 	// Get session storage information
-	let user, idEscuela;
+	let user, nomina, idDepartamento;
 
 	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		idEscuela = session.idEscuela;
+		nomina = session.nomina;
+		idDepartamento = session.idDepartamento;
 	}
 
 	useEffect(() => {
@@ -43,7 +49,7 @@ const Vicerrector = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetSchoolAverage/" + idEscuela)
+			fetch("http://192.168.29.1:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -132,7 +138,7 @@ const Vicerrector = () => {
 										</div>
 									</div>
 									
-									<TablaVicerrector data={data}></TablaVicerrector>
+									<TablaVicerrectorDepartamento data={data}></TablaVicerrectorDepartamento>
 								</div>
 							</div>
 						</div>
@@ -144,4 +150,4 @@ const Vicerrector = () => {
 	);
 };
 
-export default Vicerrector;
+export default VicerrectorReporteDepartamento;

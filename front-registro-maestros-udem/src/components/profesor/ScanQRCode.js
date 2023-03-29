@@ -97,7 +97,7 @@ const ScanQRCode = () => {
     			<div className="row flex-nowrap">
         			<div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
 						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto text-black text-decoration-none pt-4">
+							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
 								<BiUserCircle className="icono-usuario"></BiUserCircle>
 								<span className="p-nombre d-none d-sm-inline">{user}</span>
 							</a>

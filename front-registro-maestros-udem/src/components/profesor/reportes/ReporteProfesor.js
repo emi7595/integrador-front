@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +47,7 @@ const ReporteProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/2047")
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -92,7 +93,7 @@ const ReporteProfesor = () => {
     			<div className="row flex-nowrap">
         			<div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
 						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto text-black text-decoration-none pt-4">
+							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
 								<BiUserCircle className="icono-usuario"></BiUserCircle>
 								<span className="p-nombre d-none d-sm-inline">{user}</span>
 							</a>

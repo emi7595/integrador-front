@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,11 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { BsThreeDots } from "react-icons/bs";
 
 
-const TablaClases = (props)  =>{
-    const subjectName = props.dataClase.subjectName;
-    const CRN = props.dataClase.CRN;
+const TablaVicerrector = (props)  =>{
+    const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: theme.palette.common.black,
@@ -32,30 +34,24 @@ const TablaClases = (props)  =>{
         },
       }));
 
-    const session = JSON.parse(window.sessionStorage.getItem('session'));
-	if (session) {
-	}
-
     return (
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
             <TableHead>
             <TableRow>
-                <StyledTableCell>Clase</StyledTableCell>
-                <StyledTableCell align="right">CRN</StyledTableCell>
-                <StyledTableCell align="right">Fecha</StyledTableCell>
-                <StyledTableCell align="right">Registro</StyledTableCell>
+                <StyledTableCell>Departamento</StyledTableCell>
+                <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
+                <StyledTableCell align="right">Detalle</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
-            {props.infoClase?.map((clase) => (
-            <StyledTableRow key={clase.date}>
+            {props.data?.map((departamento) => (
+            <StyledTableRow key={departamento.departmentId}>
               <StyledTableCell component="th" scope="row">
-                {subjectName}
+                {departamento.departmentName}
               </StyledTableCell>
-              <StyledTableCell align="right">{CRN}</StyledTableCell>
-              <StyledTableCell align="right">{clase.date}</StyledTableCell>
-              <StyledTableCell align="right">{clase.codeDescription}</StyledTableCell>
+              <StyledTableCell align="right">{departamento.average}%</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { navigate("/vicerrector/reporte-departamento", {state: departamento}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>
@@ -64,4 +60,4 @@ const TablaClases = (props)  =>{
   );
 }
 
-export default TablaClases;
+export default TablaVicerrector;

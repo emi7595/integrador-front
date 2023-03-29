@@ -1,6 +1,10 @@
 .header {
 	background-color: #EDEEF3;
-	color: #000000;
+	color: #333333;
+}
+
+.texto-udem{
+	color: #333333;
 }
 
 .lista p {
@@ -102,7 +106,7 @@ button:focus {
 .btn-color {
 	border-radius: 15px;
 	color: #fff;
-	background: #000000;
+	background: #333333;
 	padding: 15px;
 	cursor: pointer;
 	border: none !important;
@@ -167,7 +171,7 @@ a:hover {
 }
 
 .anchor {
-	color: #000000 !important;
+	color: #333333 !important;
 }
 
 
@@ -218,7 +222,7 @@ a:hover {
 }
 
 .nav-link{
-	color: black;
+	color: #333333;
 	cursor: pointer;
 }
 
