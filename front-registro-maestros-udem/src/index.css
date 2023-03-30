@@ -236,6 +236,11 @@ a:hover {
 	width: 100%;
 }
 
+.boton-descargar{
+	color: #333333;
+	text-decoration: none !important;
+}
+
 .leyenda{
 	display: flex;
 	flex-direction: column;

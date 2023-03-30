@@ -125,10 +125,10 @@ const DirectorDepartamentoReporteProfesorClase = () => {
     			<div className="row flex-nowrap">
                     <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
 						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-							<a href="#" className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
+							<p className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
 								<BiUserCircle className="icono-usuario"></BiUserCircle>
 								<span className="p-nombre d-none d-sm-inline">{user}</span>
-							</a>
+							</p>
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/director-departamento") }}>
@@ -169,6 +169,7 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
 									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+									<p className='px-1 boton-descargar'>Descargar</p>
 										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 									</CSVLink>
 									<TablaInfoDirectorDepartamentoProfesorClase departamento={location.state.departamento} profesor={location.state.employeeName} clase={location.state.subjectName} clave={location.state.subject_CVE}></TablaInfoDirectorDepartamentoProfesorClase>
