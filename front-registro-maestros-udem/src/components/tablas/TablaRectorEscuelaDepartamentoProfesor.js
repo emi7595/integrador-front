@@ -40,20 +40,20 @@ const TablaRectorEscuelaDepartamentoProfesor = (props)  =>{
             <TableHead>
             <TableRow>
                 <StyledTableCell>Clase</StyledTableCell>
-                <StyledTableCell align="right">CRN</StyledTableCell>
+                <StyledTableCell align="right">Clave</StyledTableCell>
                 <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
                 <StyledTableCell align="right">Detalle</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
             {props.data?.map((clase) => (
-            <StyledTableRow key={clase.CRN}>
+            <StyledTableRow key={clase.subject_CVE}>
               <StyledTableCell component="th" scope="row">
                 {clase.subjectName}
               </StyledTableCell>
-              <StyledTableCell align="right">{clase.CRN}</StyledTableCell>
-              <StyledTableCell align="right">{clase.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/rector/reporte-escuela/reporte-departamento/reporte-profesor/reporte-clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell align="right">{clase.subject_CVE}</StyledTableCell>
+              <StyledTableCell align="right">{clase.average === -1 ? "N/A" : `${clase.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { clase.escuela = props.escuela; clase.departamento = props.departamento; clase.profesor = props.profesor; clase.average === -1 ? navigate("/rector/reporte-escuela/reporte-departamento/reporte-profesor") : navigate("/rector/reporte-escuela/reporte-departamento/reporte-profesor/reporte-clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

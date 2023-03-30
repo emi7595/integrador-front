@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoGraph } from "react-icons/go";
 import GraficaClases from '../Graficas/GraficaClases';
 import TablaRector from '../tablas/TablaRector';
+import { CSVLink } from 'react-csv';
+import { FaFileDownload } from 'react-icons/fa';
 
 const Rector = () => {
 	const [data, setData] = React.useState(null);
@@ -80,6 +82,26 @@ const Rector = () => {
 		}
 	}, []);
 
+	function handleDatos() {
+		let datos = [];
+		data?.map((escuela) => (
+			datos.push({escuela: escuela.schoolName, promedioAsistencia: `${escuela.average}%`
+			, asistencia: escuela.codes[0], retraso: escuela.codes[1], salida: escuela.codes[2], retrasoSalida: escuela.codes[3], falta: escuela.codes[4]
+			})
+        ))
+
+		return datos
+	}
+
+	const headers = [
+		{ label: 'Escuela', key: 'escuela' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+		{ label: 'Asistencia', key: 'asistencia' },
+		{ label: 'Retraso Inicial', key: 'retraso' },
+		{ label: 'Salida Previa', key: 'salida' },
+		{ label: 'Retraso y Salida', key: 'retrasoSalida' },
+		{ label: 'Falta', key: 'falta' },
+	];
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -115,7 +137,7 @@ const Rector = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -131,7 +153,9 @@ const Rector = () => {
 											</div>
 										</div>
 									</div>
-									
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename="Reporte Rector">
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
 									<TablaRector data={data}></TablaRector>
 								</div>
 							</div>

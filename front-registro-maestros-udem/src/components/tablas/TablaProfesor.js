@@ -39,8 +39,8 @@ const TablaProfesor = (props)  =>{
             <TableHead>
             <TableRow>
                 <StyledTableCell>Clase</StyledTableCell>
-                <StyledTableCell align="right">CRN</StyledTableCell>
-                <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
+                <StyledTableCell >Clave</StyledTableCell>
+                <StyledTableCell >Promedio Asistencia</StyledTableCell>
                 <StyledTableCell align="right">Detalle</StyledTableCell>
             </TableRow>
             </TableHead>
@@ -50,9 +50,9 @@ const TablaProfesor = (props)  =>{
               <StyledTableCell component="th" scope="row">
                 {clase.subjectName}
               </StyledTableCell>
-              <StyledTableCell align="right">{clase.CRN}</StyledTableCell>
-              <StyledTableCell align="right">{clase.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/profesor/reporte/clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell >{clase.subject_CVE}</StyledTableCell>
+              <StyledTableCell >{clase.average === -1 ? "N/A" : `${clase.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { clase.average === -1 ? navigate("/profesor") : navigate("/profesor/reporte/clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

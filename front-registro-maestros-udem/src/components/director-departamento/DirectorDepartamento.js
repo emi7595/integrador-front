@@ -11,6 +11,7 @@ import { GoGraph } from "react-icons/go";
 import GraficaClases from '../Graficas/GraficaClases';
 import TablaDepartamentoProfesores from '../tablas/TablaDepartamentoProfesores';
 import { CSVLink } from 'react-csv';
+import TablaInfoDirectorDepartamento from '../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamento';
 
 const DirectorDepartamento = () => {
 	const [data, setData] = React.useState(null);
@@ -21,6 +22,7 @@ const DirectorDepartamento = () => {
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
 	const [nombreReporte, setNombreReporte] = React.useState(null);
+	const [departmentName, setDepartmentName] = React.useState(null);
 	const navigate = useNavigate();
 
 	// Get session storage information
@@ -73,9 +75,9 @@ const DirectorDepartamento = () => {
 							setFalta(sum)
 						}
 					}
-					console.log(json)
 					setNombreReporte(`Reporte ${json[0].departmentName}`)
 					setData(json)
+					setDepartmentName(json[0].departmentName)
 					setTotal(totalCodes)
 				})
                 .catch(error => console.error(error));
@@ -143,7 +145,7 @@ const DirectorDepartamento = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -162,7 +164,9 @@ const DirectorDepartamento = () => {
 									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
 										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 									</CSVLink>
-									<TablaDepartamentoProfesores data={data}></TablaDepartamentoProfesores>
+									<TablaInfoDirectorDepartamento dataClase={departmentName}></TablaInfoDirectorDepartamento>
+									<div  className="mb-4" ></div>
+									<TablaDepartamentoProfesores data={data} departamento={departmentName}></TablaDepartamentoProfesores>
 								</div>
 							</div>
 						</div>

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,12 +7,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { BsThreeDots } from "react-icons/bs";
 
 
-const TablaRectorEscuelaDepartamento = (props)  =>{
-    const navigate = useNavigate()
+const TablaInfoDirectorDepartamentoProfesor = (props)  =>{
+    // const departamento = props.dataClase.departmentName;
+    // console.log(departamento);
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: theme.palette.common.black,
@@ -34,32 +32,32 @@ const TablaRectorEscuelaDepartamento = (props)  =>{
         },
       }));
 
+    const session = JSON.parse(window.sessionStorage.getItem('session'));
+	if (session) {
+	}
+
     return (
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
             <TableHead>
             <TableRow>
+                <StyledTableCell >Departamento</StyledTableCell>
                 <StyledTableCell>Profesor</StyledTableCell>
-                <StyledTableCell align="right">Nómina</StyledTableCell>
-                <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
-                <StyledTableCell align="right">Detalle</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
-            {props.data?.map((profesor) => (
-            <StyledTableRow key={profesor.nomina}>
+            <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                {profesor.employeeName}
+                {props.departamento}
               </StyledTableCell>
-              <StyledTableCell align="right">{profesor.nomina}</StyledTableCell>
-              <StyledTableCell align="right">{profesor.average === -1 ? "N/A" : `${profesor.average}%`}</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => {  profesor.escuela = props.escuela; profesor.departamento = props.departamento; profesor.average === -1 ? navigate("/rector/reporte-escuela/reporte-departamento") : navigate("/rector/reporte-escuela/reporte-departamento/reporte-profesor", {state: profesor}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell>
+                {props.profesor}
+              </StyledTableCell>
             </StyledTableRow>
-          ))}
             </TableBody>
         </Table>
         </TableContainer>
   );
 }
 
-export default TablaRectorEscuelaDepartamento;
+export default TablaInfoDirectorDepartamentoProfesor;

@@ -8,6 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaRectorEscuela from '../../tablas/TablaRectorEscuela';
+import { CSVLink } from 'react-csv';
+import { FaFileDownload } from 'react-icons/fa';
+import TablaInfoVicerrector from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrector';
+import TablaInfoRectorEscuela from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuela';
 
 const RectorReporteEscuela = () => {
     const location = useLocation();
@@ -18,6 +22,7 @@ const RectorReporteEscuela = () => {
 	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
+	const [nombreReporte, setNombreReporte] = React.useState(null);
 	const navigate = useNavigate();
 
 	// Get session storage information
@@ -72,6 +77,7 @@ const RectorReporteEscuela = () => {
 							setFalta(sum)
 						}
 					}
+					setNombreReporte(`Reporte ${json[0].schoolName}`)
 					setData(json)
 					setTotal(totalCodes)
 				})
@@ -82,6 +88,27 @@ const RectorReporteEscuela = () => {
 			navigate("/");
 		}
 	}, []);
+
+	function handleDatos() {
+		let datos = [];
+		data?.map((departamento) => (
+			datos.push({departamento: departamento.departmentName, promedioAsistencia: `${departamento.average}%`
+			, asistencia: departamento.codes[0], retraso: departamento.codes[1], salida: departamento.codes[2], retrasoSalida: departamento.codes[3], falta: departamento.codes[4]
+			})
+        ))
+
+		return datos
+	}
+
+	const headers = [
+		{ label: 'Departamento', key: 'departamento' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+		{ label: 'Asistencia', key: 'asistencia' },
+		{ label: 'Retraso Inicial', key: 'retraso' },
+		{ label: 'Salida Previa', key: 'salida' },
+		{ label: 'Retraso y Salida', key: 'retrasoSalida' },
+		{ label: 'Falta', key: 'falta' },
+	];
 
 
 	// --- COMPONENT (HTML) ---
@@ -118,7 +145,7 @@ const RectorReporteEscuela = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -134,8 +161,12 @@ const RectorReporteEscuela = () => {
 											</div>
 										</div>
 									</div>
-									
-									<TablaRectorEscuela data={data}></TablaRectorEscuela>
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
+									<TablaInfoRectorEscuela escuela={location.state.schoolName}></TablaInfoRectorEscuela>
+									<div  className="mb-4" ></div>
+									<TablaRectorEscuela data={data} escuela={location.state.schoolName}></TablaRectorEscuela>
 								</div>
 							</div>
 						</div>

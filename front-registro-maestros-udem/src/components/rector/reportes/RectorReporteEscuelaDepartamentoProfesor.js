@@ -9,6 +9,9 @@ import { BiUserCircle } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaRectorEscuelaDepartamentoProfesor from '../../tablas/TablaRectorEscuelaDepartamentoProfesor';
+import { CSVLink } from 'react-csv';
+import { FaFileDownload } from 'react-icons/fa';
+import TablaInfoRectorEscuelaDepartamentoProfesor from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuelaDepartamentoProfesor';
 
 
 const RectorReporteEscuelaDepartamentoProfesor = () => {
@@ -84,6 +87,29 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 		}
 	}, []);
 
+	function handleDatos() {
+		let datos = [];
+		data?.map((clase) => (
+			datos.push({clase: clase.subjectName, clave: clase.subject_CVE, promedioAsistencia: `${clase.average}%`,
+				asistencia: clase.codes[0], retraso: clase.codes[1], salida: clase.codes[2], retrasoSalida: clase.codes[3], falta: clase.codes[4]})
+        ))
+
+		return datos
+	}
+
+	  const headers = [
+		{ label: 'Clase', key: 'clase' },
+		{ label: 'Clave', key: 'clave' },
+		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
+		{ label: 'Asistencia', key: 'asistencia' },
+		{ label: 'Retraso Inicial', key: 'retraso' },
+		{ label: 'Salida Previa', key: 'salida' },
+		{ label: 'Retraso y Salida', key: 'retrasoSalida' },
+		{ label: 'Falta', key: 'falta' },
+	  ];
+
+	let nombreReporte = `Reporte ${location.state.departmentName} - ${location.state.employeeName}`
+
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -119,7 +145,7 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -135,8 +161,12 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 											</div>
 										</div>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */ }
-									<TablaRectorEscuelaDepartamentoProfesor data={data}></TablaRectorEscuelaDepartamentoProfesor>
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
+									<TablaInfoRectorEscuelaDepartamentoProfesor escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName}></TablaInfoRectorEscuelaDepartamentoProfesor>
+									<div  className="mb-4" ></div>
+									<TablaRectorEscuelaDepartamentoProfesor data={data} escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName}></TablaRectorEscuelaDepartamentoProfesor>
 								</div>
 							</div>
 						</div>

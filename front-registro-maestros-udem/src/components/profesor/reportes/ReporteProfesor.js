@@ -89,7 +89,7 @@ const ReporteProfesor = () => {
 	function handleDatos() {
 		let datos = [];
 		data?.map((clase) => (
-			datos.push({clase: clase.subjectName, crn: clase.CRN, promedioAsistencia: `${clase.average}%`,
+			datos.push({clase: clase.subjectName, clave: clase.subject_CVE, promedioAsistencia: `${clase.average}%`,
 				asistencia: clase.codes[0], retraso: clase.codes[1], salida: clase.codes[2], retrasoSalida: clase.codes[3], falta: clase.codes[4]})
         ))
 
@@ -98,7 +98,7 @@ const ReporteProfesor = () => {
 
 	  const headers = [
 		{ label: 'Clase', key: 'clase' },
-		{ label: 'CRN', key: 'crn' },
+		{ label: 'Clave', key: 'clave' },
 		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
 		{ label: 'Asistencia', key: 'asistencia' },
 		{ label: 'Retraso Inicial', key: 'retraso' },
@@ -158,7 +158,7 @@ const ReporteProfesor = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-3">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>

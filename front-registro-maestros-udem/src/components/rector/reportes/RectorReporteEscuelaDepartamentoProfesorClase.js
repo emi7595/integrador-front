@@ -9,9 +9,13 @@ import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
+import { CSVLink } from 'react-csv';
+import { FaFileDownload } from 'react-icons/fa';
+import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
 
 const RectorReporteEscuelaDepartamentoProfesorClase = () => {
     const location = useLocation();
+	console.log(location)
 	const [infoClase, setInfoClase] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -98,6 +102,23 @@ const RectorReporteEscuelaDepartamentoProfesorClase = () => {
 		}
 	}, []);
 
+	function handleDatos() {
+		let datos = [];
+		infoClase?.map((clase) => (
+			datos.push({clase: location.state.subjectName, clave: location.state.subject_CVE, fecha: clase.date.slice(0, -9), registro: clase.codeDescription})
+        ))
+
+		return datos
+	}
+
+	const headers = [
+		{ label: 'Clase', key: 'clase' },
+		{ label: 'Clave', key: 'clave' },
+		{ label: 'Fecha', key: 'fecha' },
+		{ label: 'Registro', key: 'registro' },
+	  ];
+	  let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`
+
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -133,7 +154,7 @@ const RectorReporteEscuelaDepartamentoProfesorClase = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -150,6 +171,11 @@ const RectorReporteEscuelaDepartamentoProfesorClase = () => {
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
+									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
+										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+									</CSVLink>
+									<TablaInfoVicerrectorDepartamentoProfesorClase escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName} clase={location.state.subjectName} clave={location.state.subject_CVE}></TablaInfoVicerrectorDepartamentoProfesorClase>
+									<div  className="mb-4" ></div>
 									<TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>
 								</div>
 							</div>

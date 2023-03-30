@@ -50,8 +50,8 @@ const TablaRectorEscuela = (props)  =>{
               <StyledTableCell component="th" scope="row">
                 {departamento.departmentName}
               </StyledTableCell>
-              <StyledTableCell align="right">{departamento.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/rector/reporte-escuela/reporte-departamento", {state: departamento}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell align="right">{departamento.average === -1 ? "N/A" : `${departamento.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { departamento.escuela = props.escuela ;departamento.average === -1 ? navigate("/rector/reporte-escuela") : navigate("/rector/reporte-escuela/reporte-departamento", {state: departamento}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

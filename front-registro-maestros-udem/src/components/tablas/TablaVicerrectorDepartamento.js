@@ -52,8 +52,8 @@ const TablaVicerrectorDepartamento = (props)  =>{
                 {profesor.employeeName}
               </StyledTableCell>
               <StyledTableCell align="right">{profesor.nomina}</StyledTableCell>
-              <StyledTableCell align="right">{profesor.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/vicerrector/reporte-departamento/reporte-profesor", {state: profesor}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell align="right">{profesor.average === -1 ? "N/A" : `${profesor.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { profesor.escuela = props.escuela; profesor.departamento = props.departamento; profesor.average === -1 ? navigate("/vicerrector/reporte-departamento") : navigate("/vicerrector/reporte-departamento/reporte-profesor", {state: profesor}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

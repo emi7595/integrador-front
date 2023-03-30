@@ -40,7 +40,7 @@ const TablaVicerrectorDepartamentoProfesor = (props)  =>{
             <TableHead>
             <TableRow>
                 <StyledTableCell>Clase</StyledTableCell>
-                <StyledTableCell align="right">CRN</StyledTableCell>
+                <StyledTableCell align="right">Clave</StyledTableCell>
                 <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
                 <StyledTableCell align="right">Detalle</StyledTableCell>
             </TableRow>
@@ -51,9 +51,9 @@ const TablaVicerrectorDepartamentoProfesor = (props)  =>{
               <StyledTableCell component="th" scope="row">
                 {clase.subjectName}
               </StyledTableCell>
-              <StyledTableCell align="right">{clase.CRN}</StyledTableCell>
-              <StyledTableCell align="right">{clase.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/vicerrector/reporte-departamento/reporte-profesor/reporte-clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell align="right">{clase.subject_CVE}</StyledTableCell>
+              <StyledTableCell align="right">{clase.average === -1 ? "N/A" : `${clase.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { clase.escuela=props.escuela; clase.departamento = props.departamento; clase.profesor=props.profesor; clase.average === -1 ? navigate("/vicerrector/reporte-departamento/reporte-profesor") : navigate("/vicerrector/reporte-departamento/reporte-profesor/reporte-clase", {state: clase}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

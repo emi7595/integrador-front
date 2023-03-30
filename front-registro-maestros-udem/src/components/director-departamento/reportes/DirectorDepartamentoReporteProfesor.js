@@ -11,6 +11,7 @@ import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaClases';
 import TablaDepartamentoProfesorClase from '../../tablas/TablaDepartamentoProfesorClase';
 import { CSVLink } from 'react-csv';
+import TablaInfoDirectorDepartamentoProfesor from '../../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamentoProfesor';
 
 
 const DirectorDepartamentoReporteProfesor = () => {
@@ -87,7 +88,7 @@ const DirectorDepartamentoReporteProfesor = () => {
 	function handleDatos() {
 		let datos = [];
 		data?.map((clase) => (
-			datos.push({clase: clase.subjectName, crn: clase.CRN, promedioAsistencia: `${clase.average}%`,
+			datos.push({clase: clase.subjectName, clave: clase.subject_CVE, promedioAsistencia: `${clase.average}%`,
 				asistencia: clase.codes[0], retraso: clase.codes[1], salida: clase.codes[2], retrasoSalida: clase.codes[3], falta: clase.codes[4]})
         ))
 
@@ -96,7 +97,7 @@ const DirectorDepartamentoReporteProfesor = () => {
 
 	  const headers = [
 		{ label: 'Clase', key: 'clase' },
-		{ label: 'CRN', key: 'crn' },
+		{ label: 'Clave', key: 'clave' },
 		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
 		{ label: 'Asistencia', key: 'asistencia' },
 		{ label: 'Retraso Inicial', key: 'retraso' },
@@ -105,7 +106,7 @@ const DirectorDepartamentoReporteProfesor = () => {
 		{ label: 'Falta', key: 'falta' },
 	  ];
 
-	let nombreReporte = `Reporte ${location.state.employeeName}`
+	let nombreReporte = `Reporte ${location.state.departmentName} - ${location.state.employeeName}`
 
 	// --- COMPONENT (HTML) ---
 	return (
@@ -141,7 +142,7 @@ const DirectorDepartamentoReporteProfesor = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-2">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -160,7 +161,9 @@ const DirectorDepartamentoReporteProfesor = () => {
 									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
 										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 									</CSVLink>
-									<TablaDepartamentoProfesorClase data={data}></TablaDepartamentoProfesorClase>
+									<TablaInfoDirectorDepartamentoProfesor departamento={location.state.departamento} profesor={location.state.employeeName}></TablaInfoDirectorDepartamentoProfesor>
+									<div  className="mb-4" ></div>
+									<TablaDepartamentoProfesorClase data={data} departamento={location.state.departamento} profesor={location.state.employeeName}></TablaDepartamentoProfesorClase>
 								</div>
 							</div>
 						</div>

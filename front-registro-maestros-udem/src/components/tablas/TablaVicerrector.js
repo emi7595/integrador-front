@@ -50,8 +50,8 @@ const TablaVicerrector = (props)  =>{
               <StyledTableCell component="th" scope="row">
                 {departamento.departmentName}
               </StyledTableCell>
-              <StyledTableCell align="right">{departamento.average}%</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { navigate("/vicerrector/reporte-departamento", {state: departamento}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell align="right">{departamento.average === -1 ? "N/A" : `${departamento.average}%`}</StyledTableCell>
+              <StyledTableCell align="right"><a onClick={() => { departamento.average === -1 ? navigate("/vicerrector") : navigate("/vicerrector/reporte-departamento", {state: departamento}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

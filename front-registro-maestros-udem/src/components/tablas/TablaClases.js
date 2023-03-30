@@ -41,21 +41,17 @@ const TablaClases = (props)  =>{
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
             <TableHead>
             <TableRow>
-                <StyledTableCell>Clase</StyledTableCell>
-                <StyledTableCell align="right">CRN</StyledTableCell>
-                <StyledTableCell align="right">Fecha</StyledTableCell>
-                <StyledTableCell align="right">Registro</StyledTableCell>
+                <StyledTableCell>Fecha</StyledTableCell>
+                <StyledTableCell >Registro</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
             {props.infoClase?.map((clase) => (
             <StyledTableRow key={clase.date}>
               <StyledTableCell component="th" scope="row">
-                {subjectName}
+                {clase.date.slice(0, -9)}
               </StyledTableCell>
-              <StyledTableCell align="right">{CRN}</StyledTableCell>
-              <StyledTableCell align="right">{clase.date}</StyledTableCell>
-              <StyledTableCell align="right">{clase.codeDescription}</StyledTableCell>
+              <StyledTableCell>{clase.codeDescription}</StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>

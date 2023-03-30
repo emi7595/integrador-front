@@ -12,6 +12,8 @@ import GraficaClases from '../../Graficas/GraficaClases';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
+import TablaInfo from '../../tablas/tablasInfo/profesor/TablaInfoProfesorClase';
+import TablaInfoProfesorClase from '../../tablas/tablasInfo/profesor/TablaInfoProfesorClase';
 
 const ReporteClases = () => {
     const location = useLocation();
@@ -103,7 +105,7 @@ const ReporteClases = () => {
 	function handleDatos() {
 		let datos = [];
 		infoClase?.map((clase) => (
-			datos.push({clase: location.state.subjectName, crn: location.state.CRN, fecha: clase.date, registro: clase.codeDescription})
+			datos.push({clase: location.state.subjectName, clave: location.state.subject_CVE, fecha: clase.date.slice(0, -9), registro: clase.codeDescription})
         ))
 
 		return datos
@@ -111,7 +113,7 @@ const ReporteClases = () => {
 
 	  const headers = [
 		{ label: 'Clase', key: 'clase' },
-		{ label: 'CRN', key: 'crn' },
+		{ label: 'Clave', key: 'clave' },
 		{ label: 'Fecha', key: 'fecha' },
 		{ label: 'Registro', key: 'registro' },
 	  ];
@@ -166,7 +168,7 @@ const ReporteClases = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
+						<div className="container px-0 pt-3">
 							<div className="row m-0 justify-content-center mt-5">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
@@ -186,6 +188,8 @@ const ReporteClases = () => {
 									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
 										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 									</CSVLink>
+									<TablaInfoProfesorClase dataClase={location.state}></TablaInfoProfesorClase>
+									<div  className="mb-4" ></div>
 									<TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>
 								</div>
 							</div>
