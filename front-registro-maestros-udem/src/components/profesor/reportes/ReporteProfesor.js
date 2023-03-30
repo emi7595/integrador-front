@@ -48,7 +48,7 @@ const ReporteProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + nomina)
+			fetch("http://172.32.137.116:5096/Reports/Professor/GetAttendanceAverage/" + nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -134,7 +134,7 @@ const ReporteProfesor = () => {
 								</li>
 								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/reporte") }}>
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
+										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
 								<li className="nav-item">
@@ -159,7 +159,7 @@ const ReporteProfesor = () => {
 							</div>
 						</div>
 						<div className="container px-0 pt-3">
-							<div className="row m-0 justify-content-center mt-5">
+							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row grafica">
@@ -175,11 +175,16 @@ const ReporteProfesor = () => {
 										</div>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
-									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
-										<p className='px-1 boton-descargar'>Descargar</p>
-										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
-									</CSVLink>
+									<div className='row m-0 justify-content-end'>
+										<div className='btn btn-dark col-auto px-3 mb-3 align-items-center'>
+											<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none'>
+												<span className='px-1 boton-descargar'>Descargar</span>
+												<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+											</CSVLink>
+										</div>
+									</div>
 									<TablaProfesor data={data}></TablaProfesor>
+									<div  className="mb-5" ></div>
 								</div>
 							</div>
 						</div>

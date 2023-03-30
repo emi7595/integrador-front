@@ -45,7 +45,7 @@ const Rector = () => {
 					navigate("/vicerrector"); break;
 				default: break;
 			}
-			fetch("http://192.168.29.1:5096/Reports/Rector/GetUDEMAverage/")
+			fetch("http://172.32.137.116:5096/Reports/Rector/GetUDEMAverage/")
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -118,7 +118,7 @@ const Rector = () => {
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/rector") }}>
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
+										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
 							</ul>
@@ -138,7 +138,7 @@ const Rector = () => {
 							</div>
 						</div>
 						<div className="container px-0 pt-2">
-							<div className="row m-0 justify-content-center mt-5">
+							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row grafica">
@@ -153,11 +153,16 @@ const Rector = () => {
 											</div>
 										</div>
 									</div>
-									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename="Reporte Rector">
-									<p className='px-1 boton-descargar'>Descargar</p>
-										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
-									</CSVLink>
+									<div className='row m-0 justify-content-end'>
+										<div className='btn btn-dark col-auto px-3 mb-3 align-items-center'>
+											<CSVLink data={handleDatos()} headers={headers} filename={"Reporte Rector"} className='text-decoration-none'>
+												<span className='px-1 boton-descargar'>Descargar</span>
+												<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+											</CSVLink>
+										</div>
+									</div>
 									<TablaRector data={data}></TablaRector>
+									<div  className="mb-5" ></div>
 								</div>
 							</div>
 						</div>

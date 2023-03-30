@@ -43,7 +43,7 @@ const ScanQRCode = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+			fetch("http://172.32.137.116:5096/QR/GetCourseData/" + nomina)
 				.then(response => response.json())
 				.then(data => {
 					// The professor is currently on class
@@ -62,7 +62,7 @@ const ScanQRCode = () => {
 
 	// --- FUNCTION THAT GENERATES A QR CODE FOR THE CURRENT CLASS ---
 	const getQRCode = function (nomina, type) {
-		fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
+		fetch("http://172.32.137.116:5096/QR/GetCourseData/" + nomina)
 			.then(response => response.json())
 			.then(data => {
 				// The professor is currently on class
@@ -72,7 +72,7 @@ const ScanQRCode = () => {
 	
 					// Define the QR code component
 					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://192.168.29.1:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+						<QRCodeSVG value={`http://172.32.137.116:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
 					);
 	
 					// Render the QR code component to a string
@@ -81,7 +81,7 @@ const ScanQRCode = () => {
 					// Render QR code and link to HTML component
 					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.29.1:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://172.32.137.116:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
 				// There are currently no classes; QR code can't be generated
 				else {
@@ -107,7 +107,7 @@ const ScanQRCode = () => {
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/qr") }}>
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
+										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
 									</a>
 								</li>
 								<li className="nav-item">
@@ -142,7 +142,7 @@ const ScanQRCode = () => {
 							</div>
 						</div>
 						<div className="container px-0 pt-5">
-							<div className="row m-0 justify-content-center mt-5">
+							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
 									<h1 className="mb-5 " id="currentClass"></h1>
 									<h3 className="mb-0 p-escanear">Escanee el código QR desde su celular para registrar su asistencia.</h3>

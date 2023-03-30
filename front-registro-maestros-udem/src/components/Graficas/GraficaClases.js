@@ -18,7 +18,8 @@ function data2 (props) {
 //   { name: 'Group E', value: 13 },
 // ];
 
-const COLORS = ['#FF0000', '#FF00E5', '#0CFFF0', '#6891FA','#DBFF00'];
+//const COLORS = ['#FF0000', '#FF00E5', '#0CFFF0', '#6891FA','#DBFF00'];
+const COLORS = ['#FFE700', '#333333', '#355070', '#DB5461','#F18805'];
 
 // const RADIAN = Math.PI / 180;
 // const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {

@@ -50,7 +50,7 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
+			fetch("http://172.32.137.116:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -126,7 +126,7 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/rector") }}>
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
+										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
 							</ul>
@@ -146,7 +146,7 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 							</div>
 						</div>
 						<div className="container px-0 pt-2">
-							<div className="row m-0 justify-content-center mt-5">
+							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row grafica">
@@ -161,13 +161,18 @@ const RectorReporteEscuelaDepartamentoProfesor = () => {
 											</div>
 										</div>
 									</div>
-									<CSVLink className="d-flex justify-content-end px-3" data={handleDatos()} headers={headers} filename={nombreReporte}>
-									<p className='px-1 boton-descargar'>Descargar</p>
-										<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
-									</CSVLink>
+									<div className='row m-0 justify-content-end'>
+										<div className='btn btn-dark col-auto px-3 mb-3 align-items-center'>
+											<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none'>
+												<span className='px-1 boton-descargar'>Descargar</span>
+												<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+											</CSVLink>
+										</div>
+									</div>
 									<TablaInfoRectorEscuelaDepartamentoProfesor escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName}></TablaInfoRectorEscuelaDepartamentoProfesor>
 									<div  className="mb-4" ></div>
 									<TablaRectorEscuelaDepartamentoProfesor data={data} escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName}></TablaRectorEscuelaDepartamentoProfesor>
+									<div  className="mb-5" ></div>
 								</div>
 							</div>
 						</div>

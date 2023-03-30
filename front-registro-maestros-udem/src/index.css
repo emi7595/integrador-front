@@ -11,6 +11,14 @@
 	margin: 0;
 }
 
+a:hover {
+	color: #333333 !important;
+}
+
+.active-link {
+	text-decoration: underline #FFE700 3px !important;
+}
+
 body {
 	color: #000;
 	overflow-x: hidden;
@@ -174,8 +182,6 @@ a:hover {
 	color: #333333 !important;
 }
 
-
-
 .p-salir {
 	padding-right: 10px;
 	font-size: 16px !important;
@@ -201,7 +207,8 @@ a:hover {
 }
 
 .icono-descargar{
-	font-size: 28px;
+	font-size: 24px;
+	color: #FFFFFF;
 }
 
 #currentClass {
@@ -236,9 +243,10 @@ a:hover {
 	width: 100%;
 }
 
-.boton-descargar{
-	color: #333333;
+.boton-descargar {
+	color: #FFFFFF;
 	text-decoration: none !important;
+	font-size: 18px;
 }
 
 .leyenda{
@@ -258,35 +266,40 @@ a:hover {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #FF0000;
+	/*background-color: #FF0000;*/
+	background-color: #FFE700;
 	margin-right: 10px;
 }
 .retraso {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #FF00E5;
+	/*background-color: #FF00E5;*/
+	background-color: #333333;
 	margin-right: 10px;
 }
 .salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #0CFFF0;
+	/*background-color: #0CFFF0;*/
+	background-color: #355070;
 	margin-right: 10px;
 }
 .retraso-salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #6891FA;
+	/*background-color: #6891FA;*/
+	background-color: #DB5461;
 	margin-right: 10px;
 }
 .falta {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #DBFF00;
+	/*background-color: #DBFF00;*/
+	background-color: #F18805;
 	margin-right: 10px;
 }
   

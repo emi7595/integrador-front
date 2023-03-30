@@ -47,7 +47,7 @@ const LoginForm = () => {
 			}
 
 			// Post request to database
-			const response = await fetch('http://192.168.29.1:5096/Login', {
+			const response = await fetch('http://172.32.137.116:5096/Login', {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
@@ -109,7 +109,7 @@ const LoginForm = () => {
 	// --- COMPONENT (HTML) ---
 	return (
 		<>
-			<div className="container px-4 py-5 mx-auto contenedor">
+			<div className="container px-4 py-3 mx-auto contenedor">
 				<div className="card card0">
 					<div className="d-flex flex-lg-row flex-column-reverse contenedor2">
 						<div className="card card1 cardizquierda">
