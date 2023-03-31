@@ -51,7 +51,7 @@ const VicerrectorReporteDepartamento = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			fetch("http://172.32.137.116:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
+			fetch("http://192.168.3.6:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -149,7 +149,7 @@ const VicerrectorReporteDepartamento = () => {
 							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
-									<div className="row grafica">
+									<div className="row m-0 grafica white-card">
 										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
 										<div className='col-md-6 leyenda'>
 											<div>
@@ -162,12 +162,10 @@ const VicerrectorReporteDepartamento = () => {
 										</div>
 									</div>
 									<div className='row m-0 justify-content-end'>
-										<div className='btn btn-dark col-auto px-3 mb-3 align-items-center'>
-											<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none'>
-												<span className='px-1 boton-descargar'>Descargar</span>
-												<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
-											</CSVLink>
-										</div>
+										<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
+											<span className='px-1 boton-descargar'>Descargar</span>
+											<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
+										</CSVLink>
 									</div>
 									<TablaInfoVicerrectorDepartamento escuela={location.state.schoolName} departamento={location.state.departmentName}></TablaInfoVicerrectorDepartamento>
 									<div  className="mb-4" ></div>

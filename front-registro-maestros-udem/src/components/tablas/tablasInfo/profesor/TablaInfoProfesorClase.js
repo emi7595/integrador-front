@@ -14,7 +14,7 @@ const TablaInfoProfesorClase = (props)  =>{
     const clave = props.dataClase.subject_CVE;
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: theme.palette.common.black,
+          backgroundColor: '#333333',
           color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {

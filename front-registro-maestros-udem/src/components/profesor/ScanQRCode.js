@@ -43,7 +43,7 @@ const ScanQRCode = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://172.32.137.116:5096/QR/GetCourseData/" + nomina)
+			fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
 				.then(response => response.json())
 				.then(data => {
 					// The professor is currently on class
@@ -62,7 +62,7 @@ const ScanQRCode = () => {
 
 	// --- FUNCTION THAT GENERATES A QR CODE FOR THE CURRENT CLASS ---
 	const getQRCode = function (nomina, type) {
-		fetch("http://172.32.137.116:5096/QR/GetCourseData/" + nomina)
+		fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
 			.then(response => response.json())
 			.then(data => {
 				// The professor is currently on class
@@ -72,7 +72,7 @@ const ScanQRCode = () => {
 	
 					// Define the QR code component
 					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://172.32.137.116:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+						<QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
 					);
 	
 					// Render the QR code component to a string
@@ -81,7 +81,7 @@ const ScanQRCode = () => {
 					// Render QR code and link to HTML component
 					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://172.32.137.116:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
 				// There are currently no classes; QR code can't be generated
 				else {

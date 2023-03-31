@@ -14,7 +14,7 @@ const TablaInfoVicerrectorDepartamentoProfesor = (props)  =>{
     // console.log(departamento);
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: theme.palette.common.black,
+          backgroundColor: '#333333',
           color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -43,7 +43,7 @@ const TablaInfoVicerrectorDepartamentoProfesor = (props)  =>{
             <TableRow>
                 <StyledTableCell >Escuela</StyledTableCell>
                 <StyledTableCell >Departamento</StyledTableCell>
-                <StyledTableCell>Profesor</StyledTableCell>
+                <StyledTableCell>Docente</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>

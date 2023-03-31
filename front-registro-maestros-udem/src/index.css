@@ -11,10 +11,6 @@
 	margin: 0;
 }
 
-a:hover {
-	color: #333333 !important;
-}
-
 .active-link {
 	text-decoration: underline #FFE700 3px !important;
 }
@@ -73,6 +69,12 @@ button:focus {
 	background-repeat: 'no-repeat';
 	background-size: cover;
 	background-position: 'center'
+}
+
+.white-card {
+	border-radius: 5px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: #FFFFFF;
 }
 
 #logo {
@@ -136,10 +138,6 @@ button:focus {
 }
 
 a {
-	color: #000;
-}
-
-a:hover {
 	color: #000;
 }
 
@@ -208,7 +206,6 @@ a:hover {
 
 .icono-descargar{
 	font-size: 24px;
-	color: #FFFFFF;
 }
 
 #currentClass {
@@ -238,13 +235,17 @@ a:hover {
 	cursor: pointer;
 }
 
+.nav-link:hover {
+	color: #333333 !important;
+}
+
 .grafica{
 	height: 300px;
 	width: 100%;
+	margin-bottom: 20px !important;
 }
 
 .boton-descargar {
-	color: #FFFFFF;
 	text-decoration: none !important;
 	font-size: 18px;
 }
@@ -266,7 +267,6 @@ a:hover {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/*background-color: #FF0000;*/
 	background-color: #FFE700;
 	margin-right: 10px;
 }
@@ -274,32 +274,32 @@ a:hover {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/*background-color: #FF00E5;*/
 	background-color: #333333;
+	/*background-color: #FFEF5C;*/
 	margin-right: 10px;
 }
 .salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/*background-color: #0CFFF0;*/
 	background-color: #355070;
+	/*background-color: #FFF385;*/
 	margin-right: 10px;
 }
 .retraso-salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/*background-color: #6891FA;*/
 	background-color: #DB5461;
+	/*background-color: #A39300;*/
 	margin-right: 10px;
 }
 .falta {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/*background-color: #DBFF00;*/
 	background-color: #F18805;
+	/*background-color: #524900;*/
 	margin-right: 10px;
 }
   

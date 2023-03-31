@@ -16,7 +16,7 @@ const TablaDepartamentoProfesores = (props)  =>{
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: theme.palette.common.black,
+          backgroundColor: '#333333',
           color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -39,7 +39,7 @@ const TablaDepartamentoProfesores = (props)  =>{
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
             <TableHead>
             <TableRow>
-                <StyledTableCell>Profesor</StyledTableCell>
+                <StyledTableCell>Docente</StyledTableCell>
                 <StyledTableCell align="right">Nómina</StyledTableCell>
                 <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
                 <StyledTableCell align="right">Detalle</StyledTableCell>
