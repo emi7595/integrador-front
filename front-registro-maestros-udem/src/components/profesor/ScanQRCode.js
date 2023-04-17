@@ -47,8 +47,12 @@ const ScanQRCode = () => {
 				.then(response => response.json())
 				.then(data => {
 					// The professor is currently on class
-					if (data !== -1)
+					if (data !== -1) {
 						document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
+						document.getElementById("classInfo1").innerHTML = "<b>CRN:</b> " + data.CRN;
+						document.getElementById("classInfo2").innerHTML = "<b>Clave:</b> " + data.subject_CVE;
+						document.getElementById("classInfo3").innerHTML = "<b>Hora de Inicio:</b> " + data.startHour + "&emsp;&emsp;<b>Hora Final:</b> " + data.endHour;
+					}
 					// The professor isn't currently on class
 					else
 						document.getElementById("currentClass").innerHTML = "No hay clases en este momento";
@@ -80,6 +84,9 @@ const ScanQRCode = () => {
 	
 					// Render QR code and link to HTML component
 					document.getElementById("currentClass").innerHTML = "Clase actual: " + data.subjectName;
+					document.getElementById("classInfo1").innerHTML = "<b>CRN:</b> " + data.CRN;
+					document.getElementById("classInfo2").innerHTML = "<b>Clave:</b> " + data.subject_CVE;
+					document.getElementById("classInfo3").innerHTML = "<b>Hora de Inicio:</b> " + data.startHour + "&emsp;&emsp;<b>Hora Final:</b> " + data.endHour;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
 					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
@@ -141,12 +148,15 @@ const ScanQRCode = () => {
 								</div>
 							</div>
 						</div>
-						<div className="container px-0 pt-5">
-							<div className="row m-0 justify-content-center mt-3">
+						<div className="container px-0 pt-3">
+							<div className="row m-0 justify-content-center">
 								<div className="col-12 text-center">
-									<h1 className="mb-5 " id="currentClass"></h1>
+									<h1 className="mb-2 " id="currentClass"></h1>
+									<p className="mb-1 p-escanear" id="classInfo1"></p>
+									<p className="mb-1 p-escanear" id="classInfo2"></p>
+									<p className="mb-4 p-escanear" id="classInfo3"></p>
 									<h3 className="mb-0 p-escanear">Escanee el código QR desde su celular para registrar su asistencia.</h3>
-									<div className="row justify-content-center my-3 px-3 pb-4">
+									<div className="row justify-content-center my-3 px-3 pb-2">
 										<div className="col-12 col-md-6">
 											<div className="row justify-content-center mb-3">
 												<div className="col-6">
