@@ -131,7 +131,7 @@ const TablaFaltasJustificadasAceptadas = (props)  =>{
             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : []
             ).map((profesor) => (
-            <StyledTableRow key={profesor.nomina + profesor.subject_CVE + profesor.schedule + profesor.days + profesor.classroom}>
+            <StyledTableRow key={profesor.idReposition}>
               <StyledTableCell component="th" scope="row">
                 {profesor.employeeName}
               </StyledTableCell>

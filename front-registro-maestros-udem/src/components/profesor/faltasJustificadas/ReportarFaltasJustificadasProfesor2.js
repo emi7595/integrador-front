@@ -55,9 +55,13 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 			}
 			// Get current class that the professor is on
 			fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
-				.then(response => response.json())
+				.then(async (response) => {
+					const body = await response.text();
+					const data = body.length ? JSON.parse(body) : null;
+					return data;
+				})
 				.then(json => {
-					setData(json)
+					setData(json);
 				})
 				.catch(error => console.error(error));
 			fetch("http://192.168.3.6:5096/Repositions/Professor/GetClasses/" + nomina)
@@ -76,16 +80,35 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		var idCode = parseInt(razon)
-		var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "idCode": idCode }
-		console.log(jsonData)
-		const response = await fetch("http://192.168.3.6:5096/Repositions/CreateRepositionReport", {
-			method: 'POST',
-			mode: 'cors',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(jsonData)
-		});
-		console.log(response)
+		try {
+			var idCode = parseInt(razon);
+			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "idCode": idCode }
+			console.log(jsonData)
+			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateRepositionReport", {
+				method: 'POST',
+				mode: 'cors',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(jsonData)
+			});
+			if (!response.ok) {
+                throw new Error("Algo salió mal.");
+            }
+            else {
+                fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+				.then(async (response) => {
+					const body = await response.text();
+					const data = body.length ? JSON.parse(body) : null;
+					return data;
+				})
+				.then(json => {
+					setData(json);
+				})
+				.catch(error => console.error(error));
+            }
+		}
+		catch (error) {
+			console.error(error);
+		}
 	}
 	return (
 		<div>

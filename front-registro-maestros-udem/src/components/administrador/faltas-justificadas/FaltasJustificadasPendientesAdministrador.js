@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode} from "react-icons/bs";
+import { BsQrCode } from "react-icons/bs";
 import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
@@ -47,13 +47,17 @@ const FaltasJustificadasPendientesAdministrador = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			// Get current class that the professor is on
+			// Get all pending repositions
 			fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
-				.then(response => response.json())
-				.then(json => {
-					setData(json)
+				.then(async (response) => {
+					const body = await response.text();
+					const data = body.length ? JSON.parse(body) : null;
+					return data;
 				})
-                .catch(error => console.error(error));
+				.then(json => {
+					setData(json);
+				})
+				.catch(error => console.error(error));
 		}
 		// If user is not logged in, redirect to login
 		else {
@@ -61,23 +65,25 @@ const FaltasJustificadasPendientesAdministrador = () => {
 		}
 	}, []);
 
-	
-	  
+
+	function handleUpdateData(newData) {
+		setData(newData);
+	}
 
 	return (
 		<div>
 			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
-    			<div className="row flex-nowrap">
+				<div className="row flex-nowrap">
 					<SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */ }
+					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
 								<div className="col-auto px-0 m-3 d-flex flex-row justify-content-center align-items-center">
 									<p className="d-flex justify-content-center align-items-center m-0 pr-2 p-salir">Salir</p>
 									&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
-										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir"/>
+										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir" />
 									</a>&nbsp;&nbsp;
 								</div>
 							</div>
@@ -85,22 +91,24 @@ const FaltasJustificadasPendientesAdministrador = () => {
 						<div className="container px-0 pt-3">
 							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
-                                    <h1 className="mb-5 currentClass">Faltas Justificadas Pendientes</h1>
-									{ /* CONTAINERS FOR QR CODE */ }
-									{data && ( 
-									<TablaFaltasJustificadasPendientes
-                                        headers={["Profesor", "Nómina", "Clase", "Clave", "Horario", "Salón", "Num. Evento", "Aceptar"]} 
-                                        data={data}
-                                        from={"VerProfesoresAdministrador"}>
-                                    </TablaFaltasJustificadasPendientes>
+									<h1 className="mb-5 currentClass">Faltas Justificadas Pendientes</h1>
+									{ /* CONTAINERS FOR QR CODE */}
+									{data && (
+										<TablaFaltasJustificadasPendientes
+											//headers={["Profesor", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Salón", "Num. Evento", "Aceptar"]} 
+											headers={["Profesor", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Asignar salón y evento"]}
+											data={data}
+											actualizarData={handleUpdateData}
+											from={"VerProfesoresAdministrador"}>
+										</TablaFaltasJustificadasPendientes>
 									)}
-									<div  className="mb-5" ></div>
+									<div className="mb-5" ></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */ }
-    			</div>
+					{ /* END FOR NOT SIDEBAR */}
+				</div>
 			</div>
 		</div>
 	);

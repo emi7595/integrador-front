@@ -140,7 +140,7 @@ button:focus {
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
-.form-buscar-profesor::placeholder{
+.form-buscar-profesor::placeholder, .form-control::placeholder{
 	color: gray !important;
 }
 #logo {
@@ -201,6 +201,17 @@ button:focus {
 .btn-white:hover {
 	color: #fff;
 	background-image: linear-gradient(to right, #FFD54F, #D500F9);
+}
+
+.btn-send {
+	border-radius: 15px;
+	color: #fff;
+	background: #333333;
+	padding: 15px;
+	cursor: pointer;
+	border: none !important;
+	width: 100%;
+	margin-top: 10px;
 }
 
 a {
