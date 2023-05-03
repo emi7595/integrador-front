@@ -439,3 +439,9 @@ a {
 .MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows {
 	margin-bottom: 0 !important;
 }
+
+.spinner-border {
+	width: 60px;
+	height: 60px;
+	display: none;
+}

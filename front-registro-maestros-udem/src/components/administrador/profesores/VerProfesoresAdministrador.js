@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode} from "react-icons/bs";
+import { BsQrCode } from "react-icons/bs";
 import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
@@ -46,12 +46,14 @@ const VerProfesoresAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
+			document.getElementById("spinner").style.display = "inline-block";
 			fetch("http://192.168.3.6:5096/Information/Admin/GetClasses")
 				.then(response => response.json())
 				.then(json => {
-					setData(json)
+					setData(json);
+					document.getElementById("spinner").style.display = "none";
 				})
-                .catch(error => console.error(error));
+				.catch(error => console.error(error));
 		}
 		// If user is not logged in, redirect to login
 		else {
@@ -59,23 +61,25 @@ const VerProfesoresAdministrador = () => {
 		}
 	}, []);
 
-	  const [busqueda, setBusqueda] = useState('');
+	const [busqueda, setBusqueda] = useState('');
 
-	  const handleInputChange = (event) => {
+	const handleInputChange = (event) => {
 		setBusqueda(event.target.value);
-	  };
-	
-	  const handleSubmit = (event) => {
+	};
+
+	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (busqueda === "") {
 			setBuscador(null);
 		} else {
+			document.getElementById("spinner").style.display = "inline-block";
 			fetch("http://192.168.3.6:5096/Information/Admin/SearchClass/" + busqueda)
 				.then(response => response.json())
 				.then(json => {
-					setBuscador(json)
+					setBuscador(json);
+					document.getElementById("spinner").style.display = "none";
 				})
-                .catch(error =>{
+				.catch(error => {
 					const json = [{
 						employeeName: "No hay información",
 						nomina: "",
@@ -85,26 +89,27 @@ const VerProfesoresAdministrador = () => {
 						classroom: ""
 					}]
 					setBuscador(json);
+					document.getElementById("spinner").style.display = "none";
 				});
 		}
 		// Llamar a la API con la búsqueda
-		
-	  };
+
+	};
 
 	return (
 		<div>
 			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
-    			<div className="row flex-nowrap">
+				<div className="row flex-nowrap">
 					<SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */ }
+					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
 								<div className="col-auto px-0 m-3 d-flex flex-row justify-content-center align-items-center">
 									<p className="d-flex justify-content-center align-items-center m-0 pr-2 p-salir">Salir</p>
 									&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
-										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir"/>
+										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir" />
 									</a>&nbsp;&nbsp;
 								</div>
 							</div>
@@ -127,21 +132,24 @@ const VerProfesoresAdministrador = () => {
 											<button type="submit" className="boton-registrar mb-4">Buscar</button>
 										</form>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */ }
-									{data && ( 
-									<TablaVerProfesores
-                                        headers={["Profesor", "Nómina", "Clase", "Clave", "Horario", "Día", "Salón"]} 
-                                        data={buscador !== null ? buscador : data}
-                                        from={"VerProfesoresAdministrador"}>
-                                    </TablaVerProfesores>
+									{ /* CONTAINERS FOR QR CODE */}
+									<div className="spinner-border mt-3" role="status" id="spinner">
+										<span className="visually-hidden">Loading...</span>
+									</div>
+									{data && (
+										<TablaVerProfesores
+											headers={["Profesor", "Nómina", "Clase", "Clave", "Horario", "Día", "Salón"]}
+											data={buscador !== null ? buscador : data}
+											from={"VerProfesoresAdministrador"}>
+										</TablaVerProfesores>
 									)}
-									<div  className="mb-5" ></div>
+									<div className="mb-5" ></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */ }
-    			</div>
+					{ /* END FOR NOT SIDEBAR */}
+				</div>
 			</div>
 		</div>
 	);
