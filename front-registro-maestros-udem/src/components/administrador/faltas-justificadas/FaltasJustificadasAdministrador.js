@@ -46,7 +46,7 @@ const FaltasJustificadasAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Information/Admin/GetClasses")
+			fetch("http://192.168.3.6:5096/Information/Admin/GetClasses")
 				.then(response => response.json())
 				.then(json => {
 					setData(json)
@@ -70,7 +70,7 @@ const FaltasJustificadasAdministrador = () => {
 		if (busqueda === "") {
 			setBuscador(null);
 		} else {
-			fetch("http://192.168.29.1:5096/Information/Admin/SearchClass/" + busqueda)
+			fetch("http://192.168.3.6:5096/Information/Admin/SearchClass/" + busqueda)
 				.then(response => response.json())
 				.then(json => {
 					setBuscador(json)
@@ -120,7 +120,7 @@ const FaltasJustificadasAdministrador = () => {
 										<div className="col-12 col-md-6">
 											<div className="row justify-content-center mb-3">
 												<div className="col-6">
-													<button className="btn-block btn-color boton-qr w-100" onClick={() => navigate("/administrador/faltas-justificadas/aceptadas")}>Raltas Aceptadas</button>
+													<button className="btn-block btn-color boton-qr w-100" onClick={() => navigate("/administrador/faltas-justificadas/aceptadas")}>Faltas Aceptadas</button>
 												</div>
 												<div className="col-6">
 													<button className="btn-block btn-color boton-qr w-100" onClick={() => navigate("/administrador/faltas-justificadas/pendientes")}>Faltas Pendientes</button>

@@ -46,7 +46,7 @@ const VerProfesoresAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Information/Admin/GetClasses")
+			fetch("http://192.168.3.6:5096/Information/Admin/GetClasses")
 				.then(response => response.json())
 				.then(json => {
 					setData(json)
@@ -70,7 +70,7 @@ const VerProfesoresAdministrador = () => {
 		if (busqueda === "") {
 			setBuscador(null);
 		} else {
-			fetch("http://192.168.29.1:5096/Information/Admin/SearchClass/" + busqueda)
+			fetch("http://192.168.3.6:5096/Information/Admin/SearchClass/" + busqueda)
 				.then(response => response.json())
 				.then(json => {
 					setBuscador(json)

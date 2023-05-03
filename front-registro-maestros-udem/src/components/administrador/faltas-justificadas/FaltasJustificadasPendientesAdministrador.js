@@ -48,7 +48,7 @@ const FaltasJustificadasPendientesAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.29.1:5096/Repositions/Admin/GetPendingReposition")
+			fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
 				.then(response => response.json())
 				.then(json => {
 					setData(json)

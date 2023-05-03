@@ -120,9 +120,9 @@ button:focus {
 	background-color: #FFFFFF;
 	width: 150px;
 	border-radius: 15px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	align-self: flex-end;
+	padding: 5px 0;
+	justify-self: flex-end;
+	margin-left: auto;
 }
 .label{
 	color: white;
@@ -423,4 +423,8 @@ a {
 		margin-top: 50px !important;
 		margin-bottom: 50px !important;
 	}
+}
+
+.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows {
+	margin-bottom: 0 !important;
 }

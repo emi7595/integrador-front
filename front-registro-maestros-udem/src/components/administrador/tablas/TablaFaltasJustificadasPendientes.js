@@ -123,7 +123,7 @@ const TablaFaltasJustificadasPendientes = (props)  =>{
         var valor2Int = parseInt(valor2)
         var jsonData = { "idReposition": idReposition, "classroom": valor1, "numEvent": valor2Int }
         console.log(jsonData)
-        const response = await fetch("http://192.168.29.1:5096/Repositions/AssignClassroomEvent", {
+        const response = await fetch("http://192.168.3.6:5096/Repositions/AssignClassroomEvent", {
 				method: 'PUT',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
