@@ -43,7 +43,7 @@ const ScanQRCode = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
+			fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
 				.then(response => response.json())
 				.then(data => {
 					// The professor is currently on class
@@ -66,7 +66,7 @@ const ScanQRCode = () => {
 
 	// --- FUNCTION THAT GENERATES A QR CODE FOR THE CURRENT CLASS ---
 	const getQRCode = function (nomina, type) {
-		fetch("http://192.168.3.6:5096/QR/GetCourseData/" + nomina)
+		fetch("http://192.168.29.1:5096/QR/GetCourseData/" + nomina)
 			.then(response => response.json())
 			.then(data => {
 				// The professor is currently on class
@@ -76,7 +76,7 @@ const ScanQRCode = () => {
 	
 					// Define the QR code component
 					const QRCode = ({ nomina }) => (
-						<QRCodeSVG value={`http://192.168.3.6:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
+						<QRCodeSVG value={`http://192.168.29.1:3000/profesor/qr/${nomina}/` + (type === 1 ? `1` : `2`) + `/` + encrypted} size={250} />
 					);
 	
 					// Render the QR code component to a string
@@ -88,7 +88,7 @@ const ScanQRCode = () => {
 					document.getElementById("classInfo2").innerHTML = "<b>Clave:</b> " + data.subject_CVE;
 					document.getElementById("classInfo3").innerHTML = "<b>Hora de Inicio:</b> " + data.startHour + "&emsp;&emsp;<b>Hora Final:</b> " + data.endHour;
 					document.getElementById("qrCode").innerHTML = qrCodeString;
-					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.3.6:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
+					document.getElementById("qrLink").innerHTML = "O haga clic <a href='" + ("http://192.168.29.1:3000/profesor/qr/" + nomina + "/" + (type === 1 ? "1" : "2") + "/" + encrypted) + "' target='_blank'>aquí</a>";
 				}
 				// There are currently no classes; QR code can't be generated
 				else {
@@ -118,17 +118,12 @@ const ScanQRCode = () => {
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 pb-4 fs-5">
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><FaChalkboardTeacher className="icono-sidebar"></FaChalkboardTeacher> Ver mis clases</span>
-									</a>
-								</li>
-								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/reporte") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 fs-5">
+									<a className="nav-link align-middle px-0 fs-5" onClick={() => { navigate("/profesor/faltas-justificadas") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoReport className="icono-sidebar"></GoReport> Reportar faltas justificadas</span>
 									</a>
 								</li>

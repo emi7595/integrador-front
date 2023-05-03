@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import LoginForm from './components/login/LoginForm';
 import ScanQRCode from './components/profesor/ScanQRCode';
 import APIPrueba from './components/api-prueba/APIPrueba';
-import Administrador from './components/administrador/Administrador';
 import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
 import Vicerrector from './components/vicerrector/Vicerrector';
 import Rector from './components/rector/Rector';
@@ -19,7 +18,16 @@ import RectorReporteEscuela from './components/rector/reportes/RectorReporteEscu
 import RectorReporteEscuelaDepartamento from './components/rector/reportes/RectorReporteEscuelaDepartamento';
 import RectorReporteEscuelaDepartamentoProfesor from './components/rector/reportes/RectorReporteEscuelaDepartamentoProfesor';
 import RectorReporteEscuelaDepartamentoProfesorClase from './components/rector/reportes/RectorReporteEscuelaDepartamentoProfesorClase';
-
+import ReportarFaltasJustificadasProfesor from './components/profesor/faltasJustificadas/ReportarFaltasJustificadasProfesor2';
+import ReporteAdministrador from './components/administrador/reportes/ReporteAdministrador';
+import ReporteAdministradorEscuela from './components/administrador/reportes/ReporteAdministradorEscuela';
+import ReporteAdministradorDepartamento from './components/administrador/reportes/ReporteAdministradorDepartamento';
+import ReporteAdministradorProfesor from './components/administrador/reportes/ReporteAdministradorProfesor';
+import ReporteAdministradorClase from './components/administrador/reportes/ReporteAdministradorClase';
+import VerProfesoresAdministrador from './components/administrador/profesores/VerProfesoresAdministrador';
+import FaltasJustificadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAdministrador';
+import FaltasJustificadasAceptadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAceptadasAdministrador';
+import FaltasJustificadasPendientesAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasPendientesAdministrador';
 function App() {
 	return (
 		<>
@@ -32,9 +40,18 @@ function App() {
 				<Route path="/profesor/reporte" element={<ReporteProfesor />} />
 				<Route path="/profesor/reporte/clase" element={<ReporteClases />} />
 				<Route path="/profesor/qr/:nomina/:type/:token" element={<ConfirmQR />} />
+				<Route path="/profesor/faltas-justificadas" element={<ReportarFaltasJustificadasProfesor />} />
 
 				{ /* ADMIN ROUTES */}
-				<Route path="/administrador" element={<Administrador />} />
+				<Route path="/administrador" element={<ReporteAdministrador />} />
+				<Route path="/administrador/reporte/escuela" element={<ReporteAdministradorEscuela />} />
+				<Route path="/administrador/reporte/escuela/departamento" element={<ReporteAdministradorDepartamento />} />
+				<Route path="/administrador/reporte/escuela/departamento/profesor" element={<ReporteAdministradorProfesor />} />
+				<Route path="/administrador/reporte/escuela/departamento/profesor/clase" element={<ReporteAdministradorClase />} />
+				<Route path="/administrador/ver-profesores" element={<VerProfesoresAdministrador />} />
+				<Route path="/administrador/faltas-justificadas" element={<FaltasJustificadasAdministrador />} />
+				<Route path="/administrador/faltas-justificadas/aceptadas" element={<FaltasJustificadasAceptadasAdministrador />} />
+				<Route path="/administrador/faltas-justificadas/pendientes" element={<FaltasJustificadasPendientesAdministrador />} />
 
 				{ /* DEPARTMENT DIRECTOR ROUTES */}
 				<Route path="/director-departamento" element={<DirectorDepartamento />} />

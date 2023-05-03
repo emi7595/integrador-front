@@ -8,7 +8,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { BsQrCode} from "react-icons/bs";
 import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaProfesor from '../../tablas/TablaProfesor';
 import { CSVLink } from "react-csv";
 
@@ -48,7 +48,7 @@ const ReporteProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Reports/Professor/GetAttendanceAverage/" + nomina)
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -128,17 +128,12 @@ const ReporteProfesor = () => {
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 pb-4 fs-5">
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><FaChalkboardTeacher className="icono-sidebar"></FaChalkboardTeacher> Ver mis clases</span>
-									</a>
-								</li>
-								<li className="nav-item">
 									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/reporte") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link align-middle px-0 fs-5">
+									<a className="nav-link align-middle px-0 fs-5" onClick={() => { navigate("/profesor/faltas-justificadas") }}>
 										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoReport className="icono-sidebar"></GoReport> Reportar faltas justificadas</span>
 									</a>
 								</li>

@@ -6,8 +6,8 @@ import { BiUserCircle } from "react-icons/bi";
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoGraph } from "react-icons/go";
-import GraficaClases from '../Graficas/GraficaClases';
-import TablaRector from '../tablas/TablaRector';
+import GraficaClases from '../Graficas/GraficaAsistencia';
+import TablaRector from '../administrador/tablas/TablaAsistencia';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
 
@@ -45,7 +45,7 @@ const Rector = () => {
 					navigate("/vicerrector"); break;
 				default: break;
 			}
-			fetch("http://192.168.3.6:5096/Reports/Rector/GetUDEMAverage/")
+			fetch("http://192.168.29.1:5096/Reports/Rector/GetUDEMAverage/")
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

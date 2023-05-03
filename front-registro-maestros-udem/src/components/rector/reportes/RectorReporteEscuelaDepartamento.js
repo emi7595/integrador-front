@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { BiUserCircle } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaRectorEscuelaDepartamento from '../../tablas/TablaRectorEscuelaDepartamento';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
@@ -17,7 +17,6 @@ import TablaInfoRectorEscuelaDepartamento from '../../tablas/tablasInfo/rector/T
 
 const RectorReporteEscuelaDepartamento = () => {
     const location = useLocation();
-	console.log(location)
 	const [data, setData] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -52,7 +51,7 @@ const RectorReporteEscuelaDepartamento = () => {
 					navigate("/vicerrector"); break;
 				default: break;
 			}
-			fetch("http://192.168.3.6:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
+			fetch("http://192.168.29.1:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

@@ -9,10 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { BsQrCode } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
 
-
-const TablaRector = (props)  =>{
+const TablaReportarFaltasJustificadasProfesor = (props)  =>{
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -35,23 +35,29 @@ const TablaRector = (props)  =>{
       }));
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer  component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="customized table">
             <TableHead>
             <TableRow>
-                <StyledTableCell>Escuela</StyledTableCell>
-                <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
-                <StyledTableCell align="right">Detalle</StyledTableCell>
+                <StyledTableCell className="tabla-izq">Clase</StyledTableCell>
+                <StyledTableCell >Clave</StyledTableCell>
+                <StyledTableCell >Fecha</StyledTableCell>
+                <StyledTableCell >Salón</StyledTableCell>
+                <StyledTableCell >Num. Evento</StyledTableCell>
+                <StyledTableCell align="right" className="tabla-der">QR</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
-            {props.data?.map((escuela) => (
-            <StyledTableRow key={escuela.schoolId}>
-              <StyledTableCell component="th" scope="row">
-                {escuela.schoolName}
+            {props.data?.map((clase) => (
+            <StyledTableRow key={clase.CRN}>
+              <StyledTableCell className="tabla-izq" component="th" scope="row">
+                {clase.subjectName}
               </StyledTableCell>
-              <StyledTableCell align="right">{escuela.average === -1 ? "N/A" : `${escuela.average}%`}</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { escuela.average === -1 ? navigate("/rector") : navigate("/rector/reporte-escuela", {state: escuela}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+              <StyledTableCell >{clase.subject_CVE}</StyledTableCell>
+              <StyledTableCell >{clase.date.slice(0, -9)}</StyledTableCell>
+              <StyledTableCell >{clase.classroom === "" ? "Pendiente" : clase.classroom}</StyledTableCell>
+              <StyledTableCell >{clase.eventNum === -1 ? "UNIEXT" : clase.eventNum === null ? "Pendiente" : clase.eventNum}</StyledTableCell>
+              <StyledTableCell className="tabla-der" align="right"><a onClick={() => { clase.average === -1 ? navigate("/profesor") : navigate("/profesor/reporte/clase", {state: clase}) }}>{clase.eventNum === -1 ? <></> : <BsQrCode className="icono-detalle"></BsQrCode>}</a></StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>
@@ -60,4 +66,4 @@ const TablaRector = (props)  =>{
   );
 }
 
-export default TablaRector;
+export default TablaReportarFaltasJustificadasProfesor;

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { FaFileDownload } from "react-icons/fa";
 import { GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaDepartamentoProfesorClase from '../../tablas/TablaDepartamentoProfesorClase';
 import { CSVLink } from 'react-csv';
 import TablaInfoDirectorDepartamentoProfesor from '../../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamentoProfesor';
@@ -49,7 +49,7 @@ const DirectorDepartamentoReporteProfesor = () => {
 					navigate("/rector"); break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

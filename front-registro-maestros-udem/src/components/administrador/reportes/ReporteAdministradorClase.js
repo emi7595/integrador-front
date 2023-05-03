@@ -11,9 +11,12 @@ import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoDirectorDepartamentoProfesorClase from '../../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamentoProfesorClase';
+import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
+import SidebarAdministrador from '../sidebar/SidebarAdministrador';
+import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
+import TablaAsistencia from '../tablas/TablaAsistencia';
 
-const DirectorDepartamentoReporteProfesorClase = () => {
+const ReporteAdministradorClase = () => {
     const location = useLocation();
 	const [infoClase, setInfoClase] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
@@ -41,12 +44,13 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 			switch (session.idRol) {
 				case 1:
 					navigate("/profesor/qr"); break;
-				case 2:
-					navigate("/administrador"); break;
+				case 3:
+					navigate("/director-departamento"); break;
 				case 4:
 					navigate("/vicerrector"); break;
 				case 5:
 					navigate("/rector"); break;
+				default: break;
 			}
 			// Get current class that the professor is on
 			fetch("http://192.168.29.1:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
@@ -87,8 +91,6 @@ const DirectorDepartamentoReporteProfesorClase = () => {
                         setSalidaPrevia(sumaSalidaPrevia)
                         setRetrasoSalida(sumaRetrasoSalida)
                         setFalta(sumaFalta)
-
-
 					setInfoClase(json)
 					setTotal(totalCodes)
 				})
@@ -103,9 +105,12 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 	function handleDatos() {
 		let datos = [];
 		infoClase?.map((clase) => (
-			datos.push({clase: location.state.subjectName, clave: location.state.subject_CVE, fecha: clase.date.slice(0, -9), registro: clase.codeDescription})
+			datos.push({
+				clase: location.state.subjectName, 
+				clave: location.state.subject_CVE, 
+				fecha: clase.date.slice(0, -9), 
+				registro: clase.codeDescription})
         ))
-
 		return datos
 	}
 
@@ -117,35 +122,24 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 	  ];
 	  let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`
 
+
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
 			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
     			<div className="row flex-nowrap">
-                    <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
-						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-							<p className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
-								<BiUserCircle className="icono-usuario"></BiUserCircle>
-								<span className="p-nombre d-none d-sm-inline">{user}</span>
-							</p>
-							<ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-								<li className="nav-item">
-									<a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/director-departamento") }}>
-										<i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
-									</a>
-								</li>
-							</ul>
-							<hr/>
-						</div>
-        			</div>
+                    <SidebarAdministrador user={user}></SidebarAdministrador>
 					{ /* CONTAINERS FOR NOT SIDEBAR */ }
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
 								<div className="col-auto px-0 m-3 d-flex flex-row justify-content-center align-items-center">
 									<p className="d-flex justify-content-center align-items-center m-0 pr-2 p-salir">Salir</p>
-									&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
+									&nbsp;&nbsp;<a 
+										href="#" 
+										onClick={() => { window.sessionStorage.clear(); navigate("/") }} 
+										className="anchor">
 										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir"/>
 									</a>&nbsp;&nbsp;
 								</div>
@@ -156,27 +150,49 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row m-0 grafica white-card">
-										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
-										<div className='col-md-6 leyenda'>
-											<div>
-												<p className="leyenda"><span className="asistencia"></span> Asistencia: {asistencia}/{total}</p>
-												<p className="leyenda"><span className="retraso"></span> Retraso Inicial: {retraso}/{total}</p>
-												<p className="leyenda"><span className="salida"></span> Salida Previa: {salidaPrevia}/{total}</p>
-												<p className="leyenda"><span className="retraso-salida"></span> Retraso y Salida: {retrasoSalida}/{total}</p>
-												<p className="leyenda"><span className="falta"></span> Falta: {falta}/{total}</p>
-											</div>
-										</div>
+                                        <GraficaClases 
+                                            className="col-md-6" 
+                                            asistencia={asistencia} 
+                                            retraso={retraso} 
+                                            salidaPrevia={salidaPrevia} 
+                                            retrasoSalida={retrasoSalida} 
+                                            falta={falta}>
+                                        </GraficaClases>
+                                        <GraficaLeyendas
+                                            asistencia={asistencia} 
+                                            retraso={retraso} 
+                                            salidaPrevia={salidaPrevia} 
+                                            retrasoSalida={retrasoSalida} 
+                                            falta={falta} 
+                                            total={total}>
+                                        </GraficaLeyendas>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
 									<div className='row m-0 justify-content-end'>
-										<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
+										<CSVLink 
+											data={handleDatos()} 
+											headers={headers} 
+											filename={nombreReporte} 
+											className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
 											<span className='px-1 boton-descargar'>Descargar</span>
 											<FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
 										</CSVLink>
 									</div>
-									<TablaInfoDirectorDepartamentoProfesorClase departamento={location.state.departamento} profesor={location.state.employeeName} clase={location.state.subjectName} clave={location.state.subject_CVE}></TablaInfoDirectorDepartamentoProfesorClase>
+									<TablaInfoVicerrectorDepartamentoProfesorClase 
+										escuela={location.state.escuela} 
+										departamento={location.state.departamento} 
+										profesor={location.state.employeeName} 
+										clase={location.state.subjectName} 
+										clave={location.state.subject_CVE}>
+									</TablaInfoVicerrectorDepartamentoProfesorClase>
 									<div  className="mb-4" ></div>
-									<TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>
+                                    
+									<TablaAsistencia 
+										headers={["Fecha", "Registro"]}  
+										dataClase={location.state} 
+										infoClase={infoClase}
+										from={"ReporteAdministradorClase"}>
+									</TablaAsistencia>
 									<div  className="mb-5" ></div>
 								</div>
 							</div>
@@ -189,4 +205,4 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 	);
 };
 
-export default DirectorDepartamentoReporteProfesorClase;
+export default ReporteAdministradorClase;

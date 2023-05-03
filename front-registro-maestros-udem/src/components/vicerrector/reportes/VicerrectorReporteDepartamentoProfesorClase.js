@@ -6,7 +6,7 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaClases';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
@@ -50,7 +50,7 @@ const VicerrectorReporteDepartamentoProfesorClase = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
 				.then(response => response.json())
 				.then(json => {
                     let sumaAsistencia = 0;

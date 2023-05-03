@@ -32,7 +32,7 @@ textarea {
 	border: none !important;
 	border: 1px solid #F3E5F5 !important;
 	font-size: 16px !important;
-	color: #000 !important;
+	color: #000;
 	font-weight: 400;
 }
 
@@ -77,6 +77,72 @@ button:focus {
 	background-color: #FFFFFF;
 }
 
+.black-card {
+	border-radius: 5px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: #333333;
+	display: flex;
+	margin-bottom: 20px !important;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.tabla-izq{
+	padding-left: 2em !important;
+}
+.tabla-der{
+	padding-right: 2em !important;
+}
+
+.h1-falta{
+	color: white;
+	font-size: 30px;
+	display: flex;
+	margin-bottom: 0 !important;
+}
+
+.form-reportar{
+	display: flex;
+	flex-direction: column;
+
+}
+.dropdown{
+	display: flex;
+	flex-direction: column;
+}
+.select-opciones{
+	background-color: white;
+	width: 18em;
+	height: 2.5em;
+	border-radius: 0 !important;
+}
+.boton-registrar{
+	color: #333333;
+	background-color: #FFFFFF;
+	width: 150px;
+	border-radius: 15px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	align-self: flex-end;
+}
+.label{
+	color: white;
+	display: flex;
+	font-size: 18px;
+	margin-bottom: .5em;
+}
+.form-reportar-labels{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.form-buscar-profesor{
+	background-color: white;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+.form-buscar-profesor::placeholder{
+	color: gray !important;
+}
 #logo {
 	width: 15em;
 	height: 7em;
@@ -184,7 +250,10 @@ a {
 	padding-right: 10px;
 	font-size: 16px !important;
 }
-
+.boton-aceptar{
+	font-size: 20px;
+	cursor: pointer;
+}
 .p-nombre{
 	font-size: 26px !important;
 }
@@ -262,6 +331,7 @@ a {
 	flex-direction: column;
 	align-items: flex-start;
 }
+
 
 .asistencia {
 	width: 20px;
