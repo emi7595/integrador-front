@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginForm from './components/login/LoginForm';
 import ScanQRCode from './components/profesor/ScanQRCode';
-import APIPrueba from './components/api-prueba/APIPrueba';
 import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
 import Vicerrector from './components/vicerrector/Vicerrector';
 import Rector from './components/rector/Rector';
@@ -72,8 +71,6 @@ function App() {
 				<Route path="/rector/reporte-escuela/reporte-departamento/reporte-profesor" element={<RectorReporteEscuelaDepartamentoProfesor />} />
 				<Route path="/rector/reporte-escuela/reporte-departamento/reporte-profesor/reporte-clase" element={<RectorReporteEscuelaDepartamentoProfesorClase />} />
 				
-				{ /* ROUTES FOR TESTING PURPOSES */ }
-				<Route path="/api" element={<APIPrueba />} />
 			</Routes>
 		</>
 	);

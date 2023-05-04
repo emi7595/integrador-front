@@ -49,7 +49,7 @@ const DirectorDepartamentoReporteProfesorClase = () => {
 					navigate("/rector"); break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
+			fetch("http://192.168.29.1:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
 				.then(response => response.json())
 				.then(json => {
                     let sumaAsistencia = 0;

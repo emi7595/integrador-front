@@ -6,10 +6,10 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import { CSVLink } from "react-csv";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
 
 const ReoprtarFaltasJustificadasProfesor = () => {
@@ -18,6 +18,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 	const [today, setToday] = useState(new Date().toISOString().slice(0, 10));
 	const [clave, setClave] = useState(clases && clases[0]?.classOpt);
 	const [fecha, setFecha] = useState(today);
+	const [salon, setSalon] = useState("");
 	const [horario, setHorario] = useState('7:00');
 	const [razon, setRazon] = useState("7");
 
@@ -54,7 +55,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+			fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
@@ -64,7 +65,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 					setData(json);
 				})
 				.catch(error => console.error(error));
-			fetch("http://192.168.3.6:5096/Repositions/Professor/GetClasses/" + nomina)
+			fetch("http://192.168.29.1:5096/Repositions/Professor/GetClasses/" + nomina)
 				.then(response => response.json())
 				.then(json => {
 					setClases(json)
@@ -84,7 +85,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 			var idCode = parseInt(razon);
 			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "idCode": idCode }
 			console.log(jsonData)
-			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateRepositionReport", {
+			const response = await fetch("http://192.168.29.1:5096/Repositions/CreateRepositionReport", {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
@@ -94,7 +95,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+                fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
@@ -110,6 +111,42 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 			console.error(error);
 		}
 	}
+	const handleSubmitExt = async (event) => {
+		event.preventDefault();
+		try {
+			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "classroom": salon }
+			console.log(jsonData)
+			const response = await fetch("http://192.168.29.1:5096/Repositions/CreateExternalUnitReport", {
+				method: 'POST',
+				mode: 'cors',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(jsonData)
+			});
+			if (!response.ok) {
+                throw new Error("Algo salió mal.");
+            }
+            else {
+                fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
+				.then(async (response) => {
+					const body = await response.text();
+					const data = body.length ? JSON.parse(body) : null;
+					return data;
+				})
+				.then(json => {
+					setData(json);
+				})
+				.catch(error => console.error(error));
+            }
+		}
+		catch (error) {
+			console.error(error);
+		}
+	}
+	const [value, setValue] = React.useState('reposiciones');
+
+	const handleChange = (event, newValue) => {
+	  setValue(newValue);
+	};
 	return (
 		<div>
 			{/* <SideBar usuario = {user}></SideBar> */}
@@ -158,8 +195,20 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 								<div className="col-12 text-center">
 									<div className="row m-0 black-card mb-2">
 										<h1 className="h1-falta mt-4">Registrar Nueva Falta Justificada</h1>
+										<Box sx={{ width: '100%' }} className="pt-4">
+											<Tabs
+												value={value}
+												onChange={handleChange}
+												textColor="secondary"
+												indicatorColor="secondary"
+												aria-label="secondary tabs example"
+											>
+												<Tab value="reposiciones" label="Reposiciones" />
+												<Tab value="externas" label="Unidades Externas" />
+											</Tabs>
+											</Box>
 										<div className="form-reportar">
-											<form className="form-reportar-labels pt-5 pb-4" onSubmit={handleSubmit}>
+											{value === 'reposiciones' ? (<form className="form-reportar-labels pt-3 pb-4" onSubmit={handleSubmit}>
 												<div className='dropdown'>
 													<label for="clave" className='label'>Clave:</label>
 													<select id="clave" name="clave" value={clave} className='select-opciones' onChange={(event) => setClave(event.target.value)}>
@@ -198,7 +247,45 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 													</select>
 												</div>
 												<button type="submit" className='boton-registrar mb-4 mt-3'>Enviar</button>
-											</form>
+											</form>)
+											:
+											(<form className="form-reportar-labels pt-3 pb-4" onSubmit={handleSubmitExt}>
+												<div className='dropdown'>
+													<label for="clave" className='label'>Clave:</label>
+													<select id="clave" name="clave" value={clave} className='select-opciones' onChange={(event) => setClave(event.target.value)}>
+														{clases && (
+															clases?.map((clase) => (
+																<option key={clase.classOpt} value={clase.classOpt}>{clase.classOpt}</option>
+															))
+														)
+														}
+													</select>
+												</div>
+												<div className='dropdown'>
+													<label for="fecha" className='label'>Fecha de reposición:</label>
+													<input name="fecha" type="date" className='select-opciones' min={today} onChange={(event) => setFecha(event.target.value)}></input>
+												</div>
+												<div className='dropdown'>
+													<label for="horario" className='label'>Horario:</label>
+													<select id="horario" name="horario" value={horario} className='select-opciones' onChange={(event) => setHorario(event.target.value)}>
+														<option value="7:00">7:00</option>
+														<option value="8:30">8:30</option>
+														<option value="10:00">10:00</option>
+														<option value="11:30">11:30</option>
+														<option value="13:00">13:00</option>
+														<option value="14:30">14:30</option>
+														<option value="16:00">16:00</option>
+														<option value="17:30">17:30</option>
+														<option value="19:00">19:00</option>
+														<option value="20:30">20:30</option>
+													</select>
+												</div>
+												<div className='dropdown'>
+													<label for="salon" className='label'>Lugar:</label>
+													<input name="salon" type="text" className='select-opciones' value={salon} onChange={(event) => setSalon(event.target.value)}></input>
+												</div>
+												<button type="submit" className='boton-registrar mb-4 mt-3'>Enviar</button>
+											</form>)}
 
 										</div>
 									</div>

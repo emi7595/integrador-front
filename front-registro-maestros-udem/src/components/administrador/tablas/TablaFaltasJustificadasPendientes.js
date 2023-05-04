@@ -128,7 +128,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
             myModal.hide();
             var jsonData = { "idReposition": idReposition, "classroom": classroom, "numEvent": event }
             console.log(jsonData)
-            const response = await fetch("http://192.168.3.6:5096/Repositions/AssignClassroomEvent", {
+            const response = await fetch("http://192.168.29.1:5096/Repositions/AssignClassroomEvent", {
                 method: 'PUT',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -138,7 +138,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
+                fetch("http://192.168.29.1:5096/Repositions/Admin/GetPendingReposition")
 				.then(response => { 
                     const body = response.text();
                     const data = body.length ? JSON.parse(body) : null;

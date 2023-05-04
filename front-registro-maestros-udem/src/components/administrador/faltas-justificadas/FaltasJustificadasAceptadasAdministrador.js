@@ -47,7 +47,7 @@ const FaltasJustificadasAceptadasAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Repositions/Admin/GetAcceptedReposition")
+			fetch("http://192.168.29.1:5096/Repositions/Admin/GetAcceptedReposition")
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;

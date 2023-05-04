@@ -147,7 +147,17 @@ button:focus {
 	width: 15em;
 	height: 7em;
 }
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root{
+	color: white !important;
+}
 
+.Mui-selected{
+	color: #FFE700 !important;
+}
+
+.css-11yukd5-MuiTabs-indicator{
+	background-color: #FFE700 !important;
+}
 .heading {
 	margin-bottom: 60px !important;
 }
