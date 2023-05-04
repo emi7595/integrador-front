@@ -45,28 +45,28 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
         myModal.show();
 
         try {
-			// POST data
-			var jsonData = {
-				"idReposition": idReposition,
+            // POST data
+            var jsonData = {
+                "idReposition": idReposition,
                 "idCode": idCode
-			}
+            }
 
-			// Post request to database
-			const response = await fetch('http://192.168.29.1:5096/Repositions/RegisterRepositionAttendance', {
-				method: 'POST',
-				mode: 'cors',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(jsonData)
-			});
+            // Post request to database
+            const response = await fetch('http://172.32.138.118:5096/Repositions/RegisterRepositionAttendance', {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
+            });
 
-			// There was an error while registering the attendance
-			if (!response.ok) {
-				throw new Error('Algo salió mal.');
-			}
-			// Attendance was registered correctly
-			else {
-				const data = await response.json();
-                if (data.message === "Reposición registrada correctamente.") {
+            // There was an error while registering the attendance
+            if (!response.ok) {
+                throw new Error('Algo salió mal.');
+            }
+            // Attendance was registered correctly
+            else {
+                const data = await response.json();
+                if (data.message === "Asistencia registrada correctamente.") {
                     document.getElementById("icon-no").style.display = "none";
                     document.getElementById("icon-warning").style.display = "none";
                     document.getElementById("icon-ok").style.display = "inline-block";
@@ -84,11 +84,11 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
                     document.getElementById("icon-no").style.display = "inline-block";
                     document.getElementById("attendanceTitle").innerHTML = "Asistencia no registrada";
                 }
-				document.getElementById("attendanceContent").innerHTML = data.message;
-			}
-		} catch (error) {
-			console.error(error);
-		}
+                document.getElementById("attendanceContent").innerHTML = data.message;
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -98,10 +98,11 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
                     <TableHead>
                         <TableRow>
                             <StyledTableCell className="tabla-izq">Clase</StyledTableCell>
-                            <StyledTableCell >Clave</StyledTableCell>
-                            <StyledTableCell >Fecha</StyledTableCell>
-                            <StyledTableCell >Salón</StyledTableCell>
-                            <StyledTableCell >Num. Evento</StyledTableCell>
+                            <StyledTableCell>Clave</StyledTableCell>
+                            <StyledTableCell>Fecha</StyledTableCell>
+                            <StyledTableCell>Hora Inicio</StyledTableCell>
+                            <StyledTableCell>Salón</StyledTableCell>
+                            <StyledTableCell>Num. Evento</StyledTableCell>
                             <StyledTableCell align="right" className="tabla-der">QR</StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -111,11 +112,11 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
                                 <StyledTableCell className="tabla-izq" component="th" scope="row">
                                     {clase.subjectName}
                                 </StyledTableCell>
-                                <StyledTableCell >{clase.subject_CVE}</StyledTableCell>
-                                <StyledTableCell >{clase.date.slice(0, -9)}</StyledTableCell>
-                                <StyledTableCell >{clase.classroom === "" ? "Pendiente" : clase.classroom}</StyledTableCell>
-                                <StyledTableCell >{clase.eventNum === -1 ? "UNIEXT" : clase.eventNum === null ? "Pendiente" : clase.eventNum}</StyledTableCell>
-                                {/*<StyledTableCell className="tabla-der" align="right"><a onClick={() => { clase.average === -1 ? navigate("/profesor") : navigate("/profesor/reporte/clase", {state: clase}) }}>{clase.eventNum === -1 ? <></> : <BsQrCode className="icono-detalle"></BsQrCode>}</a></StyledTableCell>*/}
+                                <StyledTableCell>{clase.subject_CVE}</StyledTableCell>
+                                <StyledTableCell>{clase.date.slice(0, -9)}</StyledTableCell>
+                                <StyledTableCell>{clase.startTime.slice(0, 5)}</StyledTableCell>
+                                <StyledTableCell>{clase.classroom === "" ? "Pendiente" : clase.classroom}</StyledTableCell>
+                                <StyledTableCell>{clase.eventNum === -1 ? "UNIEXT" : clase.eventNum === null ? "Pendiente" : clase.eventNum}</StyledTableCell>
                                 <StyledTableCell className="tabla-der" align="right"><a onClick={() => { registerAttendance(clase.idReposition, clase.idCode) }}>{clase.eventNum === -1 ? <></> : <BsQrCode className="icono-detalle"></BsQrCode>}</a></StyledTableCell>
                             </StyledTableRow>
                         ))}

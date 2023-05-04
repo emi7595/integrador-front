@@ -125,7 +125,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
             myModal.hide();
             var jsonData = { "idReposition": idReposition, "classroom": classroom, "numEvent": event }
             console.log(jsonData)
-            const response = await fetch("http://192.168.29.1:5096/Repositions/AssignClassroomEvent", {
+            const response = await fetch("http://172.32.138.118:5096/Repositions/AssignClassroomEvent", {
                 method: 'PUT',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -135,10 +135,23 @@ const TablaFaltasJustificadasPendientes = (props) => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.29.1:5096/Repositions/Admin/GetPendingReposition")
-				.then(response => { 
-                    const body = response.text();
-                    const data = body.length ? JSON.parse(body) : null;
+                fetch("http://172.32.138.118:5096/Repositions/Admin/GetPendingReposition")
+				.then(async (response) => { 
+                    const body = await response.text();
+                    console.log(body);
+                    const data = body.length ? JSON.parse(body) : [{
+						employeeName: "No hay reportes pendientes",
+						nomina: "",
+                        idReposition: "",
+                        subjectName: "",
+						subject_CVE: "",
+						date: "",
+						startTime: "",
+						classroom: "",
+                        eventNum: "",
+                        idSchedule: "",
+                        idCode: ""
+					}];
                     return data;
                 })
 				.then(json => {
@@ -192,8 +205,12 @@ const TablaFaltasJustificadasPendientes = (props) => {
                                     <StyledTableCell align="left">{profesor.subjectName}</StyledTableCell>
                                     <StyledTableCell align="left">{profesor.subject_CVE}</StyledTableCell>
                                     <StyledTableCell align="left">{profesor.date.split("T")[0]}</StyledTableCell>
-                                    <StyledTableCell align="left">{profesor.startTime}</StyledTableCell>
-                                    <StyledTableCell align="center"><BsPencilSquare className="boton-aceptar" onClick={() => assignClassroomEvent(profesor.idReposition)}></BsPencilSquare></StyledTableCell>
+                                    <StyledTableCell align="left">{profesor.startTime.slice(0,5)}</StyledTableCell>
+                                    <StyledTableCell align="center">
+                                        {profesor.employeeName !== "No hay reportes pendientes" &&
+                                        <BsPencilSquare className="boton-aceptar" onClick={() => assignClassroomEvent(profesor.idReposition)}></BsPencilSquare>
+                                        }
+                                    </StyledTableCell>
                                 </StyledTableRow>
                             ))
                         }

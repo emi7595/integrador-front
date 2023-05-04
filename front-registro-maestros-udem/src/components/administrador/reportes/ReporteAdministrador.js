@@ -53,7 +53,7 @@ const ReporteAdministrador = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			fetch("http://192.168.29.1:5096/Reports/Rector/GetUDEMAverage/")
+			fetch("http://172.32.138.118:5096/Reports/Rector/GetUDEMAverage/")
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

@@ -34,10 +34,22 @@ const FaltasJustificadasPendientesAdministrador = () => {
 				default: break;
 			}
 			// Get all pending repositions
-			fetch("http://192.168.29.1:5096/Repositions/Admin/GetPendingReposition")
+			fetch("http://172.32.138.118:5096/Repositions/Admin/GetPendingReposition")
 				.then(async (response) => {
 					const body = await response.text();
-					const data = body.length ? JSON.parse(body) : null;
+					const data = body.length ? JSON.parse(body) : [{
+						employeeName: "No hay reportes pendientes",
+						nomina: "",
+                        idReposition: "",
+                        subjectName: "",
+						subject_CVE: "",
+						date: "",
+						startTime: "",
+						classroom: "",
+                        eventNum: "",
+                        idSchedule: "",
+                        idCode: ""
+					}];;
 					return data;
 				})
 				.then(json => {

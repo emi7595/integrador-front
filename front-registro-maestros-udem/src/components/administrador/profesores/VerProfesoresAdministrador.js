@@ -37,7 +37,7 @@ const VerProfesoresAdministrador = () => {
 			}
 			// Get current class that the professor is on
 			document.getElementById("spinner").style.display = "inline-block";
-			fetch("http://192.168.29.1:5096/Information/Admin/GetClasses")
+			fetch("http://172.32.138.118:5096/Information/Admin/GetClasses")
 				.then(response => response.json())
 				.then(json => {
 					setData(json);
@@ -61,7 +61,7 @@ const VerProfesoresAdministrador = () => {
 			setBuscador(null);
 		} else {
 			document.getElementById("spinner").style.display = "inline-block";
-			fetch("http://192.168.29.1:5096/Information/Admin/SearchClass/" + busqueda)
+			fetch("http://172.32.138.118:5096/Information/Admin/SearchClass/" + busqueda)
 				.then(response => response.json())
 				.then(json => {
 					setBuscador(json);
