@@ -12,6 +12,8 @@ import TablaInfoRectorEscuelaDepartamentoProfesor from '../../tablas/tablasInfo/
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 import TablaAsistencia from '../tablas/TablaAsistencia';
+import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 
 
 const ReporteAdministradorProfesor = () => {
@@ -23,6 +25,13 @@ const ReporteAdministradorProfesor = () => {
 	const [salidaPrevia, setSalidaPrevia] = useState(null);
 	const [retrasoSalida, setRetrasoSalida] = useState(null);
 	const [falta, setFalta] = useState(null);
+	const [totalInformativo, setTotalInformativo] = useState(null);
+	const [aviso, setAviso] = useState(null);
+	const [uniExt, setUniExt] = useState(null);
+	const [reposicion, setReposicion] = useState(null);
+	const [adelanto, setAdelanto] = useState(null);
+	const [autorizacion, setAutorizacion] = useState(null);
+	const [claseRepuesta, setClaseRepuesta] = useState(null);
 
 
 	const navigate = useNavigate();
@@ -52,11 +61,17 @@ const ReporteAdministradorProfesor = () => {
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
-					for (let i = 0; i < 5; i++) {
+					let totalCodesInformativo = 0;
+					for (let i = 0; i < 11; i++) {
 						let sum = 0;
 						for (let j = 0; j < json.length; j++) {
 							sum += json[j].codes[i];
-							totalCodes += json[j].codes[i];
+							if (i < 5) {
+								totalCodes += json[j].codes[i];
+							} else {
+								totalCodesInformativo += json[j].codes[i];
+							}
+							
 						}
 						if (i === 0) {
 							setAsistencia(sum)
@@ -73,7 +88,26 @@ const ReporteAdministradorProfesor = () => {
 						else if (i === 4) {
 							setFalta(sum)
 						}
+						else if (i === 5) {
+							setAviso(sum)
+						}
+						else if (i === 6) {
+							setUniExt(sum)
+						}
+						else if (i === 7) {
+							setReposicion(sum)
+						}
+						else if (i === 8) {
+							setAdelanto(sum)
+						}
+						else if (i === 9) {
+							setAutorizacion(sum)
+						}
+						else if (i === 10) {
+							setClaseRepuesta(sum)
+						}
 					}
+					setTotalInformativo(totalCodesInformativo)
 					setData(json)
 					setTotal(totalCodes)
 				})
@@ -155,6 +189,25 @@ const ReporteAdministradorProfesor = () => {
                                             falta={falta} 
                                             total={total}>
                                         </GraficaLeyendas>
+										<GraficaAsistenciaInformativo 
+											className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}>
+										</GraficaAsistenciaInformativo>
+										<GraficaLeyendasInformativo 
+										className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}
+											totalInformativo={totalInformativo}>
+										</GraficaLeyendasInformativo>
 									</div>
 									<div className='row m-0 justify-content-end'>
 										<CSVLink 

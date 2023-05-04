@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,8 @@ import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasIn
 import SidebarRector from '../sidebar/SidebarRector';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
+import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
+import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
 
 const ReporteRectorClase = () => {
     const location = useLocation();
@@ -22,7 +24,13 @@ const ReporteRectorClase = () => {
 	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
-
+	const [totalInformativo, setTotalInformativo] = useState(null);
+	const [aviso, setAviso] = useState(null);
+	const [uniExt, setUniExt] = useState(null);
+	const [reposicion, setReposicion] = useState(null);
+	const [adelanto, setAdelanto] = useState(null);
+	const [autorizacion, setAutorizacion] = useState(null);
+	const [claseRepuesta, setClaseRepuesta] = useState(null);
 
 	const navigate = useNavigate();
 	let user;
@@ -58,7 +66,14 @@ const ReporteRectorClase = () => {
                     let sumaSalidaPrevia = 0;
                     let sumaRetrasoSalida = 0;
                     let sumaFalta = 0;
+					let sumaAviso = 0;
+                    let sumaUniExt = 0;
+                    let sumaReposicion = 0;
+                    let sumaAdelanto = 0;
+                    let sumaAutorizacion = 0;
+					let sumaClaseRepuesta = 0;
                     let totalCodes = 0;
+					let totalCodesInformativo = 0;
                     for (let i = 0; i < json.length; i++) {
                         const codigoActual = parseInt(json[i].codeId);
                         if (codigoActual === 0) {
@@ -81,6 +96,30 @@ const ReporteRectorClase = () => {
                             sumaFalta += 1;
                             totalCodes += 1;
                         }
+						else if (codigoActual === 5) {
+                            sumaAviso += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 6) {
+                            sumaUniExt += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 7) {
+                            sumaReposicion += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 8) {
+                            sumaAdelanto += 1;
+                            totalCodesInformativo += 1;
+                        }
+						else if (codigoActual === 9) {
+                            sumaAutorizacion += 1;
+                            totalCodesInformativo += 1;
+                        }
+						else if (codigoActual === 10) {
+                            sumaClaseRepuesta += 1;
+                            totalCodesInformativo += 1;
+                        }
                         
                       }
                         setAsistencia(sumaAsistencia)
@@ -88,10 +127,15 @@ const ReporteRectorClase = () => {
                         setSalidaPrevia(sumaSalidaPrevia)
                         setRetrasoSalida(sumaRetrasoSalida)
                         setFalta(sumaFalta)
-
-
+						setAviso(sumaAviso)
+						setUniExt(sumaUniExt)
+						setReposicion(sumaReposicion)
+						setAdelanto(sumaAdelanto)
+						setAutorizacion(sumaAutorizacion)
+						setClaseRepuesta(sumaClaseRepuesta)
 					setInfoClase(json)
 					setTotal(totalCodes)
+					setTotalInformativo(totalCodesInformativo)
 				})
                 .catch(error => console.error(error));
 		}
@@ -143,14 +187,41 @@ const ReporteRectorClase = () => {
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row m-0 grafica white-card">
-										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
-										<GraficaLeyendas
-											asistencia={asistencia} 
-											retraso={retraso} 
-											salidaPrevia={salidaPrevia} 
-											retrasoSalida={retrasoSalida} 
-											falta={falta} total={total}>
-										</GraficaLeyendas>
+										<GraficaClases 
+                                            className="col-md-6" 
+                                            asistencia={asistencia} 
+                                            retraso={retraso} 
+                                            salidaPrevia={salidaPrevia} 
+                                            retrasoSalida={retrasoSalida} 
+                                            falta={falta}>
+                                        </GraficaClases>
+                                        <GraficaLeyendas
+                                            asistencia={asistencia} 
+                                            retraso={retraso} 
+                                            salidaPrevia={salidaPrevia} 
+                                            retrasoSalida={retrasoSalida} 
+                                            falta={falta} 
+                                            total={total}>
+                                        </GraficaLeyendas>
+										<GraficaAsistenciaInformativo
+											className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}>
+										</GraficaAsistenciaInformativo>
+										<GraficaLeyendasInformativo 
+										className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}
+											totalInformativo={totalInformativo}>
+										</GraficaLeyendasInformativo>
 									</div>
 									{ /* CONTAINERS FOR QR CODE */ }
 									<div className='row m-0 justify-content-end'>

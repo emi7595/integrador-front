@@ -11,6 +11,8 @@ import TablaInfoRectorEscuela from '../../tablas/tablasInfo/rector/TablaInfoRect
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import TablaAsistencia from '../tablas/TablaAsistencia';
+import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
+import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
 
 const ReporteAdministradorEscuela = () => {
     const location = useLocation();
@@ -22,6 +24,13 @@ const ReporteAdministradorEscuela = () => {
 	const [retrasoSalida, setRetrasoSalida] = useState(null);
 	const [falta, setFalta] = useState(null);
 	const [nombreReporte, setNombreReporte] = useState(null);
+	const [totalInformativo, setTotalInformativo] = useState(null);
+	const [aviso, setAviso] = useState(null);
+	const [uniExt, setUniExt] = useState(null);
+	const [reposicion, setReposicion] = useState(null);
+	const [adelanto, setAdelanto] = useState(null);
+	const [autorizacion, setAutorizacion] = useState(null);
+	const [claseRepuesta, setClaseRepuesta] = useState(null);
 	const navigate = useNavigate();
 
 	// Get session storage information
@@ -50,11 +59,17 @@ const ReporteAdministradorEscuela = () => {
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
-					for (let i = 0; i < 5; i++) {
+					let totalCodesInformativo = 0;
+					for (let i = 0; i < 11; i++) {
 						let sum = 0;
 						for (let j = 0; j < json.length; j++) {
 							sum += json[j].codes[i];
-							totalCodes += json[j].codes[i];
+							if (i < 5) {
+								totalCodes += json[j].codes[i];
+							} else {
+								totalCodesInformativo += json[j].codes[i];
+							}
+							
 						}
 						if (i === 0) {
 							setAsistencia(sum)
@@ -71,10 +86,29 @@ const ReporteAdministradorEscuela = () => {
 						else if (i === 4) {
 							setFalta(sum)
 						}
+						else if (i === 5) {
+							setAviso(sum)
+						}
+						else if (i === 6) {
+							setUniExt(sum)
+						}
+						else if (i === 7) {
+							setReposicion(sum)
+						}
+						else if (i === 8) {
+							setAdelanto(sum)
+						}
+						else if (i === 9) {
+							setAutorizacion(sum)
+						}
+						else if (i === 10) {
+							setClaseRepuesta(sum)
+						}
 					}
 					setNombreReporte(`Reporte ${json[0].schoolName}`)
 					setData(json)
 					setTotal(totalCodes)
+					setTotalInformativo(totalCodesInformativo)
 				})
                 .catch(error => console.error(error));
 		}
@@ -137,6 +171,25 @@ const ReporteAdministradorEscuela = () => {
 									<div className="row m-0 grafica white-card">
 										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
 										<GraficaLeyendas asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta} total={total}></GraficaLeyendas>
+										<GraficaAsistenciaInformativo 
+											className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}>
+										</GraficaAsistenciaInformativo>
+										<GraficaLeyendasInformativo 
+										className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}
+											totalInformativo={totalInformativo}>
+										</GraficaLeyendasInformativo>
 									</div>
 									<div className='row m-0 justify-content-end'>
 										<CSVLink 

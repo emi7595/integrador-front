@@ -333,6 +333,8 @@ a {
 	height: 300px;
 	width: 100%;
 	margin-bottom: 20px !important;
+	display: flex;
+	justify-content: center;
 }
 
 .boton-descargar {
@@ -358,14 +360,14 @@ a {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #FFE700;
+	background-color: #adad5c;
 	margin-right: 10px;
 }
 .retraso {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #333333;
+	background-color: #946724;
 	/*background-color: #FFEF5C;*/
 	margin-right: 10px;
 }
@@ -373,7 +375,7 @@ a {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #355070;
+	background-color: #c8ddbb;
 	/*background-color: #FFF385;*/
 	margin-right: 10px;
 }
@@ -381,7 +383,7 @@ a {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #DB5461;
+	background-color: #f7deb6;
 	/*background-color: #A39300;*/
 	margin-right: 10px;
 }
@@ -389,11 +391,57 @@ a {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background-color: #F18805;
+	background-color: #f1c57e;
 	/*background-color: #524900;*/
 	margin-right: 10px;
 }
-  
+.aviso {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #250025;
+	margin-right: 10px;
+}
+.unidad-externa {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	/* background-color: #b5cef7; */
+	background-color: #2e3350;
+	margin-right: 10px;
+}
+.reposicion {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #5974bc;
+	margin-right: 10px;
+}
+.adelanto {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	/* background-color: #2e3350; */
+	/* background-color: #b5cef7; */
+	background-color: #8c93c7;
+	margin-right: 10px;
+}
+.autorizacion {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #c6c1e1;
+	margin-right: 10px;
+}
+.clase-repuesta {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	/* background-color: #8c93c7; */
+	background-color: #b5cef7;
+	margin-right: 10px;
+}
+
 .leyenda {
 	display: flex;
 	flex-direction: row;

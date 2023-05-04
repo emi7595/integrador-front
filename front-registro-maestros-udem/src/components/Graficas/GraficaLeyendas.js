@@ -1,7 +1,7 @@
 const GraficaLeyendas = (props) => {
     const {asistencia, retraso, salidaPrevia, retrasoSalida, falta, total} = props;
     return (
-        <div className='col-md-6 leyenda'>
+        <div className='col-md-3 leyenda'>
 			<div>
 				<p className="leyenda"><span className="asistencia"></span> Asistencia: {asistencia}/{total}</p>
 				<p className="leyenda"><span className="retraso"></span> Retraso Inicial: {retraso}/{total}</p>

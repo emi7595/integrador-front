@@ -3,17 +3,20 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 function data2 (props) {
   return ([
-  { name: 'Group A', value: props.asistencia },
-  { name: 'Group B', value: props.retraso },
-  { name: 'Group C', value: props.salidaPrevia },
-  { name: 'Group D', value: props.retrasoSalida },
-  { name: 'Group E', value: props.falta },
+  { name: 'Group A', value: props.aviso },
+  { name: 'Group B', value: props.unidadExterna },
+  { name: 'Group C', value: props.reposicion },
+  { name: 'Group D', value: props.adelanto },
+  { name: 'Group E', value: props.autorizacion },
+  { name: 'Group F', value: props.claseRepuesta },
 ])};
 
-const COLORS = ['#adad5c', '#946724', '#c8ddbb', '#f7deb6','#f1c57e'];
+const COLORS = ['#250025', '#2e3350', '#5974bc', '#8c93c7','#c6c1e1','#b5cef7'];
+//const COLORS = ['#250025', '#b5cef7', '#5974bc', '#2e3350','#c6c1e1','#8c93c7'];
 // asistencia, retrasoInicial, salidaPrevia, retrasoSalida, falta
+// aviso, uniExt, reposicion, adelanto, autorizacion, claseRepuesta
 
-class GraficaClases extends PureComponent {
+class GraficaAsistenciaInformativo extends PureComponent {
 
   render() {
     return (
@@ -39,4 +42,4 @@ class GraficaClases extends PureComponent {
   }
 }
 
-export default GraficaClases;
+export default GraficaAsistenciaInformativo;

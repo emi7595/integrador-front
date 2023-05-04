@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,8 @@ import TablaInfoRectorEscuelaDepartamento from '../../tablas/tablasInfo/rector/T
 import SidebarRector from '../sidebar/SidebarRector';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
+import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
+import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
 // import GraficaClases from '../../Graficas/GraficaClases';
 // import TablaProfesor from '../../tablas/TablaProfesor';
 
@@ -25,6 +27,13 @@ const ReporteRectorDepartamento = () => {
 	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
 	const [falta, setFalta] = React.useState(null);
 	const [nombreReporte, setNombreReporte] = React.useState(null);
+	const [totalInformativo, setTotalInformativo] = useState(null);
+	const [aviso, setAviso] = useState(null);
+	const [uniExt, setUniExt] = useState(null);
+	const [reposicion, setReposicion] = useState(null);
+	const [adelanto, setAdelanto] = useState(null);
+	const [autorizacion, setAutorizacion] = useState(null);
+	const [claseRepuesta, setClaseRepuesta] = useState(null);
 	const navigate = useNavigate();
 
 	// Get session storage information
@@ -55,11 +64,17 @@ const ReporteRectorDepartamento = () => {
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
-					for (let i = 0; i < 5; i++) {
+					let totalCodesInformativo = 0;
+					for (let i = 0; i < 11; i++) {
 						let sum = 0;
 						for (let j = 0; j < json.length; j++) {
 							sum += json[j].codes[i];
-							totalCodes += json[j].codes[i];
+							if (i < 5) {
+								totalCodes += json[j].codes[i];
+							} else {
+								totalCodesInformativo += json[j].codes[i];
+							}
+							
 						}
 						if (i === 0) {
 							setAsistencia(sum)
@@ -76,7 +91,26 @@ const ReporteRectorDepartamento = () => {
 						else if (i === 4) {
 							setFalta(sum)
 						}
+						else if (i === 5) {
+							setAviso(sum)
+						}
+						else if (i === 6) {
+							setUniExt(sum)
+						}
+						else if (i === 7) {
+							setReposicion(sum)
+						}
+						else if (i === 8) {
+							setAdelanto(sum)
+						}
+						else if (i === 9) {
+							setAutorizacion(sum)
+						}
+						else if (i === 10) {
+							setClaseRepuesta(sum)
+						}
 					}
+					setTotalInformativo(totalCodesInformativo)
 					setNombreReporte(`Reporte ${location.state.schoolName} - ${json[0].departmentName}`)
 					setData(json)
 					setTotal(totalCodes)
@@ -136,14 +170,41 @@ const ReporteRectorDepartamento = () => {
 								<div className="col-12 text-center">
                                     <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
 									<div className="row m-0 grafica white-card">
-										<GraficaClases className="col-md-6" asistencia={asistencia} retraso={retraso} salidaPrevia={salidaPrevia} retrasoSalida={retrasoSalida} falta={falta}></GraficaClases>
-										<GraficaLeyendas
+									<GraficaClases 
+											className="col-md-3" 
+											asistencia={asistencia} 
+											retraso={retraso} 
+											salidaPrevia={salidaPrevia} 
+											retrasoSalida={retrasoSalida} 
+											falta={falta}>
+										</GraficaClases>
+										<GraficaLeyendas 
+										className="col-md-3" 
 											asistencia={asistencia} 
 											retraso={retraso} 
 											salidaPrevia={salidaPrevia} 
 											retrasoSalida={retrasoSalida} 
 											falta={falta} total={total}>
 										</GraficaLeyendas>
+										<GraficaAsistenciaInformativo 
+											className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}>
+										</GraficaAsistenciaInformativo>
+										<GraficaLeyendasInformativo 
+										className="col-md-3" 
+											aviso={aviso} 
+											unidadExterna={uniExt} 
+											reposicion={reposicion} 
+											adelanto={adelanto} 
+											autorizacion={autorizacion} 
+											claseRepuesta={claseRepuesta}
+											totalInformativo={totalInformativo}>
+										</GraficaLeyendasInformativo>
 									</div>
 									<div className='row m-0 justify-content-end'>
 										<CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>

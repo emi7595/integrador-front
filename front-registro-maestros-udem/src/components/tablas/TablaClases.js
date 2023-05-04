@@ -42,7 +42,7 @@ const TablaClases = (props)  =>{
             <TableHead>
             <TableRow>
                 <StyledTableCell>Fecha</StyledTableCell>
-                <StyledTableCell >Registro</StyledTableCell>
+                <StyledTableCell align="center">Registro</StyledTableCell>
             </TableRow>
             </TableHead>
             <TableBody>
@@ -51,7 +51,7 @@ const TablaClases = (props)  =>{
               <StyledTableCell component="th" scope="row">
                 {clase.date.slice(0, -9)}
               </StyledTableCell>
-              <StyledTableCell>{clase.codeDescription}</StyledTableCell>
+              <StyledTableCell align="center">{clase.codeDescription}</StyledTableCell>
             </StyledTableRow>
           ))}
             </TableBody>
