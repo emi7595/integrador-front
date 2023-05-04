@@ -1,33 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import { CSVLink } from "react-csv";
-import TablaAsistencia from '../tablas/TablaAsistencia';
-import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
 import TablaVerProfesores from '../tablas/TablaVerProfesores';
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 
 const VerProfesoresAdministrador = () => {
-	const [data, setData] = React.useState(null);
-	const [buscador, setBuscador] = React.useState(null);
-
+	const [data, setData] = useState(null);
+	const [buscador, setBuscador] = useState(null);
+	const [busqueda, setBusqueda] = useState('');
 
 	const navigate = useNavigate();
-	let user, nomina;
 
-	// Get session storage information
+	let user;
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		nomina = session.nomina;
 	}
 
 	useEffect(() => {
@@ -61,8 +51,6 @@ const VerProfesoresAdministrador = () => {
 		}
 	}, []);
 
-	const [busqueda, setBusqueda] = useState('');
-
 	const handleInputChange = (event) => {
 		setBusqueda(event.target.value);
 	};
@@ -93,16 +81,13 @@ const VerProfesoresAdministrador = () => {
 				});
 		}
 		// Llamar a la API con la búsqueda
-
 	};
 
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
 				<div className="row flex-nowrap">
 					<SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
@@ -120,8 +105,6 @@ const VerProfesoresAdministrador = () => {
 									<div className="row m-0 black-card mb-2">
 										<h1 className="h1-falta mt-4">Buscar Profesor</h1>
 										<form className="form-reportar" onSubmit={handleSubmit}>
-											{/* <div className="form-reportar-labels pt-5 pb-5">
-											</div> */}
 											<input
 												className="form-buscar-profesor"
 												placeholder='Nombre, Clave, Materia, Nómina, Salón...'
@@ -132,7 +115,6 @@ const VerProfesoresAdministrador = () => {
 											<button type="submit" className="boton-registrar mb-4">Buscar</button>
 										</form>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */}
 									<div className="spinner-border mt-3" role="status" id="spinner">
 										<span className="visually-hidden">Loading...</span>
 									</div>
@@ -148,7 +130,6 @@ const VerProfesoresAdministrador = () => {
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */}
 				</div>
 			</div>
 		</div>

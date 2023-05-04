@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { FaChalkboardTeacher } from "react-icons/fa";

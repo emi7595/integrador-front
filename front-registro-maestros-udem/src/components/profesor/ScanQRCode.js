@@ -13,7 +13,6 @@ import { BiUserCircle } from "react-icons/bi";
 import { BsCheck2Square } from "react-icons/bs";
 import { TbDoorExit } from "react-icons/tb";
 import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 
 const ScanQRCode = () => {

@@ -8,8 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { BsThreeDots } from "react-icons/bs";
 import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -79,8 +77,7 @@ const TablaVerProfesores = (props) => {
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { headers, data, from } = props;
-    const navigate = useNavigate()
+    const { headers, data} = props;
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);

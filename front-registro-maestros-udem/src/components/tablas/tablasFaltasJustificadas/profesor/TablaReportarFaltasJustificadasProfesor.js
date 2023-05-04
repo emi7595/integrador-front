@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import Table from '@mui/material/Table';
@@ -8,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { BsQrCode } from "react-icons/bs";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,7 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 
 const TablaReportarFaltasJustificadasProfesor = (props) => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {

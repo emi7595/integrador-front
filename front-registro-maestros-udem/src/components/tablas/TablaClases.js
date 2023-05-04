@@ -10,8 +10,8 @@ import { styled } from '@mui/material/styles';
 
 
 const TablaClases = (props)  =>{
-    const subjectName = props.dataClase.subjectName;
-    const CRN = props.dataClase.CRN;
+    // const subjectName = props.dataClase.subjectName;
+    // const CRN = props.dataClase.CRN;
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: '#333333',

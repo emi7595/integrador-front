@@ -6,7 +6,7 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { BiUserCircle } from "react-icons/bi";
 import { BsQrCode} from "react-icons/bs";
-import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
+import { FaFileDownload } from "react-icons/fa";
 import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaProfesor from '../../tablas/TablaProfesor';

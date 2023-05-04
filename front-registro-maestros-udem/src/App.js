@@ -4,7 +4,7 @@ import LoginForm from './components/login/LoginForm';
 import ScanQRCode from './components/profesor/ScanQRCode';
 import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
 import Vicerrector from './components/vicerrector/Vicerrector';
-import Rector from './components/rector/Rector';
+import ReporteRector from './components/rector/reportes/ReporteRector';
 import ConfirmQR from './components/profesor/ConfirmQR';
 import ReporteProfesor from './components/profesor/reportes/ReporteProfesor';
 import ReporteClases from './components/profesor/reportes/ReporteClases';
@@ -13,10 +13,10 @@ import DirectorDepartamentoReporteProfesorClase from './components/director-depa
 import VicerrectorReporteDepartamento from './components/vicerrector/reportes/VicerrectorReporteDepartamento';
 import VicerrectorReporteDepartamentoProfesor from './components/vicerrector/reportes/VicerrectorReporteDepartamentoProfesor';
 import VicerrectorReporteDepartamentoProfesorClase from './components/vicerrector/reportes/VicerrectorReporteDepartamentoProfesorClase';
-import RectorReporteEscuela from './components/rector/reportes/RectorReporteEscuela';
-import RectorReporteEscuelaDepartamento from './components/rector/reportes/RectorReporteEscuelaDepartamento';
-import RectorReporteEscuelaDepartamentoProfesor from './components/rector/reportes/RectorReporteEscuelaDepartamentoProfesor';
-import RectorReporteEscuelaDepartamentoProfesorClase from './components/rector/reportes/RectorReporteEscuelaDepartamentoProfesorClase';
+import ReporteRectorEscuela from './components/rector/reportes/ReporteRectorEscuela';
+import ReporteRectorDepartamento from './components/rector/reportes/ReporteRectorDepartamento';
+import ReporteRectorProfesor from './components/rector/reportes/ReporteRectorProfesor';
+import ReporteRectorClase from './components/rector/reportes/ReporteRectorClase';
 import ReportarFaltasJustificadasProfesor from './components/profesor/faltasJustificadas/ReportarFaltasJustificadasProfesor2';
 import ReporteAdministrador from './components/administrador/reportes/ReporteAdministrador';
 import ReporteAdministradorEscuela from './components/administrador/reportes/ReporteAdministradorEscuela';
@@ -64,12 +64,11 @@ function App() {
 				<Route path="/vicerrector/reporte-departamento/reporte-profesor/reporte-clase" element={<VicerrectorReporteDepartamentoProfesorClase />} />
 
 				{ /* RECTOR ROUTES */ }
-				<Route path="/rector" element={<Rector />} />
-				<Route path="/rector/reporte-escuela" element={<RectorReporteEscuela />} />
-				<Route path="/rector/reporte-escuela/reporte-departamento" element={<RectorReporteEscuelaDepartamento />} />
-				<Route path="/rector/reporte-escuela/reporte-departamento/reporte-profesor" element={<RectorReporteEscuelaDepartamentoProfesor />} />
-				<Route path="/rector/reporte-escuela/reporte-departamento/reporte-profesor" element={<RectorReporteEscuelaDepartamentoProfesor />} />
-				<Route path="/rector/reporte-escuela/reporte-departamento/reporte-profesor/reporte-clase" element={<RectorReporteEscuelaDepartamentoProfesorClase />} />
+				<Route path="/rector" element={<ReporteRector />} />
+				<Route path="/rector/reporte/escuela" element={<ReporteRectorEscuela />} />
+				<Route path="/rector/reporte/escuela/departamento" element={<ReporteRectorDepartamento />} />
+				<Route path="/rector/reporte/escuela/departamento/profesor" element={<ReporteRectorProfesor />} />
+				<Route path="/rector/reporte/escuela/departamento/profesor/clase" element={<ReporteRectorClase />} />
 				
 			</Routes>
 		</>

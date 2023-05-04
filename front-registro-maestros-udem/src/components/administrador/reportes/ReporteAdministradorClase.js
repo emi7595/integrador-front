@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
-import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
@@ -18,19 +15,17 @@ import TablaAsistencia from '../tablas/TablaAsistencia';
 
 const ReporteAdministradorClase = () => {
     const location = useLocation();
-	const [infoClase, setInfoClase] = React.useState(null);
-	const [total, setTotal] = React.useState(null);
-	const [asistencia, setAsistencia] = React.useState(null);
-	const [retraso, setRetraso] = React.useState(null);
-	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
-	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
-	const [falta, setFalta] = React.useState(null);
-
+	const [infoClase, setInfoClase] = useState(null);
+	const [total, setTotal] = useState(null);
+	const [asistencia, setAsistencia] = useState(null);
+	const [retraso, setRetraso] = useState(null);
+	const [salidaPrevia, setSalidaPrevia] = useState(null);
+	const [retrasoSalida, setRetrasoSalida] = useState(null);
+	const [falta, setFalta] = useState(null);
 
 	const navigate = useNavigate();
-	let user;
 
-	// Get session storage information
+	let user;
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
@@ -122,15 +117,11 @@ const ReporteAdministradorClase = () => {
 	  ];
 	  let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`
 
-
-	// --- COMPONENT (HTML) ---
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
     			<div className="row flex-nowrap">
                     <SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */ }
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
@@ -167,7 +158,6 @@ const ReporteAdministradorClase = () => {
                                             total={total}>
                                         </GraficaLeyendas>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */ }
 									<div className='row m-0 justify-content-end'>
 										<CSVLink 
 											data={handleDatos()} 
@@ -198,7 +188,6 @@ const ReporteAdministradorClase = () => {
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */ }
     			</div>
 			</div>
 		</div>

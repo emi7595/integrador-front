@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable default-case */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,19 +16,17 @@ import TablaAsistencia from '../tablas/TablaAsistencia';
 
 const ReporteAdministradorProfesor = () => {
     const location = useLocation();
-	const [data, setData] = React.useState(null);
-	const [total, setTotal] = React.useState(null);
-	const [asistencia, setAsistencia] = React.useState(null);
-	const [retraso, setRetraso] = React.useState(null);
-	const [salidaPrevia, setSalidaPrevia] = React.useState(null);
-	const [retrasoSalida, setRetrasoSalida] = React.useState(null);
-	const [falta, setFalta] = React.useState(null);
+	const [data, setData] = useState(null);
+	const [total, setTotal] = useState(null);
+	const [asistencia, setAsistencia] = useState(null);
+	const [retraso, setRetraso] = useState(null);
+	const [salidaPrevia, setSalidaPrevia] = useState(null);
+	const [retrasoSalida, setRetrasoSalida] = useState(null);
+	const [falta, setFalta] = useState(null);
 
 
 	const navigate = useNavigate();
 	let user;
-
-	// Get session storage information
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
@@ -117,15 +115,11 @@ const ReporteAdministradorProfesor = () => {
 
 	let nombreReporte = `Reporte ${location.state.departmentName} - ${location.state.employeeName}`
 
-
-	// --- COMPONENT (HTML) ---
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
     			<div className="row flex-nowrap">
                     <SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */ }
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
@@ -190,7 +184,6 @@ const ReporteAdministradorProfesor = () => {
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */ }
     			</div>
 			</div>
 		</div>

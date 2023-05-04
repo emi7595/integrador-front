@@ -1,35 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode } from "react-icons/bs";
-import { FaChalkboardTeacher, FaFileDownload } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import { CSVLink } from "react-csv";
-import TablaAsistencia from '../tablas/TablaAsistencia';
-import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
-import TablaVerProfesores from '../tablas/TablaVerProfesores';
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
-import TablaFaltasJustificadasAceptadas from '../tablas/TablaFaltasJustificadasAceptadas';
 import TablaFaltasJustificadasPendientes from '../tablas/TablaFaltasJustificadasPendientes';
 
 const FaltasJustificadasPendientesAdministrador = () => {
-	const [data, setData] = React.useState(null);
-	const [buscador, setBuscador] = React.useState(null);
-
+	const [data, setData] = useState(null);
 
 	const navigate = useNavigate();
-	let user, nomina;
 
-	// Get session storage information
+	let user;
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
-		nomina = session.nomina;
 	}
 
 	useEffect(() => {
@@ -65,18 +51,15 @@ const FaltasJustificadasPendientesAdministrador = () => {
 		}
 	}, []);
 
-
 	function handleUpdateData(newData) {
 		setData(newData);
 	}
 
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
 				<div className="row flex-nowrap">
 					<SidebarAdministrador user={user}></SidebarAdministrador>
-					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
@@ -92,10 +75,8 @@ const FaltasJustificadasPendientesAdministrador = () => {
 							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
 									<h1 className="mb-5 currentClass">Faltas Justificadas Pendientes</h1>
-									{ /* CONTAINERS FOR QR CODE */}
 									{data && (
 										<TablaFaltasJustificadasPendientes
-											//headers={["Profesor", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Salón", "Num. Evento", "Aceptar"]} 
 											headers={["Profesor", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Asignar salón y evento"]}
 											data={data}
 											actualizarData={handleUpdateData}
@@ -107,7 +88,6 @@ const FaltasJustificadasPendientesAdministrador = () => {
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */}
 				</div>
 			</div>
 		</div>

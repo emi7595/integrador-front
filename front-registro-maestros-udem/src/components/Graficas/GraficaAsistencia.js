@@ -10,29 +10,7 @@ function data2 (props) {
   { name: 'Group E', value: props.falta },
 ])};
 
-// const data = [
-//   { name: 'Group A', value: 5 },
-//   { name: 'Group B', value: 1 },
-//   { name: 'Group C', value: 1 },
-//   { name: 'Group D', value: 0 },
-//   { name: 'Group E', value: 13 },
-// ];
-
 const COLORS = ['#FFE700', '#333333', '#355070', '#DB5461','#F18805'];
-// const COLORS = ['#FFE700', '#FFEF5C', '#FFF385', '#A39300','#524900'];
-
-// const RADIAN = Math.PI / 180;
-// const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-//   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
-//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-//   return (
-//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-//       {`${(percent * 100).toFixed(0)}%`}
-//     </text>
-//   );
-// };
 
 class GraficaClases extends PureComponent {
 

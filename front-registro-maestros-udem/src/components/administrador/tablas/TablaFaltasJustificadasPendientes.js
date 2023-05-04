@@ -8,8 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { json, useNavigate } from 'react-router-dom';
-import { BsCheck2Square, BsThreeDots } from "react-icons/bs";
 import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -82,10 +80,9 @@ const TablaFaltasJustificadasPendientes = (props) => {
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { headers, data, actualizarData, from } = props;
+    const { headers, data, actualizarData} = props;
     const [valor1, setValor1] = useState('');
     const [valor2, setValor2] = useState('');
-    const navigate = useNavigate();
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -197,12 +194,6 @@ const TablaFaltasJustificadasPendientes = (props) => {
                                     <StyledTableCell align="left">{profesor.date.split("T")[0]}</StyledTableCell>
                                     <StyledTableCell align="left">{profesor.startTime}</StyledTableCell>
                                     <StyledTableCell align="center"><BsPencilSquare className="boton-aceptar" onClick={() => assignClassroomEvent(profesor.idReposition)}></BsPencilSquare></StyledTableCell>
-                                    {/*
-                                <StyledTableCell align="left"><input type="text" className="input-faltas-pendientes" value={valor1} onChange={event => setValor1(event.target.value)}></input></StyledTableCell>
-                                <StyledTableCell align="left"><input className="input-faltas-pendientes" value={valor2} onChange={event => setValor2(event.target.value)}></input></StyledTableCell>
-                                <StyledTableCell align="center"><BsCheck2Square className="boton-aceptar" onClick={() => enviarValores(profesor.idReposition)}></BsCheck2Square></StyledTableCell>
-                                */}
-
                                 </StyledTableRow>
                             ))
                         }
