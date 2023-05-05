@@ -34,7 +34,7 @@ const FaltasJustificadasPendientesAdministrador = () => {
 				default: break;
 			}
 			// Get all pending repositions
-			fetch("http://172.32.138.118:5096/Repositions/Admin/GetPendingReposition")
+			fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : [{
@@ -89,7 +89,7 @@ const FaltasJustificadasPendientesAdministrador = () => {
 									<h1 className="mb-5 currentClass">Faltas Justificadas Pendientes</h1>
 									{data && (
 										<TablaFaltasJustificadasPendientes
-											headers={["Profesor", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Asignar salón y evento"]}
+											headers={["Docente", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Asignar salón y evento"]}
 											data={data}
 											actualizarData={handleUpdateData}
 											from={"VerProfesoresAdministrador"}>

@@ -135,6 +135,7 @@ const TablaFaltasJustificadasAceptadas = (props)  =>{
               <StyledTableCell align="left">{profesor.nomina}</StyledTableCell>
               <StyledTableCell align="left">{profesor.subjectName}</StyledTableCell>
               <StyledTableCell align="left">{profesor.subject_CVE}</StyledTableCell>
+              <StyledTableCell align="left">{profesor.date.slice(0,-9)}</StyledTableCell>
               <StyledTableCell align="left">{profesor.startTime.slice(0,5)}</StyledTableCell>
               <StyledTableCell align="left">{profesor.classroom}</StyledTableCell>
               <StyledTableCell align="left">{profesor.eventNum === -1 ? "UNIEXT" : profesor.eventNum === null ? "Pendiente" : profesor.eventNum}</StyledTableCell>

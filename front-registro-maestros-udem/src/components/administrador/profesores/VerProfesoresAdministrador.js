@@ -37,7 +37,7 @@ const VerProfesoresAdministrador = () => {
 			}
 			// Get current class that the professor is on
 			document.getElementById("spinner").style.display = "inline-block";
-			fetch("http://172.32.138.118:5096/Information/Admin/GetClasses")
+			fetch("http://192.168.3.6:5096/Information/Admin/GetClasses")
 				.then(response => response.json())
 				.then(json => {
 					setData(json);
@@ -61,7 +61,7 @@ const VerProfesoresAdministrador = () => {
 			setBuscador(null);
 		} else {
 			document.getElementById("spinner").style.display = "inline-block";
-			fetch("http://172.32.138.118:5096/Information/Admin/SearchClass/" + busqueda)
+			fetch("http://192.168.3.6:5096/Information/Admin/SearchClass/" + busqueda)
 				.then(response => response.json())
 				.then(json => {
 					setBuscador(json);
@@ -103,7 +103,7 @@ const VerProfesoresAdministrador = () => {
 							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
 									<div className="row m-0 black-card mb-2">
-										<h1 className="h1-falta mt-4">Buscar Profesor</h1>
+										<h1 className="h1-falta mt-4">Buscador</h1>
 										<form className="form-reportar" onSubmit={handleSubmit}>
 											<input
 												className="form-buscar-profesor"
@@ -120,7 +120,7 @@ const VerProfesoresAdministrador = () => {
 									</div>
 									{data && (
 										<TablaVerProfesores
-											headers={["Profesor", "Nómina", "Clase", "Clave", "Horario", "Día", "Salón"]}
+											headers={["Docente", "Nómina", "Clase", "Clave", "Horario", "Día", "Salón"]}
 											data={buscador !== null ? buscador : data}
 											from={"VerProfesoresAdministrador"}>
 										</TablaVerProfesores>

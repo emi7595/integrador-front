@@ -52,7 +52,7 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
             }
 
             // Post request to database
-            const response = await fetch('http://172.32.138.118:5096/Repositions/RegisterRepositionAttendance', {
+            const response = await fetch('http://192.168.3.6:5096/Repositions/RegisterRepositionAttendance', {
                 method: 'POST',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },

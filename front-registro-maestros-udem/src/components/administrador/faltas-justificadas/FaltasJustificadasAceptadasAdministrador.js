@@ -34,7 +34,7 @@ const FaltasJustificadasAceptadasAdministrador = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://172.32.138.118:5096/Repositions/Admin/GetAcceptedReposition")
+			fetch("http://192.168.3.6:5096/Repositions/Admin/GetAcceptedReposition")
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
@@ -73,7 +73,7 @@ const FaltasJustificadasAceptadasAdministrador = () => {
 									<h1 className="mb-5 currentClass">Faltas Justificadas Aceptadas</h1>
 									{data && (
 										<TablaFaltasJustificadasAceptadas
-											headers={["Profesor", "Nómina", "Clase", "Clave", "Horario", "Salón", "Num. Evento"]}
+											headers={["Docente", "Nómina", "Clase", "Clave", "Fecha", "Horario", "Salón", "Num. Evento"]}
 											data={data}
 											from={"VerProfesoresAdministrador"}>
 										</TablaFaltasJustificadasAceptadas>

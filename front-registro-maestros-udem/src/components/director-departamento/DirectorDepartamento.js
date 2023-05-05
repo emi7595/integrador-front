@@ -59,7 +59,7 @@ const DirectorDepartamento = () => {
 				case 5:
 					navigate("/rector"); break;
 			}
-			fetch("http://172.32.138.118:5096/Reports/Director/GetDepartmentAverage/" + idDepartamento)
+			fetch("http://192.168.3.6:5096/Reports/Director/GetDepartmentAverage/" + idDepartamento)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

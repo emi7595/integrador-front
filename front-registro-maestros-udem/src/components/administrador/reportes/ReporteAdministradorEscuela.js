@@ -55,7 +55,7 @@ const ReporteAdministradorEscuela = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			fetch("http://172.32.138.118:5096/Reports/Vicerrector/GetSchoolAverage/" + location.state.schoolId)
+			fetch("http://192.168.3.6:5096/Reports/Vicerrector/GetSchoolAverage/" + location.state.schoolId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

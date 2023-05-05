@@ -59,7 +59,7 @@ const ReporteRectorProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://172.32.138.118:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
+			fetch("http://192.168.3.6:5096/Reports/Professor/GetAttendanceAverage/" + location.state.nomina)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;

@@ -57,7 +57,7 @@ const ReporteAdministradorDepartamento = () => {
 					navigate("/rector"); break;
 				default: break;
 			}
-			fetch("http://172.32.138.118:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
+			fetch("http://192.168.3.6:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)
 				.then(response => response.json())
 				.then(json => {
 					let totalCodes = 0;
@@ -138,7 +138,7 @@ const ReporteAdministradorDepartamento = () => {
 	}
 
 	const headers = [
-		{ label: 'Profesor', key: 'profesor' },
+		{ label: 'Docente', key: 'profesor' },
 		{ label: 'Nómina', key: 'nomina' },
 		{ label: 'PromedioAsistencia', key: 'promedioAsistencia' },
 		{ label: 'Asistencia', key: 'asistencia' },
@@ -224,7 +224,7 @@ const ReporteAdministradorDepartamento = () => {
 										</TablaInfoRectorEscuelaDepartamento>
 									<div  className="mb-4" ></div>
 									<TablaAsistencia 
-										headers={["Profesor", "Nómina", "Promedio Asistencia", "Detalle"]} 
+										headers={["Docente", "Nómina", "Promedio Asistencia", "Detalle"]} 
 										data={data} 
 										escuela={location.state.schoolName} 
 										departamento={location.state.departmentName} 
