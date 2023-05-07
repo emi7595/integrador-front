@@ -1,5 +1,4 @@
 const GraficaLeyendasInformativo = (props) => {
-    console.log(props)
     const {aviso, unidadExterna, reposicion, adelanto, autorizacion, claseRepuesta, totalInformativo} = props;
     return (
         <div className='col-md-3 leyenda'>

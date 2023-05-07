@@ -115,6 +115,14 @@ button:focus {
 	height: 2.5em;
 	border-radius: 0 !important;
 }
+
+.select-attendance {
+	background-color: white;
+	width: 100%;
+	height: 2.5em;
+	border-radius: 5px !important;
+}
+
 .boton-registrar{
 	color: #333333;
 	background-color: #FFFFFF;

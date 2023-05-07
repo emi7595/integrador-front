@@ -10,8 +10,6 @@ import { styled } from '@mui/material/styles';
 
 
 const TablaInfoDirectorDepartamento = (props)  =>{
-    // const departamento = props.dataClase.departmentName;
-    // console.log(departamento);
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: '#333333',

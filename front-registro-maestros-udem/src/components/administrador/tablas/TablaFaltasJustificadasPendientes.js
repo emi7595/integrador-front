@@ -121,10 +121,8 @@ const TablaFaltasJustificadasPendientes = (props) => {
 
     const enviarValores = async (idReposition, classroom, event, myModal) => {
         try {
-            //console.log(myModal);
             myModal.hide();
             var jsonData = { "idReposition": idReposition, "classroom": classroom, "numEvent": event }
-            console.log(jsonData)
             const response = await fetch("http://192.168.3.6:5096/Repositions/AssignClassroomEvent", {
                 method: 'PUT',
                 mode: 'cors',
@@ -138,7 +136,6 @@ const TablaFaltasJustificadasPendientes = (props) => {
                 fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
 				.then(async (response) => { 
                     const body = await response.text();
-                    console.log(body);
                     const data = body.length ? JSON.parse(body) : [{
 						employeeName: "No hay reportes pendientes",
 						nomina: "",

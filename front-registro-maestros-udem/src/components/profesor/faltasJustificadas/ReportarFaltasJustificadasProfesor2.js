@@ -84,7 +84,6 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 		try {
 			var idCode = parseInt(razon);
 			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "idCode": idCode }
-			console.log(jsonData)
 			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateRepositionReport", {
 				method: 'POST',
 				mode: 'cors',
@@ -115,7 +114,6 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 		event.preventDefault();
 		try {
 			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "classroom": salon }
-			console.log(jsonData)
 			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateExternalUnitReport", {
 				method: 'POST',
 				mode: 'cors',
