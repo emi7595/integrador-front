@@ -103,7 +103,7 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
                             <StyledTableCell>Hora Inicio</StyledTableCell>
                             <StyledTableCell>Salón</StyledTableCell>
                             <StyledTableCell>Num. Evento</StyledTableCell>
-                            <StyledTableCell align="right" className="tabla-der">QR</StyledTableCell>
+                            <StyledTableCell align="right" className="tabla-der">Registrar Asistencia</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
