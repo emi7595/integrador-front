@@ -36,6 +36,7 @@ function App() {
 				<Route path="/" element={<LoginForm />} />
 
 				{ /* PROFESSOR ROUTES */}
+				<Route path="/profesor" element={<ScanQRCode />} />
 				<Route path="/profesor/qr" element={<ScanQRCode />} />
 				<Route path="/profesor/reporte" element={<ReporteProfesor />} />
 				<Route path="/profesor/reporte/clase" element={<ReporteClases />} />

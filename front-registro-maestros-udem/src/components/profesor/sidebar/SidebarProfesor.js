@@ -29,7 +29,7 @@ const SidebarProfesor = (props) => {
                 <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li className="nav-item">
                         <a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/qr") }}>
-                            <i className="fs-4 bi-house"></i> <span className={`ms-1 d-none d-sm-inline ${currentPath === '/profesor/qr' ? 'active-link' : ''}`}><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
+                            <i className="fs-4 bi-house"></i> <span className={`ms-1 d-none d-sm-inline ${currentPath === '/profesor/qr' || currentPath === '/profesor' ? 'active-link' : ''}`}><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
                         </a>
                     </li>
                     <li className="nav-item">
