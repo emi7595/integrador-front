@@ -128,7 +128,13 @@ const ReporteAdministradorEscuela = () => {
                 retraso: departamento.codes[1],
                 alida: departamento.codes[2],
                 retrasoSalida: departamento.codes[3],
-                falta: departamento.codes[4]
+                falta: departamento.codes[4],
+                aviso: departamento.codes[5],
+                unidadExterna: departamento.codes[6],
+                reposicionProgramada: departamento.codes[7],
+                adelanto: departamento.codes[8],
+                autorizacion: departamento.codes[9],
+                claseRepuesta: departamento.codes[10]
             })
         ))
 
@@ -143,6 +149,12 @@ const ReporteAdministradorEscuela = () => {
         { label: 'Salida Previa', key: 'salida' },
         { label: 'Retraso y Salida', key: 'retrasoSalida' },
         { label: 'Falta', key: 'falta' },
+        { label: 'Aviso', key: 'aviso' },
+        { label: 'Unidad Externa', key: 'unidadExterna' },
+        { label: 'Reposición Programada', key: 'reposicionProgramada' },
+        { label: 'Adelanto', key: 'adelanto' },
+        { label: 'Autorización', key: 'autorizacion' },
+        { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
     const today = new Date();

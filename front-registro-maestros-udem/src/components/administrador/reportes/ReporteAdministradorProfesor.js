@@ -130,7 +130,13 @@ const ReporteAdministradorProfesor = () => {
                 retraso: clase.codes[1],
                 salida: clase.codes[2],
                 retrasoSalida: clase.codes[3],
-                falta: clase.codes[4]
+                falta: clase.codes[4],
+                aviso: clase.codes[5],
+                unidadExterna: clase.codes[6],
+                reposicionProgramada: clase.codes[7],
+                adelanto: clase.codes[8],
+                autorizacion: clase.codes[9],
+                claseRepuesta: clase.codes[10]
             })
         ))
 
@@ -146,6 +152,12 @@ const ReporteAdministradorProfesor = () => {
         { label: 'Salida Previa', key: 'salida' },
         { label: 'Retraso y Salida', key: 'retrasoSalida' },
         { label: 'Falta', key: 'falta' },
+        { label: 'Aviso', key: 'aviso' },
+        { label: 'Unidad Externa', key: 'unidadExterna' },
+        { label: 'Reposición Programada', key: 'reposicionProgramada' },
+        { label: 'Adelanto', key: 'adelanto' },
+        { label: 'Autorización', key: 'autorizacion' },
+        { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
     let nombreReporte = `Reporte ${location.state.departmentName} - ${location.state.employeeName}`;

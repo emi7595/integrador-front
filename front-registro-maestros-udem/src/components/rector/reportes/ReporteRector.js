@@ -120,8 +120,19 @@ const ReporteRector = () => {
         let datos = [];
         data?.map((escuela) => (
             datos.push({
-                escuela: escuela.schoolName, promedioAsistencia: `${escuela.average}%`
-                , asistencia: escuela.codes[0], retraso: escuela.codes[1], salida: escuela.codes[2], retrasoSalida: escuela.codes[3], falta: escuela.codes[4]
+                escuela: escuela.schoolName, 
+                promedioAsistencia: `${escuela.average}%`, 
+                asistencia: escuela.codes[0], 
+                retraso: escuela.codes[1], 
+                salida: escuela.codes[2], 
+                retrasoSalida: escuela.codes[3], 
+                falta: escuela.codes[4],
+                aviso: escuela.codes[5],
+                unidadExterna: escuela.codes[6],
+                reposicionProgramada: escuela.codes[7],
+                adelanto: escuela.codes[8],
+                autorizacion: escuela.codes[9],
+                claseRepuesta: escuela.codes[10]
             })
         ));
 
@@ -136,6 +147,12 @@ const ReporteRector = () => {
         { label: 'Salida Previa', key: 'salida' },
         { label: 'Retraso y Salida', key: 'retrasoSalida' },
         { label: 'Falta', key: 'falta' },
+        { label: 'Aviso', key: 'aviso' },
+        { label: 'Unidad Externa', key: 'unidadExterna' },
+        { label: 'Reposición Programada', key: 'reposicionProgramada' },
+        { label: 'Adelanto', key: 'adelanto' },
+        { label: 'Autorización', key: 'autorizacion' },
+        { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
     const today = new Date();

@@ -126,8 +126,20 @@ const DirectorDepartamento = () => {
         let datos = [];
         data?.map((profesor) => (
             datos.push({
-                profesor: profesor.employeeName, nomina: profesor.nomina, promedioAsistencia: `${profesor.average}%`
-                , asistencia: profesor.codes[0], retraso: profesor.codes[1], salida: profesor.codes[2], retrasoSalida: profesor.codes[3], falta: profesor.codes[4]
+                profesor: profesor.employeeName, 
+                nomina: profesor.nomina, 
+                promedioAsistencia: `${profesor.average}%`, 
+                asistencia: profesor.codes[0], 
+                retraso: profesor.codes[1], 
+                salida: profesor.codes[2], 
+                retrasoSalida: profesor.codes[3], 
+                falta: profesor.codes[4],
+                aviso: profesor.codes[5],
+                unidadExterna: profesor.codes[6],
+                reposicionProgramada: profesor.codes[7],
+                adelanto: profesor.codes[8],
+                autorizacion: profesor.codes[9],
+                claseRepuesta: profesor.codes[10]
             })
         ))
 
@@ -143,6 +155,12 @@ const DirectorDepartamento = () => {
         { label: 'Salida Previa', key: 'salida' },
         { label: 'Retraso y Salida', key: 'retrasoSalida' },
         { label: 'Falta', key: 'falta' },
+        { label: 'Aviso', key: 'aviso' },
+        { label: 'Unidad Externa', key: 'unidadExterna' },
+        { label: 'Reposición Programada', key: 'reposicionProgramada' },
+        { label: 'Adelanto', key: 'adelanto' },
+        { label: 'Autorización', key: 'autorizacion' },
+        { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
     const today = new Date();

@@ -120,12 +120,22 @@ const ReporteProfesor = () => {
 
     function handleDatos() {
         let datos = [];
-        datos.push({ titulo: "Universidad de Monterrey" });
-        datos.push({ reporte: "Reporte de asistencia" });
         data?.map((clase) => (
             datos.push({
-                clase: clase.subjectName, clave: clase.subject_CVE, promedioAsistencia: `${clase.average}%`,
-                asistencia: clase.codes[0], retraso: clase.codes[1], salida: clase.codes[2], retrasoSalida: clase.codes[3], falta: clase.codes[4]
+                clase: clase.subjectName, 
+                clave: clase.subject_CVE, 
+                promedioAsistencia: `${clase.average}%`,
+                asistencia: clase.codes[0], 
+                retraso: clase.codes[1], 
+                salida: clase.codes[2], 
+                retrasoSalida: clase.codes[3], 
+                falta: clase.codes[4],
+                aviso: clase.codes[5],
+                unidadExterna: clase.codes[6],
+                reposicionProgramada: clase.codes[7],
+                adelanto: clase.codes[8],
+                autorizacion: clase.codes[9],
+                claseRepuesta: clase.codes[10]
             })
         ));
 
@@ -133,8 +143,6 @@ const ReporteProfesor = () => {
     }
 
     const headers = [
-        { label: 'Titulo', key: 'titulo' },
-        { label: 'Reporte', key: 'reporte' },
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
         { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
@@ -143,6 +151,12 @@ const ReporteProfesor = () => {
         { label: 'Salida Previa', key: 'salida' },
         { label: 'Retraso y Salida', key: 'retrasoSalida' },
         { label: 'Falta', key: 'falta' },
+        { label: 'Aviso', key: 'aviso' },
+        { label: 'Unidad Externa', key: 'unidadExterna' },
+        { label: 'Reposición Programada', key: 'reposicionProgramada' },
+        { label: 'Adelanto', key: 'adelanto' },
+        { label: 'Autorización', key: 'autorizacion' },
+        { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
 

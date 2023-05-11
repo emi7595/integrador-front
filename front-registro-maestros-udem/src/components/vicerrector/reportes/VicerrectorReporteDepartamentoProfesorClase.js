@@ -149,7 +149,12 @@ const VicerrectorReporteDepartamentoProfesorClase = () => {
     function handleDatos() {
         let datos = [];
         infoClase?.map((clase) => (
-            datos.push({ clase: location.state.subjectName, clave: location.state.subject_CVE, fecha: clase.date.slice(0, -9), registro: clase.codeDescription })
+            datos.push({ 
+                clase: location.state.subjectName, 
+                clave: location.state.subject_CVE, 
+                fecha: clase.date.slice(0, -9), 
+                registro: clase.codeDescription 
+            })
         ));
 
         return datos;
