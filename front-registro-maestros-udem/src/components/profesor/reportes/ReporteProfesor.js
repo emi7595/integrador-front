@@ -14,6 +14,7 @@ import { CSVLink } from "react-csv";
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import SidebarProfesor from '../sidebar/SidebarProfesor';
 
 const ReporteProfesor = () => {
     const [data, setData] = React.useState(null);
@@ -162,32 +163,7 @@ const ReporteProfesor = () => {
             {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
-                    <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
-                        <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                            <p className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
-                                <BiUserCircle className="icono-usuario"></BiUserCircle>
-                                <span className="p-nombre d-none d-sm-inline">{user}</span>
-                            </p>
-                            <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                                <li className="nav-item">
-                                    <a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/qr") }}>
-                                        <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><BsQrCode className="icono-sidebar"></BsQrCode> Registrar asistencia</span>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/profesor/reporte") }}>
-                                        <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link align-middle px-0 fs-5" onClick={() => { navigate("/profesor/faltas-justificadas") }}>
-                                        <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline"><GoReport className="icono-sidebar"></GoReport> Reportar faltas justificadas</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <hr />
-                        </div>
-                    </div>
+                    <SidebarProfesor user={user}></SidebarProfesor>
                     { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">

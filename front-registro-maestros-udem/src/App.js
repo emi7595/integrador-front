@@ -27,6 +27,7 @@ import VerProfesoresAdministrador from './components/administrador/profesores/Ve
 import FaltasJustificadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAdministrador';
 import FaltasJustificadasAceptadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAceptadasAdministrador';
 import FaltasJustificadasPendientesAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasPendientesAdministrador';
+
 function App() {
 	return (
 		<>

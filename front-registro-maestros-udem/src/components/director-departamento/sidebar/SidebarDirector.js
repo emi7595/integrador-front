@@ -3,7 +3,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
-const SidebarRector = (props) => {
+const SidebarDirector = (props) => {
     const { user } = props;
     const navigate = useNavigate();
     return (
@@ -15,8 +15,8 @@ const SidebarRector = (props) => {
                 </p>
                 <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li className="nav-item">
-                        <a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/rector") }}>
-                            <i className="fs-4 bi-house"></i> <span className={`ms-1 d-none d-sm-inline active-link`}><GoGraph className="icono-sidebar"></GoGraph> Ver Reportes</span>
+                        <a className="nav-link align-middle px-0 pb-4 fs-5" onClick={() => { navigate("/director-departamento") }}>
+                            <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline active-link"><GoGraph className="icono-sidebar"></GoGraph> Ver reportes</span>
                         </a>
                     </li>
                 </ul>
@@ -26,4 +26,4 @@ const SidebarRector = (props) => {
     );
 };
 
-export default SidebarRector;
+export default SidebarDirector;
