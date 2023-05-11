@@ -19,7 +19,7 @@ import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativ
 // import TablaProfesor from '../../tablas/TablaProfesor';
 
 const VicerrectorReporteDepartamento = () => {
-    const location = useLocation();
+	const location = useLocation();
 	const [data, setData] = React.useState(null);
 	const [total, setTotal] = React.useState(null);
 	const [asistencia, setAsistencia] = React.useState(null);
@@ -75,7 +75,7 @@ const VicerrectorReporteDepartamento = () => {
 							} else {
 								totalCodesInformativo += json[j].codes[i];
 							}
-							
+
 						}
 						if (i === 0) {
 							setAsistencia(sum)
@@ -116,7 +116,7 @@ const VicerrectorReporteDepartamento = () => {
 					setData(json)
 					setTotal(totalCodes)
 				})
-                .catch(error => console.error(error));
+				.catch(error => console.error(error));
 		}
 		// If user is not logged in, redirect to login
 		else {
@@ -127,10 +127,11 @@ const VicerrectorReporteDepartamento = () => {
 	function handleDatos() {
 		let datos = [];
 		data?.map((profesor) => (
-			datos.push({profesor: profesor.employeeName, nomina: profesor.nomina, promedioAsistencia: `${profesor.average}%`
-			, asistencia: profesor.codes[0], retraso: profesor.codes[1], salida: profesor.codes[2], retrasoSalida: profesor.codes[3], falta: profesor.codes[4]
+			datos.push({
+				profesor: profesor.employeeName, nomina: profesor.nomina, promedioAsistencia: `${profesor.average}%`
+				, asistencia: profesor.codes[0], retraso: profesor.codes[1], salida: profesor.codes[2], retrasoSalida: profesor.codes[3], falta: profesor.codes[4]
 			})
-        ))
+		))
 
 		return datos
 	}
@@ -146,13 +147,19 @@ const VicerrectorReporteDepartamento = () => {
 		{ label: 'Falta', key: 'falta' },
 	];
 
+	const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
 			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
-    			<div className="row flex-nowrap">
-        			<div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
+				<div className="row flex-nowrap">
+					<div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
 						<div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 							<p className="d-flex align-items-center pb-5 mb-md-0 me-md-auto texto-udem text-decoration-none pt-4">
 								<BiUserCircle className="icono-usuario"></BiUserCircle>
@@ -165,17 +172,17 @@ const VicerrectorReporteDepartamento = () => {
 									</a>
 								</li>
 							</ul>
-							<hr/>
+							<hr />
 						</div>
-        			</div>
-					{ /* CONTAINERS FOR NOT SIDEBAR */ }
+					</div>
+					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
 								<div className="col-auto px-0 m-3 d-flex flex-row justify-content-center align-items-center">
 									<p className="d-flex justify-content-center align-items-center m-0 pr-2 p-salir">Salir</p>
 									&nbsp;&nbsp;<a href="#" onClick={() => { window.sessionStorage.clear(); navigate("/") }} className="anchor">
-										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir"/>
+										<FontAwesomeIcon icon={faArrowRightFromBracket} className="icono-salir" />
 									</a>&nbsp;&nbsp;
 								</div>
 							</div>
@@ -183,40 +190,41 @@ const VicerrectorReporteDepartamento = () => {
 						<div className="container px-0 pt-3">
 							<div className="row m-0 justify-content-center mt-3">
 								<div className="col-12 text-center">
-                                    <h1 className="mb-5 currentClass">Reporte de asistencia</h1>
+									<h1 className="mb-2 currentClass">Reporte de asistencia de departamento</h1>
+									<h6 className="mb-5">Corte al día: {formattedDate}</h6>
 									<div className="row m-0 grafica white-card">
-									<GraficaClases 
-											className="col-md-3" 
-											asistencia={asistencia} 
-											retraso={retraso} 
-											salidaPrevia={salidaPrevia} 
-											retrasoSalida={retrasoSalida} 
+										<GraficaClases
+											className="col-md-3"
+											asistencia={asistencia}
+											retraso={retraso}
+											salidaPrevia={salidaPrevia}
+											retrasoSalida={retrasoSalida}
 											falta={falta}>
 										</GraficaClases>
-										<GraficaLeyendas 
-										className="col-md-3" 
-											asistencia={asistencia} 
-											retraso={retraso} 
-											salidaPrevia={salidaPrevia} 
-											retrasoSalida={retrasoSalida} 
+										<GraficaLeyendas
+											className="col-md-3"
+											asistencia={asistencia}
+											retraso={retraso}
+											salidaPrevia={salidaPrevia}
+											retrasoSalida={retrasoSalida}
 											falta={falta} total={total}>
 										</GraficaLeyendas>
-										<GraficaAsistenciaInformativo 
-											className="col-md-3" 
-											aviso={aviso} 
-											unidadExterna={uniExt} 
-											reposicion={reposicion} 
-											adelanto={adelanto} 
-											autorizacion={autorizacion} 
+										<GraficaAsistenciaInformativo
+											className="col-md-3"
+											aviso={aviso}
+											unidadExterna={uniExt}
+											reposicion={reposicion}
+											adelanto={adelanto}
+											autorizacion={autorizacion}
 											claseRepuesta={claseRepuesta}>
 										</GraficaAsistenciaInformativo>
-										<GraficaLeyendasInformativo 
-										className="col-md-3" 
-											aviso={aviso} 
-											unidadExterna={uniExt} 
-											reposicion={reposicion} 
-											adelanto={adelanto} 
-											autorizacion={autorizacion} 
+										<GraficaLeyendasInformativo
+											className="col-md-3"
+											aviso={aviso}
+											unidadExterna={uniExt}
+											reposicion={reposicion}
+											adelanto={adelanto}
+											autorizacion={autorizacion}
 											claseRepuesta={claseRepuesta}
 											totalInformativo={totalInformativo}>
 										</GraficaLeyendasInformativo>
@@ -228,15 +236,15 @@ const VicerrectorReporteDepartamento = () => {
 										</CSVLink>
 									</div>
 									<TablaInfoVicerrectorDepartamento escuela={location.state.schoolName} departamento={location.state.departmentName}></TablaInfoVicerrectorDepartamento>
-									<div  className="mb-4" ></div>
+									<div className="mb-4" ></div>
 									<TablaVicerrectorDepartamento data={data} escuela={location.state.schoolName} departamento={location.state.departmentName}></TablaVicerrectorDepartamento>
-									<div  className="mb-5" ></div>
+									<div className="mb-5" ></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */ }
-    			</div>
+					{ /* END FOR NOT SIDEBAR */}
+				</div>
 			</div>
 		</div>
 	);
