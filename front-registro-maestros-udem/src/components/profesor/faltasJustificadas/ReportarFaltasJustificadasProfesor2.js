@@ -12,7 +12,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
 
-const ReoprtarFaltasJustificadasProfesor = () => {
+const ReportarFaltasJustificadasProfesor = () => {
 	const [data, setData] = React.useState(null);
 	const [clases, setClases] = React.useState([]);
 	const [today, setToday] = useState(new Date().toISOString().slice(0, 10));
@@ -128,6 +128,7 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
+					console.log(data);
 					return data;
 				})
 				.then(json => {
@@ -300,4 +301,4 @@ const ReoprtarFaltasJustificadasProfesor = () => {
 	);
 };
 
-export default ReoprtarFaltasJustificadasProfesor;
+export default ReportarFaltasJustificadasProfesor;

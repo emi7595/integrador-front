@@ -77,7 +77,7 @@ const TablaVerProfesores = (props) => {
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { headers, data} = props;
+    const { headers, data } = props;
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
