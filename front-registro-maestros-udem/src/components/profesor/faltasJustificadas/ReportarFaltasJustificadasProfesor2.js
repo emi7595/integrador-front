@@ -129,7 +129,6 @@ const ReportarFaltasJustificadasProfesor = () => {
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
-					console.log(data);
 					return data;
 				})
 				.then(json => {

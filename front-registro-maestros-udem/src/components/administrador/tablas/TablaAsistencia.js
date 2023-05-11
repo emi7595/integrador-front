@@ -47,7 +47,6 @@ const TablaAsistencia = (props) => {
     }
 
     function enviarBtnClickHandler(idSchedule, date, myModal) {
-        console.log("EnviarBtnClickHandler", idSchedule, date);
         let attendance = document.getElementById("attendance").value;
         const enviarBtn = document.getElementById("sendButton");
         enviarBtn.removeEventListener("click", enviarBtnClickHandler);
@@ -55,7 +54,6 @@ const TablaAsistencia = (props) => {
     }
 
     const sendValues = async (attendance, idSchedule, date, myModal) => {
-        console.log("sendValues", attendance, idSchedule, date);
         try {
             myModal.hide();
             var jsonData = { "idSchedule": idSchedule, "date": date, "codeId": attendance }
@@ -168,7 +166,7 @@ const TablaAsistencia = (props) => {
                                         <StyledTableRow key={departamento.departmentId}>
                                             <StyledTableCell component="th" scope="row">{departamento.departmentName}</StyledTableCell>
                                             <StyledTableCell align="left">{departamento.average === -1 ? "N/A" : `${departamento.average}%`}</StyledTableCell>
-                                            <StyledTableCell align="right"><a onClick={() => { departamento.escuela = props.escuela; departamento.average === -1 ? console.log("No se puede mostrar más detalle") : navigate("/administrador/reporte/escuela/departamento", { state: departamento }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+                                            <StyledTableCell align="right"><a onClick={() => { departamento.escuela = props.escuela; departamento.average === -1 ? console.error("No se puede mostrar más detalle") : navigate("/administrador/reporte/escuela/departamento", { state: departamento }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
                                         </StyledTableRow>
                                     ))
                                     : from === "ReporteAdministradorDepartamento" ?
