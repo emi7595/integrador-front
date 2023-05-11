@@ -9,53 +9,53 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
 
-const TablaInfoRectorEscuelaDepartamento = (props)  =>{
+const TablaInfoRectorEscuelaDepartamento = (props) => {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: '#333333',
-          color: theme.palette.common.white,
+            backgroundColor: '#333333',
+            color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
-          fontSize: 14,
+            fontSize: 14,
         },
-      }));
-      
-      const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
         },
         // hide last border
         '&:last-child td, &:last-child th': {
-          border: 0,
+            border: 0,
         },
-      }));
+    }));
 
     const session = JSON.parse(window.sessionStorage.getItem('session'));
-	if (session) {
-	}
+    if (session) {
+    }
 
     return (
         <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="customized table">
-            <TableHead>
-            <TableRow>
-                <StyledTableCell >Escuela</StyledTableCell>
-                <StyledTableCell >Departamento</StyledTableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            <StyledTableRow>
-              <StyledTableCell component="th" scope="row">
-                {props.escuela}
-              </StyledTableCell>
-              <StyledTableCell>
-                {props.departamento}
-              </StyledTableCell>
-            </StyledTableRow>
-            </TableBody>
-        </Table>
+            <Table sx={{ minWidth: 650 }} aria-label="customized table">
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Escuela</StyledTableCell>
+                        <StyledTableCell>Departamento</StyledTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <StyledTableRow>
+                        <StyledTableCell component="th" scope="row">
+                            {props.escuela}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                            {props.departamento}
+                        </StyledTableCell>
+                    </StyledTableRow>
+                </TableBody>
+            </Table>
         </TableContainer>
-  );
+    );
 }
 
 export default TablaInfoRectorEscuelaDepartamento;

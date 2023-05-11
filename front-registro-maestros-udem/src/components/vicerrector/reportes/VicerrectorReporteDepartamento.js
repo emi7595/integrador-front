@@ -5,8 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { BiUserCircle } from "react-icons/bi";
-import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaVicerrectorDepartamento from '../../tablas/TablaVicerrectorDepartamento';
 import { CSVLink } from 'react-csv';
@@ -16,8 +14,6 @@ import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
 import SidebarVicerrector from '../sidebar/SidebarVicerrector';
-// import GraficaClases from '../../Graficas/GraficaClases';
-// import TablaProfesor from '../../tablas/TablaProfesor';
 
 const VicerrectorReporteDepartamento = () => {
 	const location = useLocation();
@@ -157,7 +153,6 @@ const VicerrectorReporteDepartamento = () => {
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
 				<div className="row flex-nowrap">
 					<SidebarVicerrector user={user}></SidebarVicerrector>

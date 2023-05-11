@@ -35,13 +35,11 @@ const ReporteRectorEscuela = () => {
 
     // Get session storage information
     let user;
-    //idEscuela;
 
     // Get session storage information
     const session = JSON.parse(window.sessionStorage.getItem('session'));
     if (session) {
         user = session.nombre;
-        //idEscuela = session.idEscuela;
     }
 
     useEffect(() => {
@@ -154,7 +152,6 @@ const ReporteRectorEscuela = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarRector user={user}></SidebarRector>

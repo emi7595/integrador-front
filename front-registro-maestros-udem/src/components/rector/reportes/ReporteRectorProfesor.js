@@ -156,7 +156,6 @@ const ReporteRectorProfesor = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarRector user={user}></SidebarRector>

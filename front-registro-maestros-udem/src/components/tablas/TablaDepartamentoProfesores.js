@@ -12,54 +12,54 @@ import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 
 
-const TablaDepartamentoProfesores = (props)  =>{
+const TablaDepartamentoProfesores = (props) => {
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
-          backgroundColor: '#333333',
-          color: theme.palette.common.white,
+            backgroundColor: '#333333',
+            color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
-          fontSize: 14,
+            fontSize: 14,
         },
-      }));
-      
-      const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
         },
         // hide last border
         '&:last-child td, &:last-child th': {
-          border: 0,
+            border: 0,
         },
-      }));
+    }));
 
     return (
         <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="customized table">
-            <TableHead>
-            <TableRow>
-                <StyledTableCell>Docente</StyledTableCell>
-                <StyledTableCell align="right">Nómina</StyledTableCell>
-                <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
-                <StyledTableCell align="right">Detalle</StyledTableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            {props.data?.map((profesor) => (
-            <StyledTableRow key={profesor.nomina}>
-              <StyledTableCell component="th" scope="row">
-                {profesor.employeeName}
-              </StyledTableCell>
-              <StyledTableCell align="right">{profesor.nomina}</StyledTableCell>
-              <StyledTableCell align="right">{profesor.average === -1 ? "N/A" : `${profesor.average}%`}</StyledTableCell>
-              <StyledTableCell align="right"><a onClick={() => { profesor.departamento = props.departamento; profesor.average === -1 ? navigate("/director-departamento") : navigate("/director-departamento/reporte-profesor", {state: profesor}) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
-            </StyledTableRow>
-          ))}
-            </TableBody>
-        </Table>
+            <Table sx={{ minWidth: 650 }} aria-label="customized table">
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Docente</StyledTableCell>
+                        <StyledTableCell align="right">Nómina</StyledTableCell>
+                        <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
+                        <StyledTableCell align="right">Detalle</StyledTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.data?.map((profesor) => (
+                        <StyledTableRow key={profesor.nomina}>
+                            <StyledTableCell component="th" scope="row">
+                                {profesor.employeeName}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{profesor.nomina}</StyledTableCell>
+                            <StyledTableCell align="right">{profesor.average === -1 ? "N/A" : `${profesor.average}%`}</StyledTableCell>
+                            <StyledTableCell align="right"><a onClick={() => { profesor.departamento = props.departamento; profesor.average === -1 ? navigate("/director-departamento") : navigate("/director-departamento/reporte-profesor", { state: profesor }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+                        </StyledTableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </TableContainer>
-  );
+    );
 }
 
 export default TablaDepartamentoProfesores;

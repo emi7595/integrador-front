@@ -4,9 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode } from "react-icons/bs";
-import { GoReport, GoGraph } from "react-icons/go";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -148,7 +145,6 @@ const ReportarFaltasJustificadasProfesor = () => {
 	};
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
 				<div className="row flex-nowrap">
 					<SidebarProfesor user={user}></SidebarProfesor>

@@ -4,10 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { BsQrCode } from "react-icons/bs";
 import { FaFileDownload } from "react-icons/fa";
-import { GoReport, GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
@@ -34,7 +31,6 @@ const ReporteClases = () => {
     const [adelanto, setAdelanto] = useState(null);
     const [autorizacion, setAutorizacion] = useState(null);
     const [claseRepuesta, setClaseRepuesta] = useState(null);
-
 
     const navigate = useNavigate();
     let user;
@@ -175,7 +171,6 @@ const ReporteClases = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarProfesor user={user}></SidebarProfesor>

@@ -5,9 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { BiUserCircle } from "react-icons/bi";
 import { FaFileDownload } from "react-icons/fa";
-import { GoGraph } from "react-icons/go";
 import GraficaClases from '../Graficas/GraficaAsistencia';
 import TablaDepartamentoProfesores from '../tablas/TablaDepartamentoProfesores';
 import { CSVLink } from 'react-csv';
@@ -156,7 +154,6 @@ const DirectorDepartamento = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarDirector user={user}></SidebarDirector>

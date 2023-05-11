@@ -80,7 +80,6 @@ const VerProfesoresAdministrador = () => {
 					document.getElementById("spinner").style.display = "none";
 				});
 		}
-		// Llamar a la API con la búsqueda
 	};
 
 	return (

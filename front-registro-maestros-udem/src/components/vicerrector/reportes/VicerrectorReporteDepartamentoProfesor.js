@@ -5,8 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { BiUserCircle } from "react-icons/bi";
-import { GoGraph } from "react-icons/go";
 import GraficaClases from '../../Graficas/GraficaAsistencia';
 import TablaVicerrectorDepartamentoProfesor from '../../tablas/TablaVicerrectorDepartamentoProfesor';
 import { CSVLink } from 'react-csv';
@@ -157,7 +155,6 @@ const DirectorDepartamentoReporteProfesor = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarVicerrector user={user}></SidebarVicerrector>

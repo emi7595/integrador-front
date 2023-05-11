@@ -13,8 +13,6 @@ function data2(props) {
 };
 
 const COLORS = ['#250025', '#2e3350', '#5974bc', '#8c93c7', '#c6c1e1', '#b5cef7'];
-//const COLORS = ['#250025', '#b5cef7', '#5974bc', '#2e3350','#c6c1e1','#8c93c7'];
-// asistencia, retrasoInicial, salidaPrevia, retrasoSalida, falta
 // aviso, uniExt, reposicion, adelanto, autorizacion, claseRepuesta
 
 class GraficaAsistenciaInformativo extends PureComponent {
@@ -28,7 +26,6 @@ class GraficaAsistenciaInformativo extends PureComponent {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        // label={renderCustomizedLabel}
                         outerRadius={120}
                         fill="#8884d8"
                         dataKey="value"

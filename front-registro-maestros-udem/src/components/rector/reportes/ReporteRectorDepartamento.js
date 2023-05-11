@@ -14,8 +14,6 @@ import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
-// import GraficaClases from '../../Graficas/GraficaClases';
-// import TablaProfesor from '../../tablas/TablaProfesor';
 
 const ReporteRectorDepartamento = () => {
     const location = useLocation();
@@ -156,7 +154,6 @@ const ReporteRectorDepartamento = () => {
     // --- COMPONENT (HTML) ---
     return (
         <div>
-            {/* <SideBar usuario = {user}></SideBar> */}
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarRector user={user}></SidebarRector>

@@ -9,11 +9,8 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
 import { AES } from 'crypto-js';
-import { BiUserCircle } from "react-icons/bi";
 import { BsCheck2Square } from "react-icons/bs";
 import { TbDoorExit } from "react-icons/tb";
-import { BsQrCode } from "react-icons/bs";
-import { GoReport, GoGraph } from "react-icons/go";
 import SidebarProfesor from './sidebar/SidebarProfesor';
 
 const ScanQRCode = () => {
@@ -102,7 +99,6 @@ const ScanQRCode = () => {
 	// --- COMPONENT (HTML) ---
 	return (
 		<div>
-			{/* <SideBar usuario = {user}></SideBar> */}
 			<div className="container-fluid">
     			<div className="row flex-nowrap">
         			<SidebarProfesor user={user}></SidebarProfesor>
