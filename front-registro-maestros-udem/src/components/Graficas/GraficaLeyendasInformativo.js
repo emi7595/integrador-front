@@ -3,6 +3,7 @@ const GraficaLeyendasInformativo = (props) => {
     return (
         <div className='col-md-3 leyenda'>
 			<div>
+				<h5 className="mb-3">Códigos informativos</h5>
 				<p className="leyenda"><span className="aviso"></span> Aviso: {aviso}/{totalInformativo}</p>
 				<p className="leyenda"><span className="unidad-externa"></span> Unidad Externa: {unidadExterna}/{totalInformativo}</p>
 				<p className="leyenda"><span className="reposicion"></span> Reposición Programada: {reposicion}/{totalInformativo}</p>
