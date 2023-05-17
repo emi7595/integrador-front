@@ -220,7 +220,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
                     <TableFooter>
                         <TableRow>
                             <TablePagination
-                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: data.length }]}
                                 colSpan={7}
                                 count={data.length}
                                 rowsPerPage={rowsPerPage}
