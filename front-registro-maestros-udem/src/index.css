@@ -3,12 +3,8 @@
 	color: #333333;
 }
 
-.texto-udem{
+.texto-udem {
 	color: #333333;
-}
-
-.lista p {
-	margin: 0;
 }
 
 .active-link {
@@ -54,7 +50,7 @@ button:focus {
 }
 
 .card {
-	border-radius: 0;
+	border-radius: 25px;
 	border: none;
 }
 
@@ -86,30 +82,33 @@ button:focus {
 	padding-left: 1em;
 	padding-right: 1em;
 }
-.tabla-izq{
+
+.tabla-izq {
 	padding-left: 2em !important;
 }
-.tabla-der{
+
+.tabla-der {
 	padding-right: 2em !important;
 }
 
-.h1-falta{
+.h1-falta {
 	color: white;
 	font-size: 30px;
 	display: flex;
 	margin-bottom: 0 !important;
 }
 
-.form-reportar{
+.form-reportar {
 	display: flex;
 	flex-direction: column;
+}
 
-}
-.dropdown{
+.dropdown {
 	display: flex;
 	flex-direction: column;
 }
-.select-opciones{
+
+.select-opciones {
 	background-color: white;
 	width: 18em;
 	height: 2.5em;
@@ -123,7 +122,7 @@ button:focus {
 	border-radius: 5px !important;
 }
 
-.boton-registrar{
+.boton-registrar {
 	color: #333333;
 	background-color: #FFFFFF;
 	width: 150px;
@@ -132,40 +131,48 @@ button:focus {
 	justify-self: flex-end;
 	margin-left: auto;
 }
-.label{
+
+.label {
 	color: white;
 	display: flex;
 	font-size: 18px;
 	margin-bottom: .5em;
 }
-.form-reportar-labels{
+
+.form-reportar-labels {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
-.form-buscar-profesor{
+
+.form-buscar-profesor {
 	background-color: white;
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
-.form-buscar-profesor::placeholder, .form-control::placeholder{
+
+.form-buscar-profesor::placeholder,
+.form-control::placeholder {
 	color: gray !important;
 }
+
 #logo {
 	width: 15em;
 	height: 7em;
 }
-.css-1a4cg4j-MuiButtonBase-root-MuiTab-root{
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
 	color: white !important;
 }
 
-.Mui-selected{
+.Mui-selected {
 	color: #FFE700 !important;
 }
 
-.css-11yukd5-MuiTabs-indicator{
+.css-11yukd5-MuiTabs-indicator {
 	background-color: #FFE700 !important;
 }
+
 .heading {
 	margin-bottom: 60px !important;
 }
@@ -207,20 +214,6 @@ button:focus {
 	margin-top: 40px;
 }
 
-.btn-white {
-	border-radius: 15px;
-	color: #D500F9;
-	background-color: #fff;
-	padding: 8px 40px;
-	cursor: pointer;
-	border: 2px solid #D500F9 !important;
-}
-
-.btn-white:hover {
-	color: #fff;
-	background-image: linear-gradient(to right, #FFD54F, #D500F9);
-}
-
 .btn-send {
 	border-radius: 15px;
 	color: #fff;
@@ -236,15 +229,6 @@ a {
 	color: #000;
 }
 
-.bottom {
-	width: 100%;
-	margin-top: 50px !important;
-}
-
-.sm-text {
-	font-size: 15px;
-}
-
 .contenedor {
 	min-height: 100vh;
 }
@@ -252,10 +236,6 @@ a {
 .contenedor2 {
 	min-height: 90vh;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	border-radius: 25px;
-}
-
-.card {
 	border-radius: 25px;
 }
 
@@ -271,26 +251,24 @@ a {
 	border-top-left-radius: 25px;
 }
 
-.anchor {
-	color: #333333 !important;
-}
-
 .p-salir {
 	padding-right: 10px;
 	font-size: 16px !important;
 }
-.boton-aceptar{
+
+.boton-aceptar {
 	font-size: 20px;
 	cursor: pointer;
 }
-.p-nombre{
+
+.p-nombre {
 	font-size: 26px !important;
 }
+
 .icono-usuario {
 	font-size: 3.5rem;
 	margin-right: 1rem;
 }
-
 
 .icono-salir {
 	height: 1.5rem;
@@ -302,14 +280,11 @@ a {
 	cursor: pointer;
 }
 
-.icono-descargar{
+.icono-descargar {
 	font-size: 24px;
 }
 
-#currentClass {
-	font-size: 35px;
-}
-.currentClass {
+#currentClass, .currentClass {
 	font-size: 35px;
 }
 
@@ -327,17 +302,16 @@ a {
 	border-top-right-radius: 25px;
 }
 
-
-.nav-link{
+.nav-link {
 	color: #333333;
 	cursor: pointer;
 }
 
-.nav-link:hover {
+.nav-link:hover, .anchor {
 	color: #333333 !important;
 }
 
-.grafica{
+.grafica {
 	height: 350px;
 	width: 100%;
 	margin-bottom: 20px !important;
@@ -350,19 +324,18 @@ a {
 	font-size: 18px;
 }
 
-.leyenda{
+.leyenda {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 
-.leyenda div{
+.leyenda div {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 }
-
 
 .asistencia {
 	width: 20px;
@@ -371,38 +344,39 @@ a {
 	background-color: #adad5c;
 	margin-right: 10px;
 }
+
 .retraso {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	background-color: #946724;
-	/*background-color: #FFEF5C;*/
 	margin-right: 10px;
 }
+
 .salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	background-color: #c8ddbb;
-	/*background-color: #FFF385;*/
 	margin-right: 10px;
 }
+
 .retraso-salida {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	background-color: #f7deb6;
-	/*background-color: #A39300;*/
 	margin-right: 10px;
 }
+
 .falta {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	background-color: #f1c57e;
-	/*background-color: #524900;*/
 	margin-right: 10px;
 }
+
 .aviso {
 	width: 20px;
 	height: 20px;
@@ -410,14 +384,15 @@ a {
 	background-color: #250025;
 	margin-right: 10px;
 }
+
 .unidad-externa {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/* background-color: #b5cef7; */
 	background-color: #2e3350;
 	margin-right: 10px;
 }
+
 .reposicion {
 	width: 20px;
 	height: 20px;
@@ -425,15 +400,15 @@ a {
 	background-color: #5974bc;
 	margin-right: 10px;
 }
+
 .adelanto {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/* background-color: #2e3350; */
-	/* background-color: #b5cef7; */
 	background-color: #8c93c7;
 	margin-right: 10px;
 }
+
 .autorizacion {
 	width: 20px;
 	height: 20px;
@@ -441,24 +416,31 @@ a {
 	background-color: #c6c1e1;
 	margin-right: 10px;
 }
+
 .clase-repuesta {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	/* background-color: #8c93c7; */
 	background-color: #b5cef7;
 	margin-right: 10px;
 }
 
-.leyenda {
-	display: flex;
-	flex-direction: row;
-}
-
-.icono-detalle{
+.icono-detalle {
 	font-size: 23px;
 	cursor: pointer;
 }
+
+.MuiTablePagination-selectLabel,
+.MuiTablePagination-displayedRows {
+	margin-bottom: 0 !important;
+}
+
+.spinner-border {
+	width: 60px;
+	height: 60px;
+	display: none;
+}
+
 /* RESPONSIVE STYLES */
 
 @media screen and (max-width: 992px) {
@@ -500,14 +482,4 @@ a {
 		margin-top: 50px !important;
 		margin-bottom: 50px !important;
 	}
-}
-
-.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows {
-	margin-bottom: 0 !important;
-}
-
-.spinner-border {
-	width: 60px;
-	height: 60px;
-	display: none;
 }
