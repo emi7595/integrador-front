@@ -17,6 +17,7 @@ const TablaAsistencia = (props) => {
     const { headers, data, actualizarData, from } = props;
     const navigate = useNavigate();
     const [attendance, setAttendance] = useState("0");
+    let enviarBtnClickHandlerRef = null; // Reference to check if there are active event listeners
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -43,13 +44,19 @@ const TablaAsistencia = (props) => {
         const myModal = new Modal(document.getElementById('editModal'));
         myModal.show();
         const enviarBtn = document.getElementById("sendButton");
-        enviarBtn.addEventListener("click", () => enviarBtnClickHandler(idSchedule, date, myModal));
+        // Check if there is an active event listener and remove it if necessary
+        if (enviarBtnClickHandlerRef) {
+            enviarBtn.removeEventListener("click", enviarBtnClickHandlerRef);
+        }
+        // Define the new event listener and assign its reference to the variablw
+        enviarBtnClickHandlerRef = () => enviarBtnClickHandler(idSchedule, date, myModal);
+        enviarBtn.addEventListener("click", enviarBtnClickHandlerRef);
     }
 
     function enviarBtnClickHandler(idSchedule, date, myModal) {
         let attendance = document.getElementById("attendance").value;
         const enviarBtn = document.getElementById("sendButton");
-        enviarBtn.removeEventListener("click", enviarBtnClickHandler);
+        enviarBtn.removeEventListener("click", enviarBtnClickHandlerRef);
         sendValues(attendance, idSchedule, date, myModal);
     }
 
