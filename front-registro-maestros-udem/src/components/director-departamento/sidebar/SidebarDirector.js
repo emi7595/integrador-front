@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const SidebarDirector = (props) => {
     const { user } = props;
     const navigate = useNavigate();
+
+    // --- COMPONENT (HTML) ---
     return (
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
             <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">

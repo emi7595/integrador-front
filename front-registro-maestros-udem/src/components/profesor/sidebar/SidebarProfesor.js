@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { BsQrCode } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
@@ -8,6 +10,7 @@ const SidebarProfesor = (props) => {
     const {user} = props;
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
     const navigate = useNavigate();
+
     useEffect(() => {
         const handleRouteChange = () => {
         setCurrentPath(window.location.pathname);
@@ -19,6 +22,7 @@ const SidebarProfesor = (props) => {
     }, []);
 
 
+    // --- COMPONENT (HTML) ---
     return (
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white sidebar">
             <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">

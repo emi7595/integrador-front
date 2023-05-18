@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable default-case */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import TablaVicerrectorDepartamentoProfesor from '../../tablas/TablaVicerrectorDepartamentoProfesor';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoVicerrectorDepartamentoProfesor from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesor';
+// Components
+import SidebarVicerrector from '../sidebar/SidebarVicerrector';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
-import SidebarVicerrector from '../sidebar/SidebarVicerrector';
-
+import TablaInfoVicerrectorDepartamentoProfesor from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesor';
+import TablaVicerrectorDepartamentoProfesor from '../../tablas/TablaVicerrectorDepartamentoProfesor';
 
 const DirectorDepartamentoReporteProfesor = () => {
     const location = useLocation();
@@ -32,7 +31,6 @@ const DirectorDepartamentoReporteProfesor = () => {
     const [adelanto, setAdelanto] = useState(null);
     const [autorizacion, setAutorizacion] = useState(null);
     const [claseRepuesta, setClaseRepuesta] = useState(null);
-
 
     const navigate = useNavigate();
     let user;
@@ -75,43 +73,24 @@ const DirectorDepartamentoReporteProfesor = () => {
                             }
 
                         }
-                        if (i === 0) {
-                            setAsistencia(sum)
-                        }
-                        else if (i === 1) {
-                            setRetraso(sum)
-                        }
-                        else if (i === 2) {
-                            setSalidaPrevia(sum)
-                        }
-                        else if (i === 3) {
-                            setRetrasoSalida(sum)
-                        }
-                        else if (i === 4) {
-                            setFalta(sum)
-                        }
-                        else if (i === 5) {
-                            setAviso(sum)
-                        }
-                        else if (i === 6) {
-                            setUniExt(sum)
-                        }
-                        else if (i === 7) {
-                            setReposicion(sum)
-                        }
-                        else if (i === 8) {
-                            setAdelanto(sum)
-                        }
-                        else if (i === 9) {
-                            setAutorizacion(sum)
-                        }
-                        else if (i === 10) {
-                            setClaseRepuesta(sum)
+                        switch (i) {
+                            case 0: setAsistencia(sum); break;
+                            case 1: setRetraso(sum); break;
+                            case 2: setSalidaPrevia(sum); break;
+                            case 3: setRetrasoSalida(sum); break;
+                            case 4: setFalta(sum); break;
+                            case 5: setAviso(sum); break;
+                            case 6: setUniExt(sum); break;
+                            case 7: setReposicion(sum); break;
+                            case 8: setAdelanto(sum); break;
+                            case 9: setAutorizacion(sum); break;
+                            case 10: setClaseRepuesta(sum); break;
+                            default: break;
                         }
                     }
-                    setTotalInformativo(totalCodesInformativo)
-                    setData(json)
-                    setTotal(totalCodes)
+                    setTotalInformativo(totalCodesInformativo);
+                    setData(json);
+                    setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
         }
@@ -121,17 +100,18 @@ const DirectorDepartamentoReporteProfesor = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         data?.map((clase) => (
             datos.push({
-                clase: clase.subjectName, 
-                clave: clase.subject_CVE, 
+                clase: clase.subjectName,
+                clave: clase.subject_CVE,
                 promedioAsistencia: `${clase.average}%`,
-                asistencia: clase.codes[0], 
-                retraso: clase.codes[1], 
-                salida: clase.codes[2], 
-                retrasoSalida: clase.codes[3], 
+                asistencia: clase.codes[0],
+                retraso: clase.codes[1],
+                salida: clase.codes[2],
+                retrasoSalida: clase.codes[3],
                 falta: clase.codes[4],
                 aviso: clase.codes[5],
                 unidadExterna: clase.codes[6],
@@ -140,11 +120,12 @@ const DirectorDepartamentoReporteProfesor = () => {
                 autorizacion: clase.codes[9],
                 claseRepuesta: clase.codes[10]
             })
-        ))
+        ));
 
-        return datos
+        return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
@@ -161,14 +142,15 @@ const DirectorDepartamentoReporteProfesor = () => {
         { label: 'Autorización', key: 'autorizacion' },
         { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
-
     let nombreReporte = `Reporte ${location.state.departmentName} - ${location.state.employeeName}`;
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -176,7 +158,6 @@ const DirectorDepartamentoReporteProfesor = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarVicerrector user={user}></SidebarVicerrector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -230,7 +211,6 @@ const DirectorDepartamentoReporteProfesor = () => {
                                             totalInformativo={totalInformativo}>
                                         </GraficaLeyendasInformativo>
                                     </div>
-                                    { /* CONTAINERS FOR QR CODE */}
                                     <div className='row m-0 justify-content-end'>
                                         <CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
                                             <span className='px-1 boton-descargar'>Descargar</span>
@@ -245,7 +225,6 @@ const DirectorDepartamentoReporteProfesor = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

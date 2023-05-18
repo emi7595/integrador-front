@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
+// Components
 import SidebarProfesor from '../sidebar/SidebarProfesor';
+import TablaReportarFaltasJustificadasProfesor from '../../tablas/tablasFaltasJustificadas/profesor/TablaReportarFaltasJustificadasProfesor';
 
 const ReportarFaltasJustificadasProfesor = () => {
 	const [data, setData] = React.useState(null);
@@ -28,6 +29,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 	}, []);
 
 	const navigate = useNavigate();
+
 	let user, nomina;
 
 	// Get session storage information
@@ -66,8 +68,8 @@ const ReportarFaltasJustificadasProfesor = () => {
 			fetch("http://192.168.3.6:5096/Repositions/Professor/GetClasses/" + nomina)
 				.then(response => response.json())
 				.then(json => {
-					setClases(json)
-					setClave(json[0].idSchedule)
+					setClases(json);
+					setClave(json[0].idSchedule);
 				})
 				.catch(error => console.error(error));
 		}
@@ -77,6 +79,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 		}
 	}, []);
 
+	// --- FUNCTION THAT CREATES A REPOSITION REPORT IN DATABASE ---
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
@@ -108,6 +111,8 @@ const ReportarFaltasJustificadasProfesor = () => {
 			console.error(error);
 		}
 	}
+
+	// --- FUNCTION THAT CREATES AN EXTERNAL UNIT REPORT IN DATABASE ---
 	const handleSubmitExt = async (event) => {
 		event.preventDefault();
 		try {
@@ -138,17 +143,20 @@ const ReportarFaltasJustificadasProfesor = () => {
 			console.error(error);
 		}
 	}
+
 	const [value, setValue] = React.useState('reposiciones');
 
 	const handleChange = (event, newValue) => {
 	  setValue(newValue);
 	};
+
+
+	// --- COMPONENT (HTML) ---
 	return (
 		<div>
 			<div className="container-fluid">
 				<div className="row flex-nowrap">
 					<SidebarProfesor user={user}></SidebarProfesor>
-					{ /* CONTAINERS FOR NOT SIDEBAR */}
 					<div className='col-10'>
 						<div className="container-fluid px-0 header mt-2 pt-4">
 							<div className="row m-0 justify-content-end align-items-center">
@@ -180,7 +188,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 										<div className="form-reportar">
 											{value === 'reposiciones' ? (<form className="form-reportar-labels pt-3 pb-4" onSubmit={handleSubmit}>
 												<div className='dropdown'>
-													<label for="clave" className='label'>Clave:</label>
+													<label htmlFor="clave" className='label'>Clave:</label>
 													<select id="clave" name="clave" value={clave} className='select-opciones' onChange={(event) => setClave(event.target.value)}>
 														{clases && (
 															clases?.map((clase) => (
@@ -191,11 +199,11 @@ const ReportarFaltasJustificadasProfesor = () => {
 													</select>
 												</div>
 												<div className='dropdown'>
-													<label for="fecha" className='label'>Fecha de reposición:</label>
+													<label htmlFor="fecha" className='label'>Fecha de reposición:</label>
 													<input name="fecha" type="date" className='select-opciones' min={today} onChange={(event) => setFecha(event.target.value)}></input>
 												</div>
 												<div className='dropdown'>
-													<label for="horario" className='label'>Horario:</label>
+													<label htmlFor="horario" className='label'>Horario:</label>
 													<select id="horario" name="horario" value={horario} className='select-opciones' onChange={(event) => setHorario(event.target.value)}>
 														<option value="7:00">7:00</option>
 														<option value="8:30">8:30</option>
@@ -210,7 +218,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 													</select>
 												</div>
 												<div className='dropdown'>
-													<label for="razon" className='label'>Razón:</label>
+													<label htmlFor="razon" className='label'>Razón:</label>
 													<select id="razon" name="razon" className='select-opciones' value={razon} onChange={(event) => setRazon(event.target.value)}>
 														<option value="7">Reponer clase perdida</option>
 														<option value="8">Adelantar clase</option>
@@ -221,7 +229,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 											:
 											(<form className="form-reportar-labels pt-3 pb-4" onSubmit={handleSubmitExt}>
 												<div className='dropdown'>
-													<label for="clave" className='label'>Clave:</label>
+													<label htmlFor="clave" className='label'>Clave:</label>
 													<select id="clave" name="clave" value={clave} className='select-opciones' onChange={(event) => setClave(event.target.value)}>
 														{clases && (
 															clases?.map((clase) => (
@@ -232,11 +240,11 @@ const ReportarFaltasJustificadasProfesor = () => {
 													</select>
 												</div>
 												<div className='dropdown'>
-													<label for="fecha" className='label'>Fecha de reposición:</label>
+													<label htmlFor="fecha" className='label'>Fecha de reposición:</label>
 													<input name="fecha" type="date" className='select-opciones' min={today} onChange={(event) => setFecha(event.target.value)}></input>
 												</div>
 												<div className='dropdown'>
-													<label for="horario" className='label'>Horario:</label>
+													<label htmlFor="horario" className='label'>Horario:</label>
 													<select id="horario" name="horario" value={horario} className='select-opciones' onChange={(event) => setHorario(event.target.value)}>
 														<option value="7:00">7:00</option>
 														<option value="8:30">8:30</option>
@@ -251,7 +259,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 													</select>
 												</div>
 												<div className='dropdown'>
-													<label for="salon" className='label'>Lugar:</label>
+													<label htmlFor="salon" className='label'>Lugar:</label>
 													<input name="salon" type="text" className='select-opciones' value={salon} onChange={(event) => setSalon(event.target.value)}></input>
 												</div>
 												<button type="submit" className='boton-registrar mb-4 mt-3'>Enviar</button>
@@ -259,13 +267,11 @@ const ReportarFaltasJustificadasProfesor = () => {
 
 										</div>
 									</div>
-									{ /* CONTAINERS FOR QR CODE */}
 									<TablaReportarFaltasJustificadasProfesor data={data}></TablaReportarFaltasJustificadasProfesor>
 								</div>
 							</div>
 						</div>
 					</div>
-					{ /* END FOR NOT SIDEBAR */}
 				</div>
 			</div>
 		</div>

@@ -8,14 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { BsQrCode } from "react-icons/bs";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,7 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 
 const TablaReportarFaltasJustificadasProfesor = (props) => {
+    // --- FUNCTION THAT HANDLES PAGINATION ---
     function TablePaginationActions(props2) {
         const theme = useTheme();
         const { count, page, rowsPerPage, onPageChange } = props2;
@@ -77,14 +78,15 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
             </Box>
         );
     }
+
     TablePaginationActions.propTypes = {
         count: PropTypes.number.isRequired,
         onPageChange: PropTypes.func.isRequired,
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { data } = props;
 
+    const { data } = props;
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -120,6 +122,7 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
         },
     }));
 
+    // --- FUNCTION THAT OPENS MODAL FOR ATTENDANCE AND REGISTERS IT IN DATABASE ---
     const registerAttendance = async (idReposition, idCode) => {
         const myModal = new Modal(document.getElementById('attendanceModal'));
         myModal.show();
@@ -129,7 +132,7 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
             var jsonData = {
                 "idReposition": idReposition,
                 "idCode": idCode
-            }
+            };
 
             // Post request to database
             const response = await fetch('http://192.168.3.6:5096/Repositions/RegisterRepositionAttendance', {
@@ -171,6 +174,8 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
         }
     }
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <>
             <TableContainer component={Paper} className='mb-4'>
@@ -192,7 +197,7 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
                                 ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 : []
                             )?.map((clase) => (
-                                <StyledTableRow key={clase.CRN}>
+                                <StyledTableRow key={clase.idReposition}>
                                     <StyledTableCell className="tabla-izq" component="th" scope="row">
                                         {clase.subjectName}
                                     </StyledTableCell>
@@ -244,14 +249,14 @@ const TablaReportarFaltasJustificadasProfesor = (props) => {
             </TableContainer>
 
             { /* REGISTER ATTENDANCE MODAL */}
-            <div class="modal fade" id="attendanceModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Registro de asistencia</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="attendanceModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5">Registro de asistencia</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body p-4">
+                        <div className="modal-body p-4">
                             <FontAwesomeIcon id="icon-ok" icon={faCheckCircle} color="green" size="6x" />
                             <FontAwesomeIcon id="icon-no" icon={faSquareXmark} color="red" size="6x" />
                             <FontAwesomeIcon id="icon-warning" icon={faCircleExclamation} color="#ffc400" size="6x" />

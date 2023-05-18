@@ -11,7 +11,6 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 
-
 const TablaVicerrectorDepartamento = (props) => {
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,6 +33,8 @@ const TablaVicerrectorDepartamento = (props) => {
         },
     }));
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="customized table">

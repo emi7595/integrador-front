@@ -4,16 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoDirectorDepartamentoProfesorClase from '../../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamentoProfesorClase';
+// Components
+import SidebarDirector from '../sidebar/SidebarDirector';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import SidebarDirector from '../sidebar/SidebarDirector';
+import TablaInfoDirectorDepartamentoProfesorClase from '../../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamentoProfesorClase';
+import TablaClases from '../../tablas/TablaClases';
 
 const DirectorDepartamentoReporteProfesorClase = () => {
     const location = useLocation();
@@ -33,9 +34,9 @@ const DirectorDepartamentoReporteProfesorClase = () => {
     const [claseRepuesta, setClaseRepuesta] = useState(null);
 
     const navigate = useNavigate();
-    let user;
-
+    
     // Get session storage information
+    let user;
     const session = JSON.parse(window.sessionStorage.getItem('session'));
     if (session) {
         user = session.nombre;
@@ -45,7 +46,6 @@ const DirectorDepartamentoReporteProfesorClase = () => {
         // If user is logged in...
         if (session) {
             // Redirect to proper role if necessary
-            // eslint-disable-next-line default-case
             switch (session.idRol) {
                 case 1:
                     navigate("/profesor/qr"); break;
@@ -55,6 +55,7 @@ const DirectorDepartamentoReporteProfesorClase = () => {
                     navigate("/vicerrector"); break;
                 case 5:
                     navigate("/rector"); break;
+                default: break;
             }
             // Get current class that the professor is on
             fetch("http://192.168.3.6:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
@@ -119,22 +120,21 @@ const DirectorDepartamentoReporteProfesorClase = () => {
                             sumaClaseRepuesta += 1;
                             totalCodesInformativo += 1;
                         }
-
                     }
-                    setAsistencia(sumaAsistencia)
-                    setRetraso(sumaRetraso)
-                    setSalidaPrevia(sumaSalidaPrevia)
-                    setRetrasoSalida(sumaRetrasoSalida)
-                    setFalta(sumaFalta)
-                    setAviso(sumaAviso)
-                    setUniExt(sumaUniExt)
-                    setReposicion(sumaReposicion)
-                    setAdelanto(sumaAdelanto)
-                    setAutorizacion(sumaAutorizacion)
-                    setClaseRepuesta(sumaClaseRepuesta)
-                    setTotalInformativo(totalCodesInformativo)
-                    setInfoClase(json)
-                    setTotal(totalCodes)
+                    setAsistencia(sumaAsistencia);
+                    setRetraso(sumaRetraso);
+                    setSalidaPrevia(sumaSalidaPrevia);
+                    setRetrasoSalida(sumaRetrasoSalida);
+                    setFalta(sumaFalta);
+                    setAviso(sumaAviso);
+                    setUniExt(sumaUniExt);
+                    setReposicion(sumaReposicion);
+                    setAdelanto(sumaAdelanto);
+                    setAutorizacion(sumaAutorizacion);
+                    setClaseRepuesta(sumaClaseRepuesta);
+                    setTotalInformativo(totalCodesInformativo);
+                    setInfoClase(json);
+                    setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
         }
@@ -144,6 +144,7 @@ const DirectorDepartamentoReporteProfesorClase = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         infoClase?.map((clase) => (
@@ -158,20 +159,22 @@ const DirectorDepartamentoReporteProfesorClase = () => {
         return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
         { label: 'Fecha', key: 'fecha' },
         { label: 'Registro', key: 'registro' },
     ];
-
     let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`;
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -179,7 +182,6 @@ const DirectorDepartamentoReporteProfesorClase = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarDirector user={user}></SidebarDirector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -233,7 +235,6 @@ const DirectorDepartamentoReporteProfesorClase = () => {
                                             totalInformativo={totalInformativo}>
                                         </GraficaLeyendasInformativo>
                                     </div>
-                                    { /* CONTAINERS FOR QR CODE */}
                                     <div className='row m-0 justify-content-end'>
                                         <CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
                                             <span className='px-1 boton-descargar'>Descargar</span>
@@ -248,7 +249,6 @@ const DirectorDepartamentoReporteProfesorClase = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+// Components
 import TablaVerProfesores from '../tablas/TablaVerProfesores';
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 
@@ -11,7 +12,6 @@ const VerProfesoresAdministrador = () => {
 	const [data, setData] = useState(null);
 	const [buscador, setBuscador] = useState(null);
 	const [busqueda, setBusqueda] = useState('');
-
 	const navigate = useNavigate();
 
 	let user;
@@ -51,10 +51,12 @@ const VerProfesoresAdministrador = () => {
 		}
 	}, []);
 
+	// --- FUNCTION THAT HANDLES CHANGES IN INPUTS ---
 	const handleInputChange = (event) => {
 		setBusqueda(event.target.value);
 	};
 
+	// --- FUNCTION THAT SEARCHS FOR A SPECIFIC CLASS ---
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (busqueda === "") {
@@ -82,6 +84,8 @@ const VerProfesoresAdministrador = () => {
 		}
 	};
 
+
+	// --- COMPONENT (HTML) ---
 	return (
 		<div>
 			<div className="container-fluid">

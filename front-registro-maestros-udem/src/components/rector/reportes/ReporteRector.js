@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
+// Components
 import SidebarRector from '../sidebar/SidebarRector';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
 
 const ReporteRector = () => {
     const [data, setData] = React.useState(null);
@@ -28,6 +29,7 @@ const ReporteRector = () => {
     const [adelanto, setAdelanto] = useState(null);
     const [autorizacion, setAutorizacion] = useState(null);
     const [claseRepuesta, setClaseRepuesta] = useState(null);
+
     const navigate = useNavigate();
 
     // Get session storage information
@@ -68,45 +70,25 @@ const ReporteRector = () => {
                             } else {
                                 totalCodesInformativo += json[j].codes[i];
                             }
-
                         }
-                        if (i === 0) {
-                            setAsistencia(sum)
-                        }
-                        else if (i === 1) {
-                            setRetraso(sum)
-                        }
-                        else if (i === 2) {
-                            setSalidaPrevia(sum)
-                        }
-                        else if (i === 3) {
-                            setRetrasoSalida(sum)
-                        }
-                        else if (i === 4) {
-                            setFalta(sum)
-                        }
-                        else if (i === 5) {
-                            setAviso(sum)
-                        }
-                        else if (i === 6) {
-                            setUniExt(sum)
-                        }
-                        else if (i === 7) {
-                            setReposicion(sum)
-                        }
-                        else if (i === 8) {
-                            setAdelanto(sum)
-                        }
-                        else if (i === 9) {
-                            setAutorizacion(sum)
-                        }
-                        else if (i === 10) {
-                            setClaseRepuesta(sum)
+                        switch (i) {
+                            case 0: setAsistencia(sum); break;
+                            case 1: setRetraso(sum); break;
+                            case 2: setSalidaPrevia(sum); break;
+                            case 3: setRetrasoSalida(sum); break;
+                            case 4: setFalta(sum); break;
+                            case 5: setAviso(sum); break;
+                            case 6: setUniExt(sum); break;
+                            case 7: setReposicion(sum); break;
+                            case 8: setAdelanto(sum); break;
+                            case 9: setAutorizacion(sum); break;
+                            case 10: setClaseRepuesta(sum); break;
+                            default: break;
                         }
                     }
-                    setTotalInformativo(totalCodesInformativo)
-                    setData(json)
-                    setTotal(totalCodes)
+                    setTotalInformativo(totalCodesInformativo);
+                    setData(json);
+                    setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
         }
@@ -116,16 +98,17 @@ const ReporteRector = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         data?.map((escuela) => (
             datos.push({
-                escuela: escuela.schoolName, 
-                promedioAsistencia: `${escuela.average}%`, 
-                asistencia: escuela.codes[0], 
-                retraso: escuela.codes[1], 
-                salida: escuela.codes[2], 
-                retrasoSalida: escuela.codes[3], 
+                escuela: escuela.schoolName,
+                promedioAsistencia: `${escuela.average}%`,
+                asistencia: escuela.codes[0],
+                retraso: escuela.codes[1],
+                salida: escuela.codes[2],
+                retrasoSalida: escuela.codes[3],
                 falta: escuela.codes[4],
                 aviso: escuela.codes[5],
                 unidadExterna: escuela.codes[6],
@@ -139,6 +122,7 @@ const ReporteRector = () => {
         return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Escuela', key: 'escuela' },
         { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
@@ -155,11 +139,13 @@ const ReporteRector = () => {
         { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -167,7 +153,6 @@ const ReporteRector = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarRector user={user}></SidebarRector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -241,7 +226,6 @@ const ReporteRector = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

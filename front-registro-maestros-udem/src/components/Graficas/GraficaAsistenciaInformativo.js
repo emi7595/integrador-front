@@ -9,7 +9,7 @@ function data2(props) {
         { name: 'Group D', value: props.adelanto },
         { name: 'Group E', value: props.autorizacion },
         { name: 'Group F', value: props.claseRepuesta },
-    ])
+    ]);
 };
 
 const COLORS = ['#250025', '#2e3350', '#5974bc', '#8c93c7', '#c6c1e1', '#b5cef7'];

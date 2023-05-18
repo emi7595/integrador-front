@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+// Components
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 import TablaFaltasJustificadasAceptadas from '../tablas/TablaFaltasJustificadasAceptadas';
 
 const FaltasJustificadasAceptadasAdministrador = () => {
 	const [data, setData] = useState(null);
-
 	const navigate = useNavigate();
-
 	let user;
+
 	const session = JSON.parse(window.sessionStorage.getItem('session'));
 	if (session) {
 		user = session.nombre;
@@ -51,6 +51,8 @@ const FaltasJustificadasAceptadasAdministrador = () => {
 		}
 	}, []);
 
+
+	// --- COMPONENT (HTML) ---
 	return (
 		<div>
 			<div className="container-fluid">

@@ -7,20 +7,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import { useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { Modal } from 'bootstrap';
 
-
 const TablaFaltasJustificadasPendientes = (props) => {
+    // --- FUNCTION THAT HANDLES PAGINATION ---
     function TablePaginationActions(props2) {
         const theme = useTheme();
         const { count, page, rowsPerPage, onPageChange } = props2;
@@ -74,16 +74,17 @@ const TablaFaltasJustificadasPendientes = (props) => {
             </Box>
         );
     }
+
     TablePaginationActions.propTypes = {
         count: PropTypes.number.isRequired,
         onPageChange: PropTypes.func.isRequired,
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
+
     const { headers, data, actualizarData} = props;
     const [valor1, setValor1] = useState('');
     const [valor2, setValor2] = useState('');
-
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -119,6 +120,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
         },
     }));
 
+    // --- FUNCTION THAT ASSIGNS CLASSROOM AND EVENT NUMBER IN DATABASE ---
     const enviarValores = async (idReposition, classroom, event, myModal) => {
         try {
             myModal.hide();
@@ -162,6 +164,7 @@ const TablaFaltasJustificadasPendientes = (props) => {
         }
     }
 
+    // --- FUNCTION THAT OPENS A MODAL FOR ASSIGNING CLASSROOM AND EVENT NUMBER ---
     function assignClassroomEvent(idReposition) {
         const myModal = new Modal(document.getElementById('assignModal'));
         myModal.show();
@@ -179,6 +182,8 @@ const TablaFaltasJustificadasPendientes = (props) => {
         });
     }
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <>
             <TableContainer component={Paper}>
@@ -241,17 +246,17 @@ const TablaFaltasJustificadasPendientes = (props) => {
             </TableContainer>
 
             { /* ASSIGN CLASSROOM AND EVENT NUMBER MODAL */}
-            <div class="modal fade" id="assignModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Asignar salón y número de evento</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="assignModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5">Asignar salón y número de evento</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body p-4">
-                            <label for="classromInput" className='label text-dark'>Salón</label>
+                        <div className="modal-body p-4">
+                            <label htmlFor="classromInput" className='label text-dark'>Salón</label>
                             <input type="text" className="input-faltas-pendientes mb-3 form-control" id="classroomInput" placeholder="Salón de clases" value={valor1} onChange={event => setValor1(event.target.value)}></input>
-                            <label for="eventInput" className='label text-dark'>Número de evento</label>
+                            <label htmlFor="eventInput" className='label text-dark'>Número de evento</label>
                             <input className="input-faltas-pendientes mb-3 form-control" id="eventInput" placeholder="Número de evento de BANNER" value={valor2} onChange={event => setValor2(event.target.value)}></input>
                             <button id="sendButton" className="btn-send">Enviar</button>
                         </div>

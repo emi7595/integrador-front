@@ -39,6 +39,7 @@ const TablaAsistencia = (props) => {
         },
     }));
 
+    // --- FUNCTION THAT OPENS MODAL FOR EDITING ATTENDANCE ---
     function editAttendance(idCode, idSchedule, date) {
         document.getElementById("attendance").value = idCode;
         const myModal = new Modal(document.getElementById('editModal'));
@@ -53,6 +54,7 @@ const TablaAsistencia = (props) => {
         enviarBtn.addEventListener("click", enviarBtnClickHandlerRef);
     }
 
+    // --- FUNCTION THAT HANDLES BUTTON CLICK ---
     function enviarBtnClickHandler(idSchedule, date, myModal) {
         let attendance = document.getElementById("attendance").value;
         const enviarBtn = document.getElementById("sendButton");
@@ -60,6 +62,7 @@ const TablaAsistencia = (props) => {
         sendValues(attendance, idSchedule, date, myModal);
     }
 
+    // --- FUNCTION THAT EDITS ATTENDANCE IN DATABASE ---
     const sendValues = async (attendance, idSchedule, date, myModal) => {
         try {
             myModal.hide();
@@ -74,7 +77,6 @@ const TablaAsistencia = (props) => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                //window.location.reload();
                 fetch("http://192.168.3.6:5096/Reports/Professor/GetScheduleDetail/" + idSchedule)
                     .then(async (response) => response.json())
                     .then(json => {
@@ -145,10 +147,12 @@ const TablaAsistencia = (props) => {
             }
         }
         catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <>
             <TableContainer component={Paper}>
@@ -226,15 +230,15 @@ const TablaAsistencia = (props) => {
             </TableContainer>
 
             { /* EDIT ATTENDANCE CODE MODAL */}
-            <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Editar asistencia</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="editModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5">Editar asistencia</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body p-4">
-                            <label for="attendance" className='label text-dark'>Asistencia del día</label>
+                        <div className="modal-body p-4">
+                            <label htmlFor="attendance" className='label text-dark'>Asistencia del día</label>
                             <select id="attendance" name="attendance" className='select-attendance mb-3' value={attendance} onChange={(event) => setAttendance(event.target.value)}>
                                 <option value="0">Asistencia</option>
                                 <option value="1">Retraso Inicial</option>

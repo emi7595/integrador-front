@@ -11,10 +11,10 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 
-
 const TablaRectorAsistencia = (props) => {
     const { headers, data, from } = props;
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#333333',
@@ -35,6 +35,8 @@ const TablaRectorAsistencia = (props) => {
         },
     }));
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="customized table">

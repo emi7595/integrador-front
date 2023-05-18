@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable default-case */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FaFileDownload } from "react-icons/fa";
-import GraficaClases from '../Graficas/GraficaAsistencia';
-import TablaDepartamentoProfesores from '../tablas/TablaDepartamentoProfesores';
 import { CSVLink } from 'react-csv';
-import TablaInfoDirectorDepartamento from '../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamento';
+// Components
+import SidebarDirector from './sidebar/SidebarDirector';
+import GraficaClases from '../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../Graficas/GraficaLeyendasInformativo';
-import SidebarDirector from './sidebar/SidebarDirector';
+import TablaInfoDirectorDepartamento from '../tablas/tablasInfo/directorDepartamento/TablaInfoDirectorDepartamento';
+import TablaDepartamentoProfesores from '../tablas/TablaDepartamentoProfesores';
 
 const DirectorDepartamento = () => {
     const [data, setData] = React.useState(null);
@@ -57,6 +57,7 @@ const DirectorDepartamento = () => {
                     navigate("/vicerrector"); break;
                 case 5:
                     navigate("/rector"); break;
+                default: break;
             }
             fetch("http://192.168.3.6:5096/Reports/Director/GetDepartmentAverage/" + idDepartamento)
                 .then(response => response.json())
@@ -74,45 +75,26 @@ const DirectorDepartamento = () => {
                             }
 
                         }
-                        if (i === 0) {
-                            setAsistencia(sum)
-                        }
-                        else if (i === 1) {
-                            setRetraso(sum)
-                        }
-                        else if (i === 2) {
-                            setSalidaPrevia(sum)
-                        }
-                        else if (i === 3) {
-                            setRetrasoSalida(sum)
-                        }
-                        else if (i === 4) {
-                            setFalta(sum)
-                        }
-                        else if (i === 5) {
-                            setAviso(sum)
-                        }
-                        else if (i === 6) {
-                            setUniExt(sum)
-                        }
-                        else if (i === 7) {
-                            setReposicion(sum)
-                        }
-                        else if (i === 8) {
-                            setAdelanto(sum)
-                        }
-                        else if (i === 9) {
-                            setAutorizacion(sum)
-                        }
-                        else if (i === 10) {
-                            setClaseRepuesta(sum)
+                        switch (i) {
+                            case 0: setAsistencia(sum); break;
+                            case 1: setRetraso(sum); break;
+                            case 2: setSalidaPrevia(sum); break;
+                            case 3: setRetrasoSalida(sum); break;
+                            case 4: setFalta(sum); break;
+                            case 5: setAviso(sum); break;
+                            case 6: setUniExt(sum); break;
+                            case 7: setReposicion(sum); break;
+                            case 8: setAdelanto(sum); break;
+                            case 9: setAutorizacion(sum); break;
+                            case 10: setClaseRepuesta(sum); break;
+                            default: break;
                         }
                     }
-                    setTotalInformativo(totalCodesInformativo)
-                    setNombreReporte(`Reporte ${json[0].departmentName}`)
-                    setData(json)
-                    setDepartmentName(json[0].departmentName)
-                    setTotal(totalCodes)
+                    setTotalInformativo(totalCodesInformativo);
+                    setNombreReporte(`Reporte ${json[0].departmentName}`);
+                    setData(json);
+                    setDepartmentName(json[0].departmentName);
+                    setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
         }
@@ -122,17 +104,18 @@ const DirectorDepartamento = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         data?.map((profesor) => (
             datos.push({
-                profesor: profesor.employeeName, 
-                nomina: profesor.nomina, 
-                promedioAsistencia: `${profesor.average}%`, 
-                asistencia: profesor.codes[0], 
-                retraso: profesor.codes[1], 
-                salida: profesor.codes[2], 
-                retrasoSalida: profesor.codes[3], 
+                profesor: profesor.employeeName,
+                nomina: profesor.nomina,
+                promedioAsistencia: `${profesor.average}%`,
+                asistencia: profesor.codes[0],
+                retraso: profesor.codes[1],
+                salida: profesor.codes[2],
+                retrasoSalida: profesor.codes[3],
                 falta: profesor.codes[4],
                 aviso: profesor.codes[5],
                 unidadExterna: profesor.codes[6],
@@ -143,9 +126,10 @@ const DirectorDepartamento = () => {
             })
         ))
 
-        return datos
+        return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Profesor', key: 'profesor' },
         { label: 'Nómina', key: 'nomina' },
@@ -163,11 +147,13 @@ const DirectorDepartamento = () => {
         { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -175,7 +161,6 @@ const DirectorDepartamento = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarDirector user={user}></SidebarDirector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -243,7 +228,6 @@ const DirectorDepartamento = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

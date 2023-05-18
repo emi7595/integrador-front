@@ -8,7 +8,7 @@ function data2(props) {
         { name: 'Group C', value: props.salidaPrevia },
         { name: 'Group D', value: props.retrasoSalida },
         { name: 'Group E', value: props.falta },
-    ])
+    ]);
 };
 
 const COLORS = ['#adad5c', '#946724', '#c8ddbb', '#f7deb6', '#f1c57e'];

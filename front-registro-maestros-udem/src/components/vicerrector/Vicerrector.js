@@ -4,15 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import TablaVicerrector from '../tablas/TablaVicerrector';
-import GraficaClases from '../Graficas/GraficaAsistencia';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoVicerrector from '../tablas/tablasInfo/vicerrector/TablaInfoVicerrector';
+// Components
+import SidebarVicerrector from './sidebar/SidebarVicerrector';
+import GraficaClases from '../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../Graficas/GraficaLeyendasInformativo';
-import SidebarVicerrector from './sidebar/SidebarVicerrector';
+import TablaInfoVicerrector from '../tablas/tablasInfo/vicerrector/TablaInfoVicerrector';
+import TablaVicerrector from '../tablas/TablaVicerrector';
 
 const Vicerrector = () => {
     const [data, setData] = React.useState(null);
@@ -31,9 +32,9 @@ const Vicerrector = () => {
     const [adelanto, setAdelanto] = useState(null);
     const [autorizacion, setAutorizacion] = useState(null);
     const [claseRepuesta, setClaseRepuesta] = useState(null);
+
     const navigate = useNavigate();
 
-    // Get session storage information
     let user, idEscuela;
 
     // Get session storage information
@@ -72,47 +73,28 @@ const Vicerrector = () => {
                             } else {
                                 totalCodesInformativo += json[j].codes[i];
                             }
+                        }
+                        switch (i) {
+                            case 0: setAsistencia(sum); break;
+                            case 1: setRetraso(sum); break;
+                            case 2: setSalidaPrevia(sum); break;
+                            case 3: setRetrasoSalida(sum); break;
+                            case 4: setFalta(sum); break;
+                            case 5: setAviso(sum); break;
+                            case 6: setUniExt(sum); break;
+                            case 7: setReposicion(sum); break;
+                            case 8: setAdelanto(sum); break;
+                            case 9: setAutorizacion(sum); break;
+                            case 10: setClaseRepuesta(sum); break;
+                            default: break;
+                        }
 
-                        }
-                        if (i === 0) {
-                            setAsistencia(sum)
-                        }
-                        else if (i === 1) {
-                            setRetraso(sum)
-                        }
-                        else if (i === 2) {
-                            setSalidaPrevia(sum)
-                        }
-                        else if (i === 3) {
-                            setRetrasoSalida(sum)
-                        }
-                        else if (i === 4) {
-                            setFalta(sum)
-                        }
-                        else if (i === 5) {
-                            setAviso(sum)
-                        }
-                        else if (i === 6) {
-                            setUniExt(sum)
-                        }
-                        else if (i === 7) {
-                            setReposicion(sum)
-                        }
-                        else if (i === 8) {
-                            setAdelanto(sum)
-                        }
-                        else if (i === 9) {
-                            setAutorizacion(sum)
-                        }
-                        else if (i === 10) {
-                            setClaseRepuesta(sum)
-                        }
                     }
-                    setTotalInformativo(totalCodesInformativo)
-                    setNombreReporte(`Reporte ${json[0].schoolName}`)
-                    setData(json)
-                    setSchoolName(json[0].schoolName)
-                    setTotal(totalCodes)
+                    setTotalInformativo(totalCodesInformativo);
+                    setNombreReporte(`Reporte ${json[0].schoolName}`);
+                    setData(json);
+                    setSchoolName(json[0].schoolName);
+                    setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
         }
@@ -122,16 +104,17 @@ const Vicerrector = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         data?.map((departamento) => (
             datos.push({
-                departamento: departamento.departmentName, 
-                promedioAsistencia: `${departamento.average}%`, 
-                asistencia: departamento.codes[0], 
-                retraso: departamento.codes[1], 
-                salida: departamento.codes[2], 
-                retrasoSalida: departamento.codes[3], 
+                departamento: departamento.departmentName,
+                promedioAsistencia: `${departamento.average}%`,
+                asistencia: departamento.codes[0],
+                retraso: departamento.codes[1],
+                salida: departamento.codes[2],
+                retrasoSalida: departamento.codes[3],
                 falta: departamento.codes[4],
                 aviso: departamento.codes[5],
                 unidadExterna: departamento.codes[6],
@@ -145,6 +128,7 @@ const Vicerrector = () => {
         return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Departamento', key: 'departamento' },
         { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
@@ -161,11 +145,13 @@ const Vicerrector = () => {
         { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -173,7 +159,6 @@ const Vicerrector = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarVicerrector user={user}></SidebarVicerrector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -241,7 +226,6 @@ const Vicerrector = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

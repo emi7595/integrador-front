@@ -4,16 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
+// Components
 import SidebarRector from '../sidebar/SidebarRector';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
+import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
 
 const ReporteRectorClase = () => {
     const location = useLocation();
@@ -45,7 +46,6 @@ const ReporteRectorClase = () => {
         // If user is logged in...
         if (session) {
             // Redirect to proper role if necessary
-            // eslint-disable-next-line default-case
             switch (session.idRol) {
                 case 1:
                     navigate("/profesor/qr"); break;
@@ -122,20 +122,20 @@ const ReporteRectorClase = () => {
                         }
 
                     }
-                    setAsistencia(sumaAsistencia)
-                    setRetraso(sumaRetraso)
-                    setSalidaPrevia(sumaSalidaPrevia)
-                    setRetrasoSalida(sumaRetrasoSalida)
-                    setFalta(sumaFalta)
-                    setAviso(sumaAviso)
-                    setUniExt(sumaUniExt)
-                    setReposicion(sumaReposicion)
-                    setAdelanto(sumaAdelanto)
-                    setAutorizacion(sumaAutorizacion)
-                    setClaseRepuesta(sumaClaseRepuesta)
-                    setInfoClase(json)
-                    setTotal(totalCodes)
-                    setTotalInformativo(totalCodesInformativo)
+                    setAsistencia(sumaAsistencia);
+                    setRetraso(sumaRetraso);
+                    setSalidaPrevia(sumaSalidaPrevia);
+                    setRetrasoSalida(sumaRetrasoSalida);
+                    setFalta(sumaFalta);
+                    setAviso(sumaAviso);
+                    setUniExt(sumaUniExt);
+                    setReposicion(sumaReposicion);
+                    setAdelanto(sumaAdelanto);
+                    setAutorizacion(sumaAutorizacion);
+                    setClaseRepuesta(sumaClaseRepuesta);
+                    setInfoClase(json);
+                    setTotal(totalCodes);
+                    setTotalInformativo(totalCodesInformativo);
                 })
                 .catch(error => console.error(error));
         }
@@ -145,6 +145,7 @@ const ReporteRectorClase = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         infoClase?.map((clase) => (
@@ -156,18 +157,19 @@ const ReporteRectorClase = () => {
             })
         ))
 
-        return datos
+        return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
         { label: 'Fecha', key: 'fecha' },
         { label: 'Registro', key: 'registro' },
     ];
-
     let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`;
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -181,7 +183,6 @@ const ReporteRectorClase = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarRector user={user}></SidebarRector>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -235,7 +236,6 @@ const ReporteRectorClase = () => {
                                             totalInformativo={totalInformativo}>
                                         </GraficaLeyendasInformativo>
                                     </div>
-                                    { /* CONTAINERS FOR QR CODE */}
                                     <div className='row m-0 justify-content-end'>
                                         <CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
                                             <span className='px-1 boton-descargar'>Descargar</span>
@@ -255,7 +255,6 @@ const ReporteRectorClase = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

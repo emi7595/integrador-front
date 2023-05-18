@@ -5,15 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { FaFileDownload } from "react-icons/fa";
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import TablaClases from '../../tablas/TablaClases';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
-import TablaInfoProfesorClase from '../../tablas/tablasInfo/profesor/TablaInfoProfesorClase';
+// Components
+import SidebarProfesor from '../sidebar/SidebarProfesor';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
-import SidebarProfesor from '../sidebar/SidebarProfesor';
+import TablaInfoProfesorClase from '../../tablas/tablasInfo/profesor/TablaInfoProfesorClase';
+import TablaClases from '../../tablas/TablaClases';
 
 const ReporteClases = () => {
     const location = useLocation();
@@ -33,6 +34,7 @@ const ReporteClases = () => {
     const [claseRepuesta, setClaseRepuesta] = useState(null);
 
     const navigate = useNavigate();
+
     let user;
 
     // Get session storage information
@@ -119,22 +121,21 @@ const ReporteClases = () => {
                             sumaClaseRepuesta += 1;
                             totalCodesInformativo += 1;
                         }
-
                     }
-                    setAsistencia(sumaAsistencia)
-                    setRetraso(sumaRetraso)
-                    setSalidaPrevia(sumaSalidaPrevia)
-                    setRetrasoSalida(sumaRetrasoSalida)
-                    setFalta(sumaFalta)
-                    setAviso(sumaAviso)
-                    setUniExt(sumaUniExt)
-                    setReposicion(sumaReposicion)
-                    setAdelanto(sumaAdelanto)
-                    setAutorizacion(sumaAutorizacion)
-                    setClaseRepuesta(sumaClaseRepuesta)
-                    setInfoClase(json)
-                    setTotal(totalCodes)
-                    setTotalInformativo(totalCodesInformativo)
+                    setAsistencia(sumaAsistencia);
+                    setRetraso(sumaRetraso);
+                    setSalidaPrevia(sumaSalidaPrevia);
+                    setRetrasoSalida(sumaRetrasoSalida);
+                    setFalta(sumaFalta);
+                    setAviso(sumaAviso);
+                    setUniExt(sumaUniExt);
+                    setReposicion(sumaReposicion);
+                    setAdelanto(sumaAdelanto);
+                    setAutorizacion(sumaAutorizacion);
+                    setClaseRepuesta(sumaClaseRepuesta);
+                    setInfoClase(json);
+                    setTotal(totalCodes);
+                    setTotalInformativo(totalCodesInformativo);
                 })
                 .catch(error => console.error(error));
         }
@@ -144,6 +145,7 @@ const ReporteClases = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         infoClase?.map((clase) => (
@@ -158,20 +160,22 @@ const ReporteClases = () => {
         return datos;
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
         { label: 'Fecha', key: 'fecha' },
         { label: 'Registro', key: 'registro' },
     ];
-
     let nombreReporte = `Reporte ${user} - ${location.state.subjectName}`;
 
+    // Date
     const today = new Date();
 	const day = String(today.getDate()).padStart(2, '0');
 	const month = String(today.getMonth() + 1).padStart(2, '0');
 	const year = today.getFullYear();
 	const formattedDate = `${day}/${month}/${year}`;
+
 
     // --- COMPONENT (HTML) ---
     return (
@@ -179,7 +183,6 @@ const ReporteClases = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <SidebarProfesor user={user}></SidebarProfesor>
-                    { /* CONTAINERS FOR NOT SIDEBAR */}
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -233,7 +236,6 @@ const ReporteClases = () => {
                                             totalInformativo={totalInformativo}>
                                         </GraficaLeyendasInformativo>
                                     </div>
-                                    { /* CONTAINERS FOR QR CODE */}
                                     <div className='row m-0 justify-content-end'>
                                         <CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
                                             <span className='px-1 boton-descargar'>Descargar</span>
@@ -248,7 +250,6 @@ const ReporteClases = () => {
                             </div>
                         </div>
                     </div>
-                    { /* END FOR NOT SIDEBAR */}
                 </div>
             </div>
         </div>

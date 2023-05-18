@@ -7,17 +7,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-
+import { styled } from '@mui/material/styles';
+import { Box, IconButton, TableFooter, TablePagination } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const TablaFaltasJustificadasAceptadas = (props) => {
+    // --- FUNCTION THAT HANDLES PAGINATION ---
     function TablePaginationActions(props2) {
         const theme = useTheme();
         const { count, page, rowsPerPage, onPageChange } = props2;
@@ -71,17 +71,17 @@ const TablaFaltasJustificadasAceptadas = (props) => {
             </Box>
         );
     }
+
     TablePaginationActions.propTypes = {
         count: PropTypes.number.isRequired,
         onPageChange: PropTypes.func.isRequired,
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { headers, data } = props;
 
+    const { headers, data } = props;
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -114,6 +114,8 @@ const TablaFaltasJustificadasAceptadas = (props) => {
         },
     }));
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="customized pagination table">

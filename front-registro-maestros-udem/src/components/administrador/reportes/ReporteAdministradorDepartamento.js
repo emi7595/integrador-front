@@ -5,15 +5,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoRectorEscuelaDepartamento from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuelaDepartamento';
+// Components
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import TablaAsistencia from '../tablas/TablaAsistencia';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import TablaAsistencia from '../tablas/TablaAsistencia';
+import TablaInfoRectorEscuelaDepartamento from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuelaDepartamento';
 
 const ReporteAdministradorDepartamento = () => {
     const location = useLocation();
@@ -73,44 +74,25 @@ const ReporteAdministradorDepartamento = () => {
                             }
 
                         }
-                        if (i === 0) {
-                            setAsistencia(sum)
-                        }
-                        else if (i === 1) {
-                            setRetraso(sum)
-                        }
-                        else if (i === 2) {
-                            setSalidaPrevia(sum)
-                        }
-                        else if (i === 3) {
-                            setRetrasoSalida(sum)
-                        }
-                        else if (i === 4) {
-                            setFalta(sum)
-                        }
-                        else if (i === 5) {
-                            setAviso(sum)
-                        }
-                        else if (i === 6) {
-                            setUniExt(sum)
-                        }
-                        else if (i === 7) {
-                            setReposicion(sum)
-                        }
-                        else if (i === 8) {
-                            setAdelanto(sum)
-                        }
-                        else if (i === 9) {
-                            setAutorizacion(sum)
-                        }
-                        else if (i === 10) {
-                            setClaseRepuesta(sum)
+                        switch (i) {
+                            case 0: setAsistencia(sum); break;
+                            case 1: setRetraso(sum); break;
+                            case 2: setSalidaPrevia(sum); break;
+                            case 3: setRetrasoSalida(sum); break;
+                            case 4: setFalta(sum); break;
+                            case 5: setAviso(sum); break;
+                            case 6: setUniExt(sum); break;
+                            case 7: setReposicion(sum); break;
+                            case 8: setAdelanto(sum); break;
+                            case 9: setAutorizacion(sum); break;
+                            case 10: setClaseRepuesta(sum); break;
+                            default: break;
                         }
                     }
-                    setNombreReporte(`Reporte ${location.state.schoolName} - ${json[0].departmentName}`)
-                    setData(json)
-                    setTotal(totalCodes)
-                    setTotalInformativo(totalCodesInformativo)
+                    setNombreReporte(`Reporte ${location.state.schoolName} - ${json[0].departmentName}`);
+                    setData(json);
+                    setTotal(totalCodes);
+                    setTotalInformativo(totalCodesInformativo);
                 })
                 .catch(error => console.error(error));
         }
@@ -120,6 +102,7 @@ const ReporteAdministradorDepartamento = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         data?.map((profesor) => (
@@ -143,12 +126,14 @@ const ReporteAdministradorDepartamento = () => {
         return datos;
     }
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
+    // Headers for CSV
     const headers = [
         { label: 'Docente', key: 'profesor' },
         { label: 'Nómina', key: 'nomina' },
@@ -166,6 +151,7 @@ const ReporteAdministradorDepartamento = () => {
         { label: 'Clase Repuesta', key: 'claseRepuesta' }
     ];
 
+    // --- COMPONENT (HTML) ---
     return (
         <div>
             <div className="container-fluid">

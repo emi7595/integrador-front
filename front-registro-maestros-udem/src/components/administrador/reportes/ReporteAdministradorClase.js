@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
 import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
-import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
+// Components
 import SidebarAdministrador from '../sidebar/SidebarAdministrador';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import TablaAsistencia from '../tablas/TablaAsistencia';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import TablaInfoVicerrectorDepartamentoProfesorClase from '../../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorDepartamentoProfesorClase';
+import TablaAsistencia from '../tablas/TablaAsistencia';
 
 const ReporteAdministradorClase = () => {
     const location = useLocation();
@@ -44,7 +45,6 @@ const ReporteAdministradorClase = () => {
         // If user is logged in...
         if (session) {
             // Redirect to proper role if necessary
-            // eslint-disable-next-line default-case
             switch (session.idRol) {
                 case 1:
                     navigate("/profesor/qr"); break;
@@ -144,6 +144,7 @@ const ReporteAdministradorClase = () => {
         }
     }, []);
 
+    // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
         infoClase?.map((clase) => (
@@ -157,12 +158,14 @@ const ReporteAdministradorClase = () => {
         return datos;
     }
 
+    // Date
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
+    // Function that updates data when an attendance is modified
     function handleUpdateData(sumaAsistencia, sumaRetraso, sumaSalidaPrevia, sumaRetrasoSalida, sumaFalta, sumaAviso, sumaUniExt, sumaReposicion, sumaAdelanto, sumaAutorizacion, sumaClaseRepuesta, json, totalCodes, totalCodesInformativo) {
         setAsistencia(sumaAsistencia);
         setRetraso(sumaRetraso);
@@ -180,14 +183,17 @@ const ReporteAdministradorClase = () => {
         setTotalInformativo(totalCodesInformativo);
     }
 
+    // Headers for CSV
     const headers = [
         { label: 'Clase', key: 'clase' },
         { label: 'Clave', key: 'clave' },
         { label: 'Fecha', key: 'fecha' },
         { label: 'Registro', key: 'registro' },
     ];
-    let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`
+    let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`;
 
+
+    // --- COMPONENT (HTML) ---
     return (
         <div>
             <div className="container-fluid">

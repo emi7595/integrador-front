@@ -13,11 +13,11 @@ const LoginForm = () => {
 	);
 	const maxAttempts = 3;
 
-
 	const [isBlocked, setIsBlocked] = useState(
 		localStorage.getItem("isBlocked") === "true"
 	);
-	  const [blockedUntil, setBlockedUntil] = useState(
+	
+	const [blockedUntil, setBlockedUntil] = useState(
 		localStorage.getItem("blockedUntil")
 	);
 
@@ -32,8 +32,8 @@ const LoginForm = () => {
 			if (isBlocked) {
 				const now = new Date().getTime();
 				if (blockedUntil && now < blockedUntil) {
-				  const remainingTime = Math.round((blockedUntil - now) / 1000 / 60); // Tiempo restante en minutos8
-				  throw new Error(`Tu cuenta está bloqueada. Vuelve a intentarlo en ${remainingTime} minutos.`)
+					const remainingTime = Math.round((blockedUntil - now) / 1000 / 60); // Tiempo restante en minutos8
+					throw new Error(`Tu cuenta está bloqueada. Vuelve a intentarlo en ${remainingTime} minutos.`)
 				}
 				setIsBlocked(false);
 				localStorage.removeItem("isBlocked");
@@ -95,15 +95,15 @@ const LoginForm = () => {
 	const incrementAttemptCount = (currentCount) => {
 		const newCount = currentCount + 1;
 		if (newCount >= maxAttempts) {
-		  const blockedUntilTimestamp = new Date().getTime() + 1 * 60 * 1000; // Tiempo actual + 15 minutos en milisegundos
-		  localStorage.setItem("blockedUntil", blockedUntilTimestamp);
-		  setBlockedUntil(blockedUntilTimestamp);
-		  localStorage.setItem("isBlocked", true);
-		  setIsBlocked(true);
-		  } else {
-		  setAttemptCount(newCount);
+			const blockedUntilTimestamp = new Date().getTime() + 1 * 60 * 1000; // Tiempo actual + 15 minutos en milisegundos
+			localStorage.setItem("blockedUntil", blockedUntilTimestamp);
+			setBlockedUntil(blockedUntilTimestamp);
+			localStorage.setItem("isBlocked", true);
+			setIsBlocked(true);
+		} else {
+			setAttemptCount(newCount);
 		}
-	  };
+	};
 
 
 	// --- COMPONENT (HTML) ---
@@ -145,7 +145,7 @@ const LoginForm = () => {
 				</div>
 			</div>
 
-			{ /* TOAST MESSAGE THAT APPEARS WHEN LOGIN INFORMATION IS INCORRECT */ }
+			{ /* TOAST MESSAGE THAT APPEARS WHEN LOGIN INFORMATION IS INCORRECT */}
 			<div className="toast-container position-fixed bottom-0 end-0 p-3">
 				<div id="login-toast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
 					<div className="toast-header">

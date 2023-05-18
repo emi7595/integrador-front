@@ -8,10 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
-
 const TablaInfoProfesorClase = (props) => {
     const subjectName = props.dataClase.subjectName;
     const clave = props.dataClase.subject_CVE;
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#333333',
@@ -32,10 +32,8 @@ const TablaInfoProfesorClase = (props) => {
         },
     }));
 
-    const session = JSON.parse(window.sessionStorage.getItem('session'));
-    if (session) {
-    }
 
+    // --- COMPONENT (HTML) ---
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
