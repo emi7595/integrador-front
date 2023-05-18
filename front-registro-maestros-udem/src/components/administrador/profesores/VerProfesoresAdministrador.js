@@ -121,6 +121,7 @@ const VerProfesoresAdministrador = () => {
 										<TablaVerProfesores
 											headers={["Docente", "Nómina", "Clase", "Clave", "Horario", "Día", "Salón"]}
 											data={buscador !== null ? buscador : data}
+											buscador={buscador}
 											from={"VerProfesoresAdministrador"}>
 										</TablaVerProfesores>
 									)}

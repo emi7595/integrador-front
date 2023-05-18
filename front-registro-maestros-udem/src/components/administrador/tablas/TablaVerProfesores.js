@@ -77,7 +77,7 @@ const TablaVerProfesores = (props) => {
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
     };
-    const { headers, data } = props;
+    const { headers, data, buscador } = props;
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -113,6 +113,13 @@ const TablaVerProfesores = (props) => {
             border: 0,
         },
     }));
+
+    React.useEffect(() => {
+        if (buscador !== null) {
+            setPage(0); // Reiniciar la página a 0 cuando hay resultados de búsqueda
+        }
+    }, [buscador]);
+
 
     return (
         <TableContainer component={Paper}>
