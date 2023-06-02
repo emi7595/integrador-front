@@ -81,6 +81,8 @@ const LoginForm = () => {
 						navigate("/vicerrector"); break;
 					case 5:
 						navigate("/rector"); break;
+					case 6:
+						navigate("/decano"); break;
 					default: break;
 				}
 			}

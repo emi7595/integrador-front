@@ -1,30 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
 // Components
-import SidebarVicerrector from './sidebar/SidebarVicerrector';
-import GraficaClases from '../Graficas/GraficaAsistencia';
-import GraficaLeyendas from '../Graficas/GraficaLeyendas';
-import GraficaAsistenciaInformativo from '../Graficas/GraficaAsistenciaInformativo';
-import GraficaLeyendasInformativo from '../Graficas/GraficaLeyendasInformativo';
-import TablaInfoVicerrector from '../tablas/tablasInfo/vicerrector/TablaInfoVicerrector';
-import TablaVicerrector from '../tablas/TablaVicerrector';
+import GraficaClases from '../../Graficas/GraficaAsistencia';
+import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
+import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
+import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
+import TablaInfoDecanoDepartamentoProfesorClase from '../../tablas/tablasInfo/decano/TablaInfoDecanoDepartamentoProfesorClase';
+import TablaClases from '../../tablas/TablaClases';
+import SidebarDecano from '../sidebar/SidebarDecano';
 
-const Vicerrector = () => {
-    const [data, setData] = React.useState(null);
+const VicerrectorReporteDepartamentoProfesorClase = () => {
+    const location = useLocation();
+    const [infoClase, setInfoClase] = React.useState(null);
     const [total, setTotal] = React.useState(null);
     const [asistencia, setAsistencia] = React.useState(null);
     const [retraso, setRetraso] = React.useState(null);
     const [salidaPrevia, setSalidaPrevia] = React.useState(null);
     const [retrasoSalida, setRetrasoSalida] = React.useState(null);
     const [falta, setFalta] = React.useState(null);
-    const [nombreReporte, setNombreReporte] = React.useState(null);
-    const [schoolName, setSchoolName] = React.useState(null);
     const [totalInformativo, setTotalInformativo] = useState(null);
     const [aviso, setAviso] = useState(null);
     const [uniExt, setUniExt] = useState(null);
@@ -34,14 +34,12 @@ const Vicerrector = () => {
     const [claseRepuesta, setClaseRepuesta] = useState(null);
 
     const navigate = useNavigate();
-
-    let user, idEscuela;
+    let user;
 
     // Get session storage information
     const session = JSON.parse(window.sessionStorage.getItem('session'));
     if (session) {
         user = session.nombre;
-        idEscuela = session.idEscuela;
     }
 
     useEffect(() => {
@@ -59,41 +57,83 @@ const Vicerrector = () => {
                     navigate("/rector"); break;
                 default: break;
             }
-            fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetSchoolAverage/" + idEscuela)
+            // Get current class that the professor is on
+            fetch("http://192.168.29.1:5096/Reports/Professor/GetScheduleDetail/" + location.state.scheduleId)
                 .then(response => response.json())
                 .then(json => {
+                    let sumaAsistencia = 0;
+                    let sumaRetraso = 0;
+                    let sumaSalidaPrevia = 0;
+                    let sumaRetrasoSalida = 0;
+                    let sumaFalta = 0;
+                    let sumaAviso = 0;
+                    let sumaUniExt = 0;
+                    let sumaReposicion = 0;
+                    let sumaAdelanto = 0;
+                    let sumaAutorizacion = 0;
+                    let sumaClaseRepuesta = 0;
                     let totalCodes = 0;
                     let totalCodesInformativo = 0;
-                    for (let i = 0; i < 11; i++) {
-                        let sum = 0;
-                        for (let j = 0; j < json.length; j++) {
-                            sum += json[j].codes[i];
-                            if (i < 5) {
-                                totalCodes += json[j].codes[i];
-                            } else {
-                                totalCodesInformativo += json[j].codes[i];
-                            }
+                    for (let i = 0; i < json.length; i++) {
+                        const codigoActual = parseInt(json[i].codeId);
+                        if (codigoActual === 0) {
+                            sumaAsistencia += 1;
+                            totalCodes += 1;
                         }
-                        switch (i) {
-                            case 0: setAsistencia(sum); break;
-                            case 1: setRetraso(sum); break;
-                            case 2: setSalidaPrevia(sum); break;
-                            case 3: setRetrasoSalida(sum); break;
-                            case 4: setFalta(sum); break;
-                            case 5: setAviso(sum); break;
-                            case 6: setUniExt(sum); break;
-                            case 7: setReposicion(sum); break;
-                            case 8: setAdelanto(sum); break;
-                            case 9: setAutorizacion(sum); break;
-                            case 10: setClaseRepuesta(sum); break;
-                            default: break;
+                        else if (codigoActual === 1) {
+                            sumaRetraso += 1;
+                            totalCodes += 1;
                         }
-
+                        else if (codigoActual === 2) {
+                            sumaSalidaPrevia += 1;
+                            totalCodes += 1;
+                        }
+                        else if (codigoActual === 3) {
+                            sumaRetrasoSalida += 1;
+                            totalCodes += 1;
+                        }
+                        else if (codigoActual === 4) {
+                            sumaFalta += 1;
+                            totalCodes += 1;
+                        }
+                        else if (codigoActual === 5) {
+                            sumaAviso += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 6) {
+                            sumaUniExt += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 7) {
+                            sumaReposicion += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 8) {
+                            sumaAdelanto += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 9) {
+                            sumaAutorizacion += 1;
+                            totalCodesInformativo += 1;
+                        }
+                        else if (codigoActual === 10) {
+                            sumaClaseRepuesta += 1;
+                            totalCodesInformativo += 1;
+                        }
                     }
+                    setAsistencia(sumaAsistencia);
+                    setRetraso(sumaRetraso);
+                    setSalidaPrevia(sumaSalidaPrevia);
+                    setRetrasoSalida(sumaRetrasoSalida);
+                    setFalta(sumaFalta);
+                    setAviso(sumaAviso);
+                    setUniExt(sumaUniExt);
+                    setReposicion(sumaReposicion);
+                    setAdelanto(sumaAdelanto);
+                    setAutorizacion(sumaAutorizacion);
+                    setClaseRepuesta(sumaClaseRepuesta);
                     setTotalInformativo(totalCodesInformativo);
-                    setNombreReporte(`Reporte ${json[0].schoolName}`);
-                    setData(json);
-                    setSchoolName(json[0].schoolName);
+                    setInfoClase(json);
                     setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
@@ -107,21 +147,12 @@ const Vicerrector = () => {
     // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
-        data?.map((departamento) => (
-            datos.push({
-                departamento: departamento.departmentName,
-                promedioAsistencia: `${departamento.average}%`,
-                asistencia: departamento.codes[0],
-                retraso: departamento.codes[1],
-                salida: departamento.codes[2],
-                retrasoSalida: departamento.codes[3],
-                falta: departamento.codes[4],
-                aviso: departamento.codes[5],
-                unidadExterna: departamento.codes[6],
-                reposicionProgramada: departamento.codes[7],
-                adelanto: departamento.codes[8],
-                autorizacion: departamento.codes[9],
-                claseRepuesta: departamento.codes[10]
+        infoClase?.map((clase) => (
+            datos.push({ 
+                clase: location.state.subjectName, 
+                clave: location.state.subject_CVE, 
+                fecha: clase.date.slice(0, -9), 
+                registro: clase.codeDescription 
             })
         ));
 
@@ -130,20 +161,12 @@ const Vicerrector = () => {
 
     // Headers for CSV
     const headers = [
-        { label: 'Departamento', key: 'departamento' },
-        { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
-        { label: 'Asistencia', key: 'asistencia' },
-        { label: 'Retraso Inicial', key: 'retraso' },
-        { label: 'Salida Previa', key: 'salida' },
-        { label: 'Retraso y Salida', key: 'retrasoSalida' },
-        { label: 'Falta', key: 'falta' },
-        { label: 'Aviso', key: 'aviso' },
-        { label: 'Unidad Externa', key: 'unidadExterna' },
-        { label: 'Reposición Programada', key: 'reposicionProgramada' },
-        { label: 'Adelanto', key: 'adelanto' },
-        { label: 'Autorización', key: 'autorizacion' },
-        { label: 'Clase Repuesta', key: 'claseRepuesta' }
+        { label: 'Clase', key: 'clase' },
+        { label: 'Clave', key: 'clave' },
+        { label: 'Fecha', key: 'fecha' },
+        { label: 'Registro', key: 'registro' },
     ];
+    let nombreReporte = `Reporte ${location.state.employeeName} - ${location.state.subjectName}`;
 
     // Date
     const today = new Date();
@@ -158,7 +181,7 @@ const Vicerrector = () => {
         <div>
             <div className="container-fluid">
                 <div className="row flex-nowrap">
-                    <SidebarVicerrector user={user}></SidebarVicerrector>
+                    <SidebarDecano user={user}></SidebarDecano>
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -173,11 +196,11 @@ const Vicerrector = () => {
                         <div className="container px-0 pt-3">
                             <div className="row m-0 justify-content-center mt-3">
                                 <div className="col-12 text-center">
-                                    <h1 className="mb-2 currentClass">Reporte de asistencia de escuela</h1>
+                                    <h1 className="mb-2 currentClass">Reporte de asistencia de clase</h1>
                                     <h6 className="mb-5">Corte al día: {formattedDate}</h6>
                                     <div className="row m-0 grafica white-card">
                                         <GraficaClases
-                                            className="col-md-3"
+                                            className="col-md-6"
                                             asistencia={asistencia}
                                             retraso={retraso}
                                             salidaPrevia={salidaPrevia}
@@ -185,12 +208,12 @@ const Vicerrector = () => {
                                             falta={falta}>
                                         </GraficaClases>
                                         <GraficaLeyendas
-                                            className="col-md-3"
                                             asistencia={asistencia}
                                             retraso={retraso}
                                             salidaPrevia={salidaPrevia}
                                             retrasoSalida={retrasoSalida}
-                                            falta={falta} total={total}>
+                                            falta={falta}
+                                            total={total}>
                                         </GraficaLeyendas>
                                         <GraficaAsistenciaInformativo
                                             className="col-md-3"
@@ -218,9 +241,9 @@ const Vicerrector = () => {
                                             <FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
                                         </CSVLink>
                                     </div>
-                                    <TablaInfoVicerrector escuela={schoolName}></TablaInfoVicerrector>
+                                    <TablaInfoDecanoDepartamentoProfesorClase escuela={location.state.escuela} departamento={location.state.departamento} profesor={location.state.employeeName} clase={location.state.subjectName} clave={location.state.subject_CVE}></TablaInfoDecanoDepartamentoProfesorClase>
                                     <div className="mb-4" ></div>
-                                    <TablaVicerrector data={data}></TablaVicerrector>
+                                    <TablaClases dataClase={location.state} infoClase={infoClase}></TablaClases>
                                     <div className="mb-5" ></div>
                                 </div>
                             </div>
@@ -232,4 +255,4 @@ const Vicerrector = () => {
     );
 };
 
-export default Vicerrector;
+export default VicerrectorReporteDepartamentoProfesorClase;

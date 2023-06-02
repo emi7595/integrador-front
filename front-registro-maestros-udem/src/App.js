@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import LoginForm from './components/login/LoginForm';
 import ScanQRCode from './components/profesor/ScanQRCode';
 import DirectorDepartamento from './components/director-departamento/DirectorDepartamento';
-import Vicerrector from './components/vicerrector/Vicerrector';
+import Vicerrector from './components/vicerrector/reportes/Vicerrector';
+import Decano from './components/decano/Decano.js';
 import ReporteRector from './components/rector/reportes/ReporteRector';
 import ConfirmQR from './components/profesor/ConfirmQR';
 import ReporteProfesor from './components/profesor/reportes/ReporteProfesor';
@@ -27,6 +28,12 @@ import VerProfesoresAdministrador from './components/administrador/profesores/Ve
 import FaltasJustificadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAdministrador';
 import FaltasJustificadasAceptadasAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasAceptadasAdministrador';
 import FaltasJustificadasPendientesAdministrador from './components/administrador/faltas-justificadas/FaltasJustificadasPendientesAdministrador';
+import ReporteRectorVicerrectoria from './components/rector/reportes/ReporteRectorVicerrectoria';
+import DecanoReporteDepartamento from './components/decano/reportes/DecanoReporteDepartamento';
+import DecanoReporteDepartamentoProfesor from './components/decano/reportes/DecanoReporteDepartamentoProfesor';
+import DecanoReporteDepartamentoProfesorClase from './components/decano/reportes/DecanoReporteDepartamentoProfesorClase';
+import VicerrectorEscuela from './components/vicerrector/VicerrectorEscuela';
+import ReporteAdministradorVicerrectoria from './components/administrador/reportes/ReporteAdminsitradorVicerrectoria';
 
 function App() {
 	return (
@@ -45,6 +52,7 @@ function App() {
 
 				{ /* ADMIN ROUTES */}
 				<Route path="/administrador" element={<ReporteAdministrador />} />
+				<Route path="/administrador/reporte/vicerrectoria" element={<ReporteAdministradorVicerrectoria />} />
 				<Route path="/administrador/reporte/escuela" element={<ReporteAdministradorEscuela />} />
 				<Route path="/administrador/reporte/escuela/departamento" element={<ReporteAdministradorDepartamento />} />
 				<Route path="/administrador/reporte/escuela/departamento/profesor" element={<ReporteAdministradorProfesor />} />
@@ -61,12 +69,20 @@ function App() {
 
 				{ /* VICE-RECTOR ROUTES */}
 				<Route path="/vicerrector" element={<Vicerrector />} />
+				<Route path="/vicerrector/escuela" element={<VicerrectorEscuela />} />
 				<Route path="/vicerrector/reporte-departamento" element={<VicerrectorReporteDepartamento />} />
 				<Route path="/vicerrector/reporte-departamento/reporte-profesor" element={<VicerrectorReporteDepartamentoProfesor />} />
 				<Route path="/vicerrector/reporte-departamento/reporte-profesor/reporte-clase" element={<VicerrectorReporteDepartamentoProfesorClase />} />
 
+				{ /* DECANO ROUTES */}
+				<Route path="/decano" element={<Decano />} />
+				<Route path="/decano/reporte-departamento" element={<DecanoReporteDepartamento />} />
+				<Route path="/decano/reporte-departamento/reporte-profesor" element={<DecanoReporteDepartamentoProfesor />} />
+				<Route path="/decano/reporte-departamento/reporte-profesor/reporte-clase" element={<DecanoReporteDepartamentoProfesorClase />} />
+
 				{ /* RECTOR ROUTES */ }
 				<Route path="/rector" element={<ReporteRector />} />
+				<Route path="/rector/reporte/vicerrectoria" element={<ReporteRectorVicerrectoria />} />
 				<Route path="/rector/reporte/escuela" element={<ReporteRectorEscuela />} />
 				<Route path="/rector/reporte/escuela/departamento" element={<ReporteRectorDepartamento />} />
 				<Route path="/rector/reporte/escuela/departamento/profesor" element={<ReporteRectorProfesor />} />

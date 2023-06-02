@@ -56,6 +56,8 @@ const ReporteRectorDepartamento = () => {
                     navigate("/director-departamento"); break;
                 case 4:
                     navigate("/vicerrector"); break;
+                case 6:
+                    navigate("/decano"); break;
                 default: break;
             }
             fetch("http://192.168.29.1:5096/Reports/Director/GetDepartmentAverage/" + location.state.departmentId)

@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -7,15 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
 // Components
-import SidebarRector from '../sidebar/SidebarRector';
 import GraficaClases from '../../Graficas/GraficaAsistencia';
 import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
 import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
 import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
-import TablaInfoRectorEscuela from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuela';
-import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
+import TablaInfoRectorVicerrectoria from '../../tablas/tablasInfo/rector/TablaInfoRectorVicerrectoria';
+import SidebarVicerrector from '../sidebar/SidebarVicerrector';
+import TablaVicerrector from '../../tablas/TablaVicerrector';
 
-const ReporteRectorEscuela = () => {
+const ReporteVicerrector = () => {
     const location = useLocation();
     const [data, setData] = React.useState(null);
     const [total, setTotal] = React.useState(null);
@@ -24,7 +24,6 @@ const ReporteRectorEscuela = () => {
     const [salidaPrevia, setSalidaPrevia] = React.useState(null);
     const [retrasoSalida, setRetrasoSalida] = React.useState(null);
     const [falta, setFalta] = React.useState(null);
-    const [nombreReporte, setNombreReporte] = React.useState(null);
     const [totalInformativo, setTotalInformativo] = useState(null);
     const [aviso, setAviso] = useState(null);
     const [uniExt, setUniExt] = useState(null);
@@ -35,12 +34,14 @@ const ReporteRectorEscuela = () => {
 
     const navigate = useNavigate();
 
-    let user;
+    // Get session storage information
+    let user, idVicerrectoria;
 
     // Get session storage information
     const session = JSON.parse(window.sessionStorage.getItem('session'));
     if (session) {
         user = session.nombre;
+        idVicerrectoria = session.idVicerrectoria;
     }
 
     useEffect(() => {
@@ -54,13 +55,13 @@ const ReporteRectorEscuela = () => {
                     navigate("/administrador"); break;
                 case 3:
                     navigate("/director-departamento"); break;
-                case 4:
-                    navigate("/vicerrector"); break;
+                case 5:
+                    navigate("/rector"); break;
                 case 6:
                     navigate("/decano"); break;
                 default: break;
             }
-            fetch("http://192.168.29.1:5096/Reports/Decano/GetSchoolAverage/" + location.state.schoolId)
+            fetch("http://192.168.29.1:5096/Reports/Vicerrector/GetVicerrectoriaAverage/" + idVicerrectoria)
                 .then(response => response.json())
                 .then(json => {
                     let totalCodes = 0;
@@ -74,7 +75,6 @@ const ReporteRectorEscuela = () => {
                             } else {
                                 totalCodesInformativo += json[j].codes[i];
                             }
-
                         }
                         switch (i) {
                             case 0: setAsistencia(sum); break;
@@ -92,8 +92,8 @@ const ReporteRectorEscuela = () => {
                         }
                     }
                     setTotalInformativo(totalCodesInformativo);
-                    setNombreReporte(`Reporte ${json[0].schoolName}`);
                     setData(json);
+                    console.log(json)
                     setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
@@ -107,21 +107,21 @@ const ReporteRectorEscuela = () => {
     // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
-        data?.map((departamento) => (
+        data?.map((vicerrectoria) => (
             datos.push({
-                departamento: departamento.departmentName,
-                promedioAsistencia: `${departamento.average}%`,
-                asistencia: departamento.codes[0],
-                retraso: departamento.codes[1],
-                salida: departamento.codes[2],
-                retrasoSalida: departamento.codes[3],
-                falta: departamento.codes[4],
-                aviso: departamento.codes[5],
-                unidadExterna: departamento.codes[6],
-                reposicionProgramada: departamento.codes[7],
-                adelanto: departamento.codes[8],
-                autorizacion: departamento.codes[9],
-                claseRepuesta: departamento.codes[10]
+                vicerrectoria: vicerrectoria.schoolName,
+                promedioAsistencia: `${vicerrectoria.average}%`,
+                asistencia: vicerrectoria.codes[0],
+                retraso: vicerrectoria.codes[1],
+                salida: vicerrectoria.codes[2],
+                retrasoSalida: vicerrectoria.codes[3],
+                falta: vicerrectoria.codes[4],
+                aviso: vicerrectoria.codes[5],
+                unidadExterna: vicerrectoria.codes[6],
+                reposicionProgramada: vicerrectoria.codes[7],
+                adelanto: vicerrectoria.codes[8],
+                autorizacion: vicerrectoria.codes[9],
+                claseRepuesta: vicerrectoria.codes[10]
             })
         ));
 
@@ -130,7 +130,7 @@ const ReporteRectorEscuela = () => {
 
     // Headers for CSV
     const headers = [
-        { label: 'Departamento', key: 'departamento' },
+        { label: 'Vicerrectoria', key: 'vicerrectoria' },
         { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
         { label: 'Asistencia', key: 'asistencia' },
         { label: 'Retraso Inicial', key: 'retraso' },
@@ -158,7 +158,7 @@ const ReporteRectorEscuela = () => {
         <div>
             <div className="container-fluid">
                 <div className="row flex-nowrap">
-                    <SidebarRector user={user}></SidebarRector>
+                    <SidebarVicerrector user={user}></SidebarVicerrector>
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -173,7 +173,7 @@ const ReporteRectorEscuela = () => {
                         <div className="container px-0 pt-2">
                             <div className="row m-0 justify-content-center mt-3">
                                 <div className="col-12 text-center">
-                                    <h1 className="mb-2 currentClass">Reporte de asistencia de escuela</h1>
+                                    <h1 className="mb-2 currentClass">Reporte de asistencia de la UDEM</h1>
                                     <h6 className="mb-5">Corte al día: {formattedDate}</h6>
                                     <div className="row m-0 grafica white-card">
                                         <GraficaClases
@@ -213,18 +213,19 @@ const ReporteRectorEscuela = () => {
                                         </GraficaLeyendasInformativo>
                                     </div>
                                     <div className='row m-0 justify-content-end'>
-                                        <CSVLink data={handleDatos()} headers={headers} filename={nombreReporte} className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
+                                        <CSVLink
+                                            data={handleDatos()}
+                                            headers={headers}
+                                            filename={"Reporte Rector"}
+                                            className='text-decoration-none btn btn-outline-dark col-auto px-3 mb-3 align-items-center'>
                                             <span className='px-1 boton-descargar'>Descargar</span>
                                             <FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
                                         </CSVLink>
                                     </div>
-                                    <TablaInfoRectorEscuela escuela={location.state.schoolName}></TablaInfoRectorEscuela>
                                     <div className="mb-4" ></div>
-                                    <TablaRectorAsistencia
-                                        headers={["Departamento", "Promedio Asistencia", "Detalle"]}
-                                        data={data} escuela={location.state.schoolName}
-                                        from={"ReporteRectorEscuela"}>
-                                    </TablaRectorAsistencia>
+                                    <TablaVicerrector
+                                        data={data}>
+                                    </TablaVicerrector>
                                     <div className="mb-5" ></div>
                                 </div>
                             </div>
@@ -236,4 +237,4 @@ const ReporteRectorEscuela = () => {
     );
 };
 
-export default ReporteRectorEscuela;
+export default ReporteVicerrector;

@@ -11,7 +11,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 
-const TablaVicerrector = (props) => {
+const TablaDecanoDepartamento = (props) => {
     const navigate = useNavigate()
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -40,19 +40,21 @@ const TablaVicerrector = (props) => {
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Escuela</StyledTableCell>
+                        <StyledTableCell>Docente</StyledTableCell>
+                        <StyledTableCell align="right">Nómina</StyledTableCell>
                         <StyledTableCell align="right">Promedio Asistencia</StyledTableCell>
                         <StyledTableCell align="right">Detalle</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.data?.map((escuela) => (
-                        <StyledTableRow key={escuela.school}>
+                    {props.data?.map((profesor) => (
+                        <StyledTableRow key={profesor.nomina}>
                             <StyledTableCell component="th" scope="row">
-                                {escuela.schoolName}
+                                {profesor.employeeName}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{escuela.average === -1 ? "N/A" : `${escuela.average}%`}</StyledTableCell>
-                            <StyledTableCell align="right"><a onClick={() => { escuela.average === -1 ? navigate("/vicerrector") : navigate("/vicerrector/escuela", { state: escuela }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+                            <StyledTableCell align="right">{profesor.nomina}</StyledTableCell>
+                            <StyledTableCell align="right">{profesor.average === -1 ? "N/A" : `${profesor.average}%`}</StyledTableCell>
+                            <StyledTableCell align="right"><a onClick={() => { profesor.escuela = props.escuela; profesor.departamento = props.departamento; profesor.average === -1 ? navigate("/decano/reporte-departamento") : navigate("/decano/reporte-departamento/reporte-profesor", { state: profesor }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
@@ -61,4 +63,4 @@ const TablaVicerrector = (props) => {
     );
 }
 
-export default TablaVicerrector;
+export default TablaDecanoDepartamento;

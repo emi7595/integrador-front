@@ -55,6 +55,8 @@ const ReporteRectorClase = () => {
                     navigate("/director-departamento"); break;
                 case 4:
                     navigate("/vicerrector"); break;
+                case 6:
+                        navigate("/decano"); break;
                 default: break;
             }
             // Get current class that the professor is on

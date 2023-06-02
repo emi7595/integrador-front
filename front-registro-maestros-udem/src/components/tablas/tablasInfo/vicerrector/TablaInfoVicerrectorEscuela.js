@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
-const TablaInfoVicerrector = (props) => {
+const TablaInfoVicerrectorEscuela = (props) => {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#333333',
@@ -51,4 +51,4 @@ const TablaInfoVicerrector = (props) => {
     );
 }
 
-export default TablaInfoVicerrector;
+export default TablaInfoVicerrectorEscuela;

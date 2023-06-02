@@ -54,6 +54,8 @@ const ReporteRector = () => {
                     navigate("/director-departamento"); break;
                 case 4:
                     navigate("/vicerrector"); break;
+                case 6:
+                    navigate("/decano"); break;
                 default: break;
             }
             fetch("http://192.168.29.1:5096/Reports/Rector/GetUDEMAverage/")
@@ -88,6 +90,7 @@ const ReporteRector = () => {
                     }
                     setTotalInformativo(totalCodesInformativo);
                     setData(json);
+                    console.log(json)
                     setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
@@ -101,21 +104,21 @@ const ReporteRector = () => {
     // --- FUNCTION THAT HANDLES DATA TO EXPORT INTO CSV ---
     function handleDatos() {
         let datos = [];
-        data?.map((escuela) => (
+        data?.map((vicerrectoria) => (
             datos.push({
-                escuela: escuela.schoolName,
-                promedioAsistencia: `${escuela.average}%`,
-                asistencia: escuela.codes[0],
-                retraso: escuela.codes[1],
-                salida: escuela.codes[2],
-                retrasoSalida: escuela.codes[3],
-                falta: escuela.codes[4],
-                aviso: escuela.codes[5],
-                unidadExterna: escuela.codes[6],
-                reposicionProgramada: escuela.codes[7],
-                adelanto: escuela.codes[8],
-                autorizacion: escuela.codes[9],
-                claseRepuesta: escuela.codes[10]
+                vicerrectoria: vicerrectoria.schoolName,
+                promedioAsistencia: `${vicerrectoria.average}%`,
+                asistencia: vicerrectoria.codes[0],
+                retraso: vicerrectoria.codes[1],
+                salida: vicerrectoria.codes[2],
+                retrasoSalida: vicerrectoria.codes[3],
+                falta: vicerrectoria.codes[4],
+                aviso: vicerrectoria.codes[5],
+                unidadExterna: vicerrectoria.codes[6],
+                reposicionProgramada: vicerrectoria.codes[7],
+                adelanto: vicerrectoria.codes[8],
+                autorizacion: vicerrectoria.codes[9],
+                claseRepuesta: vicerrectoria.codes[10]
             })
         ));
 
@@ -124,7 +127,7 @@ const ReporteRector = () => {
 
     // Headers for CSV
     const headers = [
-        { label: 'Escuela', key: 'escuela' },
+        { label: 'Vicerrectoria', key: 'vicerrectoria' },
         { label: 'PromedioAsistencia', key: 'promedioAsistencia' },
         { label: 'Asistencia', key: 'asistencia' },
         { label: 'Retraso Inicial', key: 'retraso' },
@@ -217,7 +220,7 @@ const ReporteRector = () => {
                                         </CSVLink>
                                     </div>
                                     <TablaRectorAsistencia
-                                        headers={["Escuela", "Promedio Asistencia", "Detalle"]}
+                                        headers={["Vicerrectoria", "Promedio Asistencia", "Detalle"]}
                                         data={data}
                                         from={"ReporteRector"}>
                                     </TablaRectorAsistencia>

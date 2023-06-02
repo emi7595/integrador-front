@@ -165,6 +165,15 @@ const TablaAsistencia = (props) => {
                     <TableBody>
                         {
                             from === "ReporteAdministrador" ?
+                                data?.map((vicerrectoria) => (
+                                    <StyledTableRow key={vicerrectoria.vicerrectoriaId}>
+                                        <StyledTableCell component="th" scope="row">{vicerrectoria.vicerrectoriaName}</StyledTableCell>
+                                        <StyledTableCell align="left">{vicerrectoria.average === -1 ? "N/A" : `${vicerrectoria.average}%`}</StyledTableCell>
+                                        <StyledTableCell align="right"><a onClick={() => { vicerrectoria.average === -1 ? navigate("/administrador") : navigate("/administrador/reporte/vicerrectoria", { state: vicerrectoria }) }}><BsThreeDots className="icono-detalle"></BsThreeDots></a></StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                                :
+                                from === "ReporteAdministradorVicerrectoria" ?
                                 data?.map((escuela) => (
                                     <StyledTableRow key={escuela.schoolId}>
                                         <StyledTableCell component="th" scope="row">{escuela.schoolName}</StyledTableCell>

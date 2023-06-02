@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload } from 'react-icons/fa';
 // Components
-import SidebarRector from '../sidebar/SidebarRector';
-import GraficaClases from '../../Graficas/GraficaAsistencia';
-import GraficaLeyendas from '../../Graficas/GraficaLeyendas';
-import GraficaAsistenciaInformativo from '../../Graficas/GraficaAsistenciaInformativo';
-import GraficaLeyendasInformativo from '../../Graficas/GraficaLeyendasInformativo';
-import TablaInfoRectorEscuela from '../../tablas/tablasInfo/rector/TablaInfoRectorEscuela';
-import TablaRectorAsistencia from '../tablas/TablaRectorAsistencia';
+import SidebarVicerrector from './sidebar/SidebarVicerrector';
+import GraficaClases from '../Graficas/GraficaAsistencia';
+import GraficaLeyendas from '../Graficas/GraficaLeyendas';
+import GraficaAsistenciaInformativo from '../Graficas/GraficaAsistenciaInformativo';
+import GraficaLeyendasInformativo from '../Graficas/GraficaLeyendasInformativo';
+import TablaInfoVicerrector from '../tablas/tablasInfo/vicerrector/TablaInfoVicerrectorEscuela';
+import TablaVicerrector from '../tablas/TablaVicerrector';
 
-const ReporteRectorEscuela = () => {
-    const location = useLocation();
+const Vicerrector = () => {
     const [data, setData] = React.useState(null);
     const [total, setTotal] = React.useState(null);
     const [asistencia, setAsistencia] = React.useState(null);
@@ -25,6 +24,7 @@ const ReporteRectorEscuela = () => {
     const [retrasoSalida, setRetrasoSalida] = React.useState(null);
     const [falta, setFalta] = React.useState(null);
     const [nombreReporte, setNombreReporte] = React.useState(null);
+    const [schoolName, setSchoolName] = React.useState(null);
     const [totalInformativo, setTotalInformativo] = useState(null);
     const [aviso, setAviso] = useState(null);
     const [uniExt, setUniExt] = useState(null);
@@ -35,12 +35,13 @@ const ReporteRectorEscuela = () => {
 
     const navigate = useNavigate();
 
-    let user;
+    let user, idEscuela;
 
     // Get session storage information
     const session = JSON.parse(window.sessionStorage.getItem('session'));
     if (session) {
         user = session.nombre;
+        idEscuela = session.idEscuela;
     }
 
     useEffect(() => {
@@ -56,11 +57,11 @@ const ReporteRectorEscuela = () => {
                     navigate("/director-departamento"); break;
                 case 4:
                     navigate("/vicerrector"); break;
-                case 6:
-                    navigate("/decano"); break;
+                case 5:
+                    navigate("/rector"); break;
                 default: break;
             }
-            fetch("http://192.168.29.1:5096/Reports/Decano/GetSchoolAverage/" + location.state.schoolId)
+            fetch("http://192.168.29.1:5096/Reports/Decano/GetSchoolAverage/" + idEscuela)
                 .then(response => response.json())
                 .then(json => {
                     let totalCodes = 0;
@@ -74,7 +75,6 @@ const ReporteRectorEscuela = () => {
                             } else {
                                 totalCodesInformativo += json[j].codes[i];
                             }
-
                         }
                         switch (i) {
                             case 0: setAsistencia(sum); break;
@@ -90,10 +90,12 @@ const ReporteRectorEscuela = () => {
                             case 10: setClaseRepuesta(sum); break;
                             default: break;
                         }
+
                     }
                     setTotalInformativo(totalCodesInformativo);
                     setNombreReporte(`Reporte ${json[0].schoolName}`);
                     setData(json);
+                    setSchoolName(json[0].schoolName);
                     setTotal(totalCodes);
                 })
                 .catch(error => console.error(error));
@@ -158,7 +160,7 @@ const ReporteRectorEscuela = () => {
         <div>
             <div className="container-fluid">
                 <div className="row flex-nowrap">
-                    <SidebarRector user={user}></SidebarRector>
+                    <SidebarVicerrector user={user}></SidebarVicerrector>
                     <div className='col-10'>
                         <div className="container-fluid px-0 header mt-2 pt-4">
                             <div className="row m-0 justify-content-end align-items-center">
@@ -170,7 +172,7 @@ const ReporteRectorEscuela = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="container px-0 pt-2">
+                        <div className="container px-0 pt-3">
                             <div className="row m-0 justify-content-center mt-3">
                                 <div className="col-12 text-center">
                                     <h1 className="mb-2 currentClass">Reporte de asistencia de escuela</h1>
@@ -218,13 +220,9 @@ const ReporteRectorEscuela = () => {
                                             <FaFileDownload className='mb-2 icono-descargar'></FaFileDownload>
                                         </CSVLink>
                                     </div>
-                                    <TablaInfoRectorEscuela escuela={location.state.schoolName}></TablaInfoRectorEscuela>
+                                    <TablaInfoVicerrector escuela={schoolName}></TablaInfoVicerrector>
                                     <div className="mb-4" ></div>
-                                    <TablaRectorAsistencia
-                                        headers={["Departamento", "Promedio Asistencia", "Detalle"]}
-                                        data={data} escuela={location.state.schoolName}
-                                        from={"ReporteRectorEscuela"}>
-                                    </TablaRectorAsistencia>
+                                    <TablaVicerrector data={data}></TablaVicerrector>
                                     <div className="mb-5" ></div>
                                 </div>
                             </div>
@@ -236,4 +234,4 @@ const ReporteRectorEscuela = () => {
     );
 };
 
-export default ReporteRectorEscuela;
+export default Vicerrector;
