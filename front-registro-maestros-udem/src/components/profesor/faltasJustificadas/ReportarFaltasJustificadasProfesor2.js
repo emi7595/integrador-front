@@ -55,7 +55,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 				default: break;
 			}
 			// Get current class that the professor is on
-			fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+			fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
@@ -65,7 +65,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 					setData(json);
 				})
 				.catch(error => console.error(error));
-			fetch("http://192.168.3.6:5096/Repositions/Professor/GetClasses/" + nomina)
+			fetch("http://192.168.29.1:5096/Repositions/Professor/GetClasses/" + nomina)
 				.then(response => response.json())
 				.then(json => {
 					setClases(json);
@@ -85,7 +85,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 		try {
 			var idCode = parseInt(razon);
 			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "idCode": idCode }
-			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateRepositionReport", {
+			const response = await fetch("http://192.168.29.1:5096/Repositions/CreateRepositionReport", {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
@@ -95,7 +95,7 @@ const ReportarFaltasJustificadasProfesor = () => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+                fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;
@@ -117,7 +117,7 @@ const ReportarFaltasJustificadasProfesor = () => {
 		event.preventDefault();
 		try {
 			var jsonData = { "date": fecha, "startTime": horario, "idSchedule": clave, "classroom": salon }
-			const response = await fetch("http://192.168.3.6:5096/Repositions/CreateExternalUnitReport", {
+			const response = await fetch("http://192.168.29.1:5096/Repositions/CreateExternalUnitReport", {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
@@ -127,7 +127,7 @@ const ReportarFaltasJustificadasProfesor = () => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.3.6:5096/Repositions/Professor/RepositionReports/" + nomina)
+                fetch("http://192.168.29.1:5096/Repositions/Professor/RepositionReports/" + nomina)
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : null;

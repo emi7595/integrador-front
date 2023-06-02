@@ -47,7 +47,7 @@ const LoginForm = () => {
 			}
 
 			// Post request to database
-			const response = await fetch('http://192.168.3.6:5096/Login', {
+			const response = await fetch('http://192.168.29.1:5096/Login', {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },

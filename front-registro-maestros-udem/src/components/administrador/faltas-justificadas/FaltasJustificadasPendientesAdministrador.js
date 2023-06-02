@@ -34,7 +34,7 @@ const FaltasJustificadasPendientesAdministrador = () => {
 				default: break;
 			}
 			// Get all pending repositions
-			fetch("http://192.168.3.6:5096/Repositions/Admin/GetPendingReposition")
+			fetch("http://192.168.29.1:5096/Repositions/Admin/GetPendingReposition")
 				.then(async (response) => {
 					const body = await response.text();
 					const data = body.length ? JSON.parse(body) : [{

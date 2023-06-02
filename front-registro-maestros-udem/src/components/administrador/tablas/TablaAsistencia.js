@@ -67,7 +67,7 @@ const TablaAsistencia = (props) => {
         try {
             myModal.hide();
             var jsonData = { "idSchedule": idSchedule, "date": date, "codeId": attendance }
-            const response = await fetch("http://192.168.3.6:5096/Attendance/EditAttendance", {
+            const response = await fetch("http://192.168.29.1:5096/Attendance/EditAttendance", {
                 method: 'PUT',
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -77,7 +77,7 @@ const TablaAsistencia = (props) => {
                 throw new Error("Algo salió mal.");
             }
             else {
-                fetch("http://192.168.3.6:5096/Reports/Professor/GetScheduleDetail/" + idSchedule)
+                fetch("http://192.168.29.1:5096/Reports/Professor/GetScheduleDetail/" + idSchedule)
                     .then(async (response) => response.json())
                     .then(json => {
                         let sumaAsistencia = 0;
